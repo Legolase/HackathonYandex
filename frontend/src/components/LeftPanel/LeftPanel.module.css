@@ -1,0 +1,9 @@
+.leftPanel{
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    gap: 15px;
+    background-color: white;
+    border-radius: 8px;
+}

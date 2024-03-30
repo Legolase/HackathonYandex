@@ -1,0 +1,35 @@
+.chat {
+    display: flex;
+    gap: 7px
+}
+
+.avatar {
+    flex-shrink: 0;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+}
+
+.textInfo {
+    display: flex;
+    flex-direction: column
+}
+
+.name {
+    overflow: hidden;
+    font-size: 19px;
+    font-weight: 550;
+}
+
+.lastMessage {
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    display: -webkit-box;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    font-size: 13px;
+    font-family: "Roboto", sans-serif;
+    font-weight: 100;
+    font-style: normal;
+}

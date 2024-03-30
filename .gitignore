@@ -1,2 +1,6 @@
 .idea/
 .env
+/frontend/node_modules/
+/frontend/public/mdi_emoji-outline.svg
+/frontend/public/mdi_send-circle.svg
+/frontend/public/Vector.svg

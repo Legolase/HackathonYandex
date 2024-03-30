@@ -1,0 +1,16 @@
+.search{
+    padding: 5px 8px;
+    width: 100%;
+    background-color: var(--background-gray);
+    border-radius: 8px;
+}
+
+.input{
+    border: none;
+    height: 30px;
+    background: none;
+    width: 100%;
+}
+.input:focus{
+    outline: none;
+}
