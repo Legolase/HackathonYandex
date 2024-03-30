@@ -5,3 +5,4 @@
 /frontend/public/Vector.svg
 
 */node_modules
+/backend/.env
