@@ -1,6 +1,6 @@
 import {User} from "./User";
 import {Message} from "./Message";
-import {Model} from "./Model";
+
 
 enum ChatTypes {
     'single',
@@ -8,7 +8,9 @@ enum ChatTypes {
     'channel'
 }
 
-export class Chat extends Model{
+export class Chat {
+    id: number = 0
+    datetime: string = '';
     messages: Array<Message> = [];
     type: ChatTypes = ChatTypes.single;
     users: Array<User> = [];
