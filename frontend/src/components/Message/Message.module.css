@@ -50,7 +50,7 @@
     margin-left: auto;
     width: 70%;
     position: relative;
-    background-color: var(--white);
+    background-color: var(--main);
     padding: 10px;
     border-radius: 8px 8px 0 8px;
     color: var(--gray);
@@ -63,7 +63,7 @@
     display: block;
     height: 0;
     width: 0;
-    border: 6px solid white;
+    border: 6px solid var(--main);
     border-left-color: transparent;
     border-bottom-color: transparent;
 }
