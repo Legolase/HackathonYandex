@@ -2,19 +2,24 @@
     --black: #1e1e1e;
     --gray: #333333;
     --light-gray: rgba(51, 51, 51, 0.5);
-    --background-gray: rgba(51, 51, 51, 0.18);
-    --main: #ffad9e;
+    --background-gray: #e9ebe9;
+    --main: #ffd7cf;
     --akcent: #ff6262;
     --green: #1c8e23;
     --main-text: 22px;
     --small-text: 16px;
     --white: white;
+    --font: "Roboto", sans-serif;
 }
 
 * {
     margin: 0;
     padding: 0;
+    font-family: "Roboto", sans-serif;
+    font-style: normal;
+    font-weight: 300;
 }
+/*тут не забыть поменять weight*/
 
 body {
     background-color: var(--background-gray);

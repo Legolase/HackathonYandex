@@ -1,8 +1,10 @@
 .search{
     padding: 5px 8px;
-    width: 100%;
     background-color: var(--background-gray);
     border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
 
 .input{

@@ -19,8 +19,8 @@
 
 .profileName {
     color: var(--black);
-    font-size: var(--main-text);
-    font-weight: bold
+    font-size: 19px;
+    font-weight: 420
 }
 
 .profileLogin {

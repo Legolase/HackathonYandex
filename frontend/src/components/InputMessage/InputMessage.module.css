@@ -1,20 +1,17 @@
 .messageInput{
     display: flex;
-    flex-direction: row;
-    gap: 15px;
-    width: 100%;
     background-color: var(--white);
     padding: 10px;
     border-radius: 8px;
-    height: 9vh;
+    height: 5vh;
     align-items: center;
 }
 
 
 .input{
     border: none;
-    width: 80%;
-    font-size: 27px;
+    width: 100%;
+    font-size: 1.2rem;
 }
 
 .input:focus{
