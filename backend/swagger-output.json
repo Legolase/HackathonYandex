@@ -27,6 +27,16 @@
         }
       }
     },
+    "/api/user": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/chat/{id}": {
       "get": {
         "description": "",
@@ -38,6 +48,16 @@
             "type": "string"
           }
         ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/message": {
+      "get": {
+        "description": "",
         "responses": {
           "200": {
             "description": "OK"
