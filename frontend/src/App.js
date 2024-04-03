@@ -106,7 +106,7 @@ function App() {
             <LeftPanel chats={chats}/>
             <div className={'right-panel'} style={{width: '100%', display: "flex", flexDirection: 'column', gap: '10px'}}>
                 <CurrentChat chats={chats}/>
-                <Messages messages={messages.messages}/>
+                <Messages />
                 <InputMessage/>
             </div>
         </div>

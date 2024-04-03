@@ -5,7 +5,7 @@ import {useLeftPanelStore} from "../../store/LeftPanelStore";
 
 const Chats = () => {
 
-    const {chats, fetchChats, contacts, fetchContacts, isLoading, error} = useLeftPanelStore()
+    const {contentItems, fetchChats, contacts, fetchContacts, isLoading, error} = useLeftPanelStore()
 
     useEffect(() => {
         fetchChats(0)
@@ -13,7 +13,7 @@ const Chats = () => {
 
     return (
         <ul className={cl.chats}>
-            {chats.map(chat =>
+            {contentItems.map(chat =>
                 <Chat chat={chat}/>
             )}
         </ul>

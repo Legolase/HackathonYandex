@@ -17,3 +17,7 @@
 .input:focus{
     outline: none;
 }
+
+svg{
+    cursor: pointer;
+}

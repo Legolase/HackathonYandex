@@ -2,31 +2,39 @@ import {create} from "zustand"
 import axios from "axios";
 
 export const useLeftPanelStore = create((set) => ({
-    chats: [],
-    contacts: [],
+    contentItems: [],
     isLoading: false,
     error: '',
-    active: 'chats',
+
+    setEmptyContent: () => {
+        set(() => ({contentItems: []}))
+    },
 
 
     fetchChats: function (offset) {
         set(() => (
-            {error: ''}
+            {error: '', isLoading: true}
         ))
-        // add body parameter offset = id of last chat
-        axios.get('/chat/list').then((response) => {
+        const params = {
+            params: {
+                offset: offset
+            }
+        }
+        axios.get('/chat/list', params).then((response) => {
             if (response.error)
                 throw Error(`Error: ${response.status}. ${response.error}`)
             set(state => (
                 {
-                    chats: [...state.chats, response.data]
+                    contentItems: [...state.contentItems, response.data],
+                    isLoading: false
                 }
             ))
 
         }).catch((err) => {
             set(() => (
                 {
-                    error: err
+                    error: err,
+                    isLoading: false
                 }
             ))
         })
@@ -34,22 +42,28 @@ export const useLeftPanelStore = create((set) => ({
 
     fetchContacts: (offset) => {
         set(() => (
-            {error: ''}
+            {error: '', isLoading: true}
         ))
-        // add body parameter offset = id of last chat
-        axios.get('/contact/list').then((response) => {
+        const params = {
+            params: {
+                offset: offset
+            }
+        }
+        axios.get('/contact/list', params).then((response) => {
             if (response.error)
                 throw Error(`Error: ${response.status}. ${response.error}`)
             set(state => (
                 {
-                    contacts: [...state.contacts, response.data]
+                    contentItems: [...state.contentItems, response.data],
+                    isLoading: false
                 }
             ))
 
         }).catch((err) => {
             set(() => (
                 {
-                    error: err
+                    error: err,
+                    isLoading: false
                 }
             ))
         })
