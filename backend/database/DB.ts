@@ -1,5 +1,6 @@
 const pgp = require('pg-promise')();
 
+
 export class DB {
     private db;
 
@@ -8,7 +9,7 @@ export class DB {
     }
 
 
-    async selectOne(table: string, where: object = {}): Promise<object | null> {
+    async selectOne(table: string, where: object): Promise<object | null> {
         try {
             let where_query = '';
             for (const [key, value] of Object.entries(where)) {
@@ -24,7 +25,7 @@ export class DB {
         }
     }
 
-    async selectAll(table: string, where: object = {}): Promise<object | null> {
+    async selectAll(table: string, where: object = {}): Promise<Record<string, any>[] | null> {
         try {
             let where_query = '';
             for (const [key, value] of Object.entries(where)) {
