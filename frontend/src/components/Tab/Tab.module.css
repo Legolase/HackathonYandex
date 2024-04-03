@@ -1,0 +1,14 @@
+
+.tab{
+    font-size: 23px;
+}
+
+.tabInactive{
+    color: var(--light-gray);
+}
+
+.tabActive{
+    color: var(--black);
+    font-weight: bold;
+    text-decoration: underline;
+}
