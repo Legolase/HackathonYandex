@@ -1,9 +1,0 @@
-{
-  "db": {
-    "user": "postgres",
-    "password": "postgres",
-    "host": "localhost",
-    "port": 3306,
-    "database": "kilogram"
-  }
-}
