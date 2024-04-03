@@ -74,4 +74,20 @@ export class DB {
             return null;
         }
     }
+
+    async delete(table: string, where: object): Promise<object | null> {
+        try {
+            let where_query = '';
+            for (const [key, value] of Object.entries(where)) {
+                where_query += `${key} ${value}`;
+            }
+            let query = `DELETE
+                         FROM ${table}
+                         WHERE ${where_query} LIMIT 1`;
+            return await this.db.none(query);
+        } catch (e) {
+            console.error(e);
+            return null;
+        }
+    }
 }
