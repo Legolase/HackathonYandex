@@ -32,3 +32,10 @@ body {
     gap: 30px;
     box-sizing: border-box;
 }
+
+code{
+    background-color: lightgrey;
+    padding: 3px;
+    border-radius: 8px;
+
+}

@@ -9,8 +9,8 @@ const Messages = () => {
     const setMessages = useMessagesStore(state => state.setMessages)
     const messagesEndRef = useRef(null)
 
-    const scrollToBottom = () =>{
-        messagesEndRef.current.scrollIntoView({ behavior: "smooth" })
+    const scrollToBottom = () => {
+        messagesEndRef.current.scrollIntoView()
     }
 
     useEffect(() => {
@@ -23,8 +23,9 @@ const Messages = () => {
 
     return (
         <div className={cl.messages}>
-            {messages.map((message, pos) =>
-                <Message key={pos} message={message} my={message.from === 1}/>
+            {messages.map((message, pos) => {
+                return (<Message key={pos} message={message} my={message.from === 1}/>)
+                }
             )}
             <div ref={messagesEndRef}></div>
         </div>

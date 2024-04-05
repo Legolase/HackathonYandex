@@ -1,6 +1,5 @@
 import React from 'react';
 import cl from './Tab.module.css'
-import {useLeftPanelStore} from "../../store/LeftPanelStore";
 
 const Tab = ({name, handler, active}) => {
 

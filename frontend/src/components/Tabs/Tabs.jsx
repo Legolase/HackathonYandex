@@ -5,22 +5,19 @@ import {useLeftPanelStore} from "../../store/LeftPanelStore";
 
 const Tabs = () => {
 
-    const [active, setActive] = useState('Messages')
 
-    const fetchContacts = useLeftPanelStore(state => state.fetchContacts)
-    const fetchChats = useLeftPanelStore(state => state.fetchChats)
+
     const setEmptyItems = useLeftPanelStore(state => state.setEmptyContent)
+    const setActive = useLeftPanelStore(state => state.setActive)
+    const active = useLeftPanelStore(state => state.active)
+
 
     const handler = (active) => {
         setActive(active)
     }
 
     useEffect(() => {
-        setEmptyItems()
-        if (active === 'Messages')
-            fetchChats()
-        else
-            fetchContacts()
+        // setEmptyItems()
     }, [active]);
 
 
