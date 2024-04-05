@@ -1,6 +1,5 @@
 import {create} from "zustand";
 import axios from "axios";
-import messages from "../components/Messages/Messages";
 
 export const useMessagesStore = create((set) => ({
     messages: [],
