@@ -9,7 +9,7 @@ export class DB {
     }
 
 
-    async selectOne(table: string, where: object): Promise<object | null> {
+    async selectOne(table: string, where: object): Promise<Record<string, any>> {
         try {
             let where_query = '';
             for (const [key, value] of Object.entries(where)) {
@@ -21,7 +21,7 @@ export class DB {
             return await this.db.oneOrNone(query);
         } catch (e) {
             console.error(e);
-            return null;
+            return {};
         }
     }
 

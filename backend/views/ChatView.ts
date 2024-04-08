@@ -8,6 +8,6 @@ ChatView.get('/chat', (req, res) => {
     }
 );
 ChatView.get('/chat/:id', (req, res) => {
-        // res.json(ChatController.getItem(req.params.id));
+        ChatController.getItem(req.params.id).then(data => res.json(data))
     }
 );

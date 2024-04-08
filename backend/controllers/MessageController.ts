@@ -8,4 +8,11 @@ export const MessageController = {
         });
         return messages;
     },
+    async getItem(id: string) {
+        let chat;
+        await new Message().getById(id).then(data => {
+            chat = data
+        });
+        return chat;
+    },
 }

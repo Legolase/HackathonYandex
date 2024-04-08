@@ -8,4 +8,11 @@ export const UserController = {
         });
         return users;
     },
+    async getItem(id: string) {
+        let chat;
+        await new User().getById(id).then(data => {
+            chat = data
+        });
+        return chat;
+    },
 }

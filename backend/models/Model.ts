@@ -3,7 +3,8 @@ import {DataValue} from "../types/DataValue";
 
 export class Model {
     table: string = '';
-    private db;
+    protected db;
+    id: number | undefined;
 
     constructor(fields: Record<string, DataValue> = {}) {
         this.db = new DB();
@@ -19,4 +20,17 @@ export class Model {
         });
     }
 
+    async getById(id: string): Promise<Model | undefined> {
+        let data: Record<string, any> = await this.db.selectOne(this.table, {id: '=' + id});
+        if (data) {
+            return new (this.constructor as new (data: Record<string, DataValue>) => Model)(data);
+        }
+    }
+
+    async with(conditions: Record<string, DataValue>): Promise<Model[]> {
+        let data: Record<string, DataValue>[] | null = await this.db.selectAll(this.table, conditions);
+        return data?.map((item: Record<string, DataValue>) => {
+            return new (this.constructor as new (item: Record<string, DataValue>) => Model)(item);
+        }) || [];
+    }
 }

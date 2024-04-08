@@ -8,4 +8,14 @@ export const ChatController = {
         });
         return chats;
     },
+    getItem: async function (id: string) {
+        let chat: Chat | undefined;
+        await new Chat().getById(id).then(async data => {
+            chat = data;
+            if (chat) {
+                await chat.getMessages();
+            }
+        });
+        return chat;
+    },
 }
