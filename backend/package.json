@@ -6,6 +6,7 @@
   "scripts": {
     "start": "ts-node index.ts",
     "documentation": "node swagger.js",
+    "create-migration": "node-pg-migrate create",
     "migrate": "node-pg-migrate up"
   },
   "author": "StepanovIlya1104",

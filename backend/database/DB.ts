@@ -1,27 +1,31 @@
-const pgp = require('pg-promise')();
+import {db} from "../index";
 
 
 export class DB {
-    private db;
-
     constructor() {
-        this.db = pgp(process.env.DATABASE_URL);
     }
 
 
-    async selectOne(table: string, where: object): Promise<object | null> {
+    async selectOne(table: string, where: object): Promise<Record<string, any>> {
         try {
             let where_query = '';
             for (const [key, value] of Object.entries(where)) {
-                where_query += `${key} ${value}`;
+                if (key === 'order') {
+                    where_query += `ORDER BY ${value} `;
+                } else {
+                    if (where_query !== ''){
+                        where_query += 'AND ';
+                    }
+                    where_query += `${key} ${value} `;
+                }
             }
             let query = `SELECT *
                          FROM ${table}
                          WHERE ${where_query ? where_query : 'true'} LIMIT 1`;
-            return await this.db.oneOrNone(query);
+            return await db.oneOrNone(query);
         } catch (e) {
             console.error(e);
-            return null;
+            return {};
         }
     }
 
@@ -34,7 +38,7 @@ export class DB {
             let query = `SELECT *
                          FROM ${table}
                          WHERE ${where_query ? where_query : 'true'}`;
-            return await this.db.any(query);
+            return await db.any(query);
         } catch (e) {
             console.error(e);
             return null;
@@ -45,8 +49,7 @@ export class DB {
         try {
             let query = `INSERT INTO ${table} (${Object.keys(fields)})
                          VALUES (${Object.values(fields)}) RETURNING *`;
-            console.log(query);
-            return await this.db.one(query);
+            return await db.one(query);
         } catch (e) {
             console.error(e);
             return null;
@@ -69,7 +72,7 @@ export class DB {
             let query = `UPDATE ${table}
                          SET ${update_query}
                          WHERE ${search_query} RETURNING *`;
-            return await this.db.one(query);
+            return await db.one(query);
         } catch (e) {
             console.error(e);
             return null;
@@ -85,7 +88,7 @@ export class DB {
             let query = `DELETE
                          FROM ${table}
                          WHERE ${where_query} LIMIT 1`;
-            return await this.db.none(query);
+            return await db.none(query);
         } catch (e) {
             console.error(e);
             return null;
