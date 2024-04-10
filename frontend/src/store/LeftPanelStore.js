@@ -2,7 +2,7 @@ import {create} from "zustand"
 import axios from "axios";
 import zukeeper from "zukeeper";
 
-export const useLeftPanelStore = create(zukeeper(set => ({
+export const useLeftPanelStore = create(zukeeper((set, get) => ({
     contentItems: [],
     isLoading: false,
     error: '',
@@ -85,6 +85,12 @@ export const useLeftPanelStore = create(zukeeper(set => ({
     // ---------------------------------------------------------------------------------
     // ---------------------------------------------------------------------------------
 
+    setLoading: (loading) =>{
+        set(() => ({
+            isLoading: loading
+        }))
+    },
+
     setActive: (active) => {
         set(() => ({
             active: active
@@ -97,7 +103,7 @@ export const useLeftPanelStore = create(zukeeper(set => ({
     },
 
 
-    fetchChats: function (offset) {
+    fetch:function (offset, query) {
         set(() => (
             {error: '', isLoading: true}
         ))
@@ -106,7 +112,7 @@ export const useLeftPanelStore = create(zukeeper(set => ({
                 offset: offset
             }
         }
-        axios.get('/chat/list', params).then((response) => {
+        axios.get(query, params).then((response) => {
             if (response.error)
                 throw Error(`Error: ${response.status}. ${response.error}`)
             set(state => (
@@ -125,33 +131,15 @@ export const useLeftPanelStore = create(zukeeper(set => ({
         })
     },
 
-    fetchContacts: (offset) => {
-        set(() => (
-            {error: '', isLoading: true}
-        ))
-        const params = {
-            params: {
-                offset: offset
-            }
-        }
-        axios.get('/contact/list', params).then((response) => {
-            if (response.error)
-                throw Error(`Error: ${response.status}. ${response.error}`)
-            set(state => (
-                {
-                    contentItems: [...state.contentItems, response.data],
-                    isLoading: false
-                }
-            ))
 
-        }).catch((err) => {
-            set(() => (
-                {
-                    error: err,
-                    isLoading: false
-                }
-            ))
-        })
+    fetchChats: function (offset){
+        // изменить query запрос на адекватный
+        get().fetch(offset, '/api/chat?user=1')
+    },
+
+
+    fetchContacts: (offset) => {
+        get().fetch(offset, '/api/contact/list')
     }
 
 

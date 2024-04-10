@@ -1,8 +1,7 @@
 import React, {useEffect} from 'react';
-import Chat from "../Chat/Chat";
-import cl from './List.module.css'
 import {useLeftPanelStore} from "../../store/LeftPanelStore";
-import Contact from "../Contact/Contact";
+import Contacts from "../Contacts/Contacts";
+import Chats from "../Chats/Chats";
 
 const List = () => {
 
@@ -14,35 +13,25 @@ const List = () => {
     useEffect(() => {
         console.log(active)
         if (active === 'Messages') {
-            setChats()
-            // fetchChats(0)
+            // setChats()
+            fetchChats(0)
         } else {
-            setContacts()
-            // fetchContacts(0)
+            // setContacts()
+            fetchContacts(0)
         }
     }, [active]);
 
+    if (isLoading)
+        return <span>LOADING</span>
 
     if (active === 'Messages') {
-        // console.log(contentItems.length)
-        // console.log('Chat' + contentItems.toString())
         return (
-            <ul className={cl.chats}>
-                {contentItems.map((chat, pos) =>
-                    <Chat chat={chat} key={pos}/>
-                )}
-            </ul>
+            <Chats/>
         );
     }
     else {
-        // console.log(contentItems.length)
-        // console.log('Contact' + contentItems.toString())
         return (
-            <ul className={cl.chats}>
-                {contentItems.map((contact, pos) =>
-                    <Contact contact={contact} key={pos}/>
-                )}
-            </ul>
+            <Contacts/>
         );
     }
 };

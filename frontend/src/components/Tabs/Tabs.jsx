@@ -7,18 +7,15 @@ const Tabs = () => {
 
 
 
-    const setEmptyItems = useLeftPanelStore(state => state.setEmptyContent)
     const setActive = useLeftPanelStore(state => state.setActive)
     const active = useLeftPanelStore(state => state.active)
+    const setLoading = useLeftPanelStore(state => state.setLoading)
 
 
     const handler = (active) => {
+        setLoading(true)
         setActive(active)
     }
-
-    useEffect(() => {
-        // setEmptyItems()
-    }, [active]);
 
 
     return (
