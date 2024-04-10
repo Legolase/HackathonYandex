@@ -13,7 +13,7 @@ exports.up = (pgm) => {
       type: 'text',
       notNull: true
     },
-    "from": {
+    from: {
       type: 'integer',
       notNull: true,
       references: 'users(id)'

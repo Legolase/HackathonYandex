@@ -1,10 +1,11 @@
-import {DB} from "../database/DB";
+import {DB} from '../database/DB';
 import {DataValue} from "../types/DataValue";
+import {models} from "../types/models";
 
 export class Model {
     table: string = '';
-    protected db;
     id: number | undefined;
+    private db: DB;
 
     constructor(fields: Record<string, DataValue> = {}) {
         this.db = new DB();
@@ -13,24 +14,26 @@ export class Model {
         }
     }
 
-    async getList(): Promise<Model[] | undefined> {
-        let data: Record<string, DataValue>[] | null = await this.db.selectAll(this.table);
+    async getList<T extends models>(classConstructor: new (fields: Record<string, DataValue>) => T, params: object = {}): Promise<T[] | undefined> {
+        let data: Record<string, DataValue>[] | null = await this.db.selectAll(this.table, params);
         return data?.map((item: Record<string, DataValue>) => {
-            return new (this.constructor as new (item: Record<string, DataValue>) => Model)(item);
+            return new classConstructor(item);
         });
     }
 
-    async getById(id: string): Promise<Model | undefined> {
+    async getById<T extends models>(id: string, classConstructor: new (fields: Record<string, DataValue>) => T): Promise<T | undefined> {
         let data: Record<string, any> = await this.db.selectOne(this.table, {id: '=' + id});
         if (data) {
-            return new (this.constructor as new (data: Record<string, DataValue>) => Model)(data);
+            return new classConstructor(data);
         }
     }
 
-    async with(conditions: Record<string, DataValue>): Promise<Model[]> {
-        let data: Record<string, DataValue>[] | null = await this.db.selectAll(this.table, conditions);
-        return data?.map((item: Record<string, DataValue>) => {
-            return new (this.constructor as new (item: Record<string, DataValue>) => Model)(item);
-        }) || [];
+    async getOne<T extends models>(classConstructor: new (fields: Record<string, DataValue>) => T, params: object = {}): Promise<T[]> {
+        let data: Record<string, any> = await this.db.selectOne(this.table, params);
+        if (data) {
+            return [new classConstructor(data)];
+        } else {
+            return [];
+        }
     }
 }

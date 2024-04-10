@@ -5,12 +5,15 @@ import {ChatView} from "./views/ChatView";
 import 'dotenv/config'
 import {UserView} from "./views/UserView";
 import {MessageView} from "./views/MessageView";
+const pgp = require('pg-promise')();
 
 const PORT: string = process.env.PORT || '3000'
 const SERVER_URL: string = process.env.URL || 'localhost'
 const PROTOCOL: string = process.env.PROTOCOL || 'http'
 
 const app = express();
+
+export const db = pgp(process.env.DATABASE_URL);
 
 app.listen(PORT, () => {
     console.log(`

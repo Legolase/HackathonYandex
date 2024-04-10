@@ -4,7 +4,7 @@ import {ChatController} from "../controllers/ChatController";
 export const ChatView: Router = Router();
 
 ChatView.get('/chat', (req, res) => {
-        ChatController.getList().then(data => res.json(data));
+        ChatController.getList(req.query.user?.toString()).then(data => res.json(data));
     }
 );
 ChatView.get('/chat/:id', (req, res) => {
