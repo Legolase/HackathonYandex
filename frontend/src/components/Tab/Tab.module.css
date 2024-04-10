@@ -5,10 +5,11 @@
 
 .tabInactive{
     color: var(--light-gray);
+    cursor: pointer;
 }
 
 .tabActive{
     color: var(--black);
-    font-weight: bold;
     text-decoration: underline;
+    font-weight: 400;
 }

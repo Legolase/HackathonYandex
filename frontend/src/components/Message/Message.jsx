@@ -1,5 +1,6 @@
 import React from 'react';
 import cl from './Message.module.css'
+import Markdown from "react-markdown";
 
 const Message = ({message, my}) => {
 
@@ -9,7 +10,11 @@ const Message = ({message, my}) => {
         return (
             <div className={cl.message}>
                 <div className={cl.right}>
-                    <div className={cl.myText}>{message.text}</div>
+                    <div className={cl.myText}>
+                        <Markdown>
+                            {message.text}
+                        </Markdown>
+                    </div>
                     <span className={cl.myTime}>{message.datetime}</span>
                 </div>
                 <img className={cl.messageImg} src={url}/>

@@ -1,19 +1,23 @@
 import React from 'react';
 import cl from "../List/List.module.css";
-import Chat from "../Chat/Chat";
+import Contact from "../Contact/Contact";
 import {useLeftPanelStore} from "../../store/LeftPanelStore";
 
-const Chats = () => {
+const Contacts = () => {
 
     const contentItems = useLeftPanelStore(state => state.contentItems)
 
     return (
         <ul className={cl.chats}>
-            {contentItems.map((chat, pos) =>
-                <Chat chat={chat} key={pos}/>
+            {contentItems.map((contact, pos) =>
+                <div>
+                    <Contact contact={contact} key={pos}/>
+                    <hr/>
+                </div>
+
             )}
         </ul>
     );
 };
 
-export default Chats;
+export default Contacts;
