@@ -137,7 +137,7 @@ export const useLeftPanelStore = create(zukeeper((set, get) => ({
 
 
     fetchContacts: (offset) => {
-        get().fetch(offset, '/api/contact')
+        get().fetch(offset, '/api/user')
     }
 
 

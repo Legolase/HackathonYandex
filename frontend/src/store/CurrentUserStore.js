@@ -18,7 +18,7 @@ export const useCurrentUserStore = create((set) => ({
         axios.get('/api/user/current').then((response) => {
             if (response.status === 200) {
                 set(() => ({
-                    currentUser: response.data.user,
+                    currentUser: response.data,
 
                 }))
             }

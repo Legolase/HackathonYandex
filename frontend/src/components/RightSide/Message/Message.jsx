@@ -15,7 +15,7 @@ const Message = ({message, my}) => {
                             {message.text}
                         </Markdown>
                     </div>
-                    <span className={cl.myTime}>{message.datetime}</span>
+                    <span className={cl.myTime}>{new Date(message.datetime).toLocaleString()}</span>
                 </div>
                 <img className={cl.messageImg} src={url}/>
             </div>
@@ -26,7 +26,7 @@ const Message = ({message, my}) => {
             <img className={cl.messageImg} src={url}/>
             <div className={cl.right}>
                 <div className={cl.text}>{message.text}</div>
-                <span className={cl.time}>{message.datetime}</span>
+                <span className={cl.time}>{new Date(message.datetime).toLocaleString()}</span>
             </div>
         </div>
     );
