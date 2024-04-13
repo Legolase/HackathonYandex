@@ -16,7 +16,7 @@ export const githubStrategy = new passportGithub.Strategy(
         clientID: process.env.GITHUB_CLIENT_ID || '',
         clientSecret: process.env.GITHUB_CLIENT_SECRET || '',
         // Адрес, на который пользователь будет возвращён после авторизации в GitHub
-        callbackURL: 'http://127.0.0.1:8000/auth/github/callback'
+        callbackURL: '/auth/github/callback'
     },
     async (accessToken, refreshToken, profile, done) => {
         let name = profile.name?.givenName || profile.username || '';
