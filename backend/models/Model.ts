@@ -5,7 +5,6 @@ export abstract class Model {
     table: string = '';
     id: number | undefined;
     private db: DB;
-    protected FIELDS_TO_ADD = ['RESERVED_FIELDS', 'table', 'db'];
 
     constructor(fields: Record<string, DataValue> = {}) {
         this.db = new DB();

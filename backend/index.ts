@@ -27,9 +27,11 @@ app.use(expressSession({
     resave: false,
     saveUninitialized: false,
 }));
+
 app.use(myPassport.initialize());
 app.use(myPassport.session());
 
+app.use(express.static('./storage'));
 app.use(express.static('../frontend/build'));
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
