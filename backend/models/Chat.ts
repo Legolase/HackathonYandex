@@ -3,6 +3,7 @@ import {DataValue} from "../types/DataValue";
 import {Message} from "./Message";
 import {db} from "../index";
 import {User} from "./User";
+import * as console from "console";
 
 
 enum ChatTypes {
@@ -15,13 +16,19 @@ export class Chat extends Model {
     table: string = 'chats';
     messages: Message[] | undefined = [];
     users: Record<string, User> | undefined = {};
+    type: ChatTypes | undefined;
+    pin_message: Message | undefined;
+    name: string | undefined;
+    avatar: string | undefined;
+
 
     async getMessages(): Promise<void> {
         this.messages = await new Message().getList(Message, {chat_id: `=${this.id}`});
     }
 
     async getLastMessages(): Promise<void> {
-        this.messages = await new Message().getOne(Message, {chat_id: `= ${this.id}`, order: 'datetime DESC'});
+        let messages = await new Message().getOne(Message, {chat_id: `= ${this.id}`, order: 'datetime DESC'});
+        if (messages) this.messages = [messages];
     }
 
     async getUsers(): Promise<void> {
@@ -46,9 +53,9 @@ export class Chat extends Model {
     async getListByUsers(user_id: string): Promise<Chat[]> {
         try {
             let query = `SELECT c.*
-                     FROM chats_users cu
-                              JOIN chats c ON cu.chat_id = c.id
-                     WHERE cu.user_id = ${user_id}`;
+                         FROM chats_users cu
+                                  JOIN chats c ON cu.chat_id = c.id
+                         WHERE cu.user_id = ${user_id}`;
             let chats = await db.any(query);
 
             return await Promise.all(chats.map(async (item: Record<string, DataValue>) => {
@@ -60,5 +67,14 @@ export class Chat extends Model {
             console.error(e);
             return [];
         }
+    }
+
+    getObject(): object {
+        return {
+            type: this.type,
+            pin_message: this.pin_message,
+            name: this.name,
+            avatar: this.avatar,
+        };
     }
 }

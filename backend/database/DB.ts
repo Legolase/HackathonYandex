@@ -45,10 +45,9 @@ export class DB {
         }
     }
 
-    async insert(table: string, fields: object = {}): Promise<object | null> {
+    async insert(table: string, fields: object = {}): Promise<Record<string, any> | null> {
         try {
-            let query = `INSERT INTO ${table} (${Object.keys(fields)})
-                         VALUES (${Object.values(fields)}) RETURNING *`;
+            let query = `INSERT INTO ${table} (${Object.keys(fields)}) VALUES (${Object.values(fields).map((item) => {return item?`'${item}'`:'NULL'})}) RETURNING *`;
             return await db.one(query);
         } catch (e) {
             console.error(e);
@@ -56,7 +55,7 @@ export class DB {
         }
     }
 
-    async update(table: string, search_fields: object, fields: object = {}): Promise<object | null> {
+    async update(table: string, search_fields: object, fields: object = {}): Promise<Record<string, any> | null> {
         try {
             let update_query = '';
             let search_query = '';
@@ -79,7 +78,7 @@ export class DB {
         }
     }
 
-    async delete(table: string, where: object): Promise<object | null> {
+    async delete(table: string, where: object): Promise<null> {
         try {
             let where_query = '';
             for (const [key, value] of Object.entries(where)) {
