@@ -50,7 +50,7 @@ export class Chat extends Model {
         }
     }
 
-    async getListByUsers(user_id: string): Promise<Chat[]> {
+    async getListByUsers(user_id: number): Promise<Chat[]> {
         try {
             let query = `SELECT c.*
                          FROM chats_users cu

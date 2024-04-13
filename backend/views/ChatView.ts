@@ -1,10 +1,11 @@
 import {Router} from "express";
 import {ChatController} from "../controllers/ChatController";
+import {User} from "../models/User";
 
 export const ChatView: Router = Router();
 
 
-ChatView.get('/chat', (req, res) => {
+ChatView.get('/chat', async (req, res) => {
         // #swagger.description = 'Получение списка чатов'
         // #swagger.tags = ['Chats']
         /* #swagger.responses[200] = {
@@ -31,7 +32,9 @@ ChatView.get('/chat', (req, res) => {
         /* #swagger.responses[401] = {
             description: 'Пользователь не авторизован'
         } */
-        ChatController.getList('').then(data => res.json(data));
+        let user = await req.user;
+        // TODO: CHANGE TYPE!!!
+        ChatController.getList(user as User).then(data => res.json(data));
     }
 );
 ChatView.get('/chat/:id', (req, res) => {
