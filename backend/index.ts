@@ -37,7 +37,9 @@ app.use(express.static('../frontend/build'));
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use('/', AuthView);
 app.use('/api', isAuthenticatedMiddleware, ChatView, UserView, MessageView);
-
+app.get('*', function(req, res) {
+    res.sendFile(path.join(__dirname, '../frontend/build/index.html'));
+});
 
 app.listen(PORT, () => {
     console.log(`
