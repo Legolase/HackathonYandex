@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import cl from './InputMessage.module.css'
-import {useMessagesStore} from "../../store/MessagesStore";
+import {useMessagesStore} from "../../../store/MessagesStore";
 
 const InputMessage = () => {
 

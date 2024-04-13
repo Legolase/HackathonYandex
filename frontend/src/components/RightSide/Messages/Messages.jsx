@@ -1,7 +1,7 @@
 import React, {useEffect, useRef} from 'react';
 import cl from './Messages.module.css'
 import Message from "../Message/Message";
-import {useMessagesStore} from "../../store/MessagesStore";
+import {useMessagesStore} from "../../../store/MessagesStore";
 
 const Messages = () => {
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import cl from "../List/List.module.css";
 import Contact from "../Contact/Contact";
-import {useLeftPanelStore} from "../../store/LeftPanelStore";
+import {useLeftPanelStore} from "../../../store/LeftPanelStore";
 
 const Contacts = () => {
 
