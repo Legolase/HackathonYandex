@@ -1,16 +1,10 @@
 import {Chat} from "../models/Chat";
+import {User} from "../models/User";
 
 export const ChatController = {
-    async getList(user_id: string | undefined) {
-        // if (!user_id) return [];
-        // return await new Chat().getListByUsers(user_id);
-        let chats;
-        chats = await new Chat().getList(Chat);
-        if (!chats) return [];
-        return await Promise.all(chats.map(async (chat: Chat) => {
-            await chat.getLastMessages();
-            return chat;
-        }));
+    async getList(user: User) {
+        if (!user.id) return [];
+        return await new Chat().getListByUsers(user.id);
     },
 
     getItem: async function (id: string) {
