@@ -10,6 +10,7 @@ import expressSession from "express-session";
 import {myPassport} from "./myPassport";
 import {AuthView} from "./views/AuthView";
 import {isAuthenticatedMiddleware} from "./middlewares/isAuthenticatedMiddleware";
+import path from "path";
 
 const pgp = require('pg-promise')();
 
