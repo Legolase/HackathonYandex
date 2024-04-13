@@ -24,7 +24,7 @@ body {
     font-family: "Roboto", sans-serif;
 }
 
-.App {
+.messenger {
     height: 100svh;
     background-color: var(--background-gray);
     padding: 30px;

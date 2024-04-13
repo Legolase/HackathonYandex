@@ -51,7 +51,8 @@ export const useLeftPanelStore = create(zukeeper((set, get) => ({
                         "read": true
                     }
                 }
-            ]
+            ],
+            isLoading: false
         }))
     },
 
@@ -78,7 +79,8 @@ export const useLeftPanelStore = create(zukeeper((set, get) => ({
                     "avatar": url,
                     "last_seen": '10.20.23'
                 }
-            ]
+            ],
+            isLoading: false
         }))
     },
     // ---------------------------------------------------------------------------------
@@ -98,10 +100,6 @@ export const useLeftPanelStore = create(zukeeper((set, get) => ({
     },
 
 
-    setEmptyContent: () => {
-        set(() => ({contentItems: []}))
-    },
-
 
     fetch:function (offset, query) {
         set(() => (
@@ -115,9 +113,9 @@ export const useLeftPanelStore = create(zukeeper((set, get) => ({
         axios.get(query, params).then((response) => {
             if (response.error)
                 throw Error(`Error: ${response.status}. ${response.error}`)
-            set(state => (
+            set(() => (
                 {
-                    contentItems: [...state.contentItems, response.data],
+                    contentItems: [...response.data],
                     isLoading: false
                 }
             ))
@@ -134,12 +132,12 @@ export const useLeftPanelStore = create(zukeeper((set, get) => ({
 
     fetchChats: function (offset){
         // изменить query запрос на адекватный
-        get().fetch(offset, '/api/chat?user=1')
+        get().fetch(offset, '/api/chat')
     },
 
 
     fetchContacts: (offset) => {
-        get().fetch(offset, '/api/contact/list')
+        get().fetch(offset, '/api/contact')
     }
 
 

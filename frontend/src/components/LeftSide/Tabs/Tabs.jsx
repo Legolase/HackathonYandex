@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import Tab from "../Tab/Tab";
 import cl from './Tabs.module.css'
-import {useLeftPanelStore} from "../../store/LeftPanelStore";
+import {useLeftPanelStore} from "../../../store/LeftPanelStore";
 
 const Tabs = () => {
 

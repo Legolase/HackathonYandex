@@ -1,7 +1,7 @@
 import React from 'react';
 import cl from "../List/List.module.css";
 import Chat from "../Chat/Chat";
-import {useLeftPanelStore} from "../../store/LeftPanelStore";
+import {useLeftPanelStore} from "../../../store/LeftPanelStore";
 
 const Chats = () => {
 
