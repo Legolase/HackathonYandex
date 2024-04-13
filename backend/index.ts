@@ -5,6 +5,12 @@ import {ChatView} from "./views/ChatView";
 import 'dotenv/config'
 import {UserView} from "./views/UserView";
 import {MessageView} from "./views/MessageView";
+import cookieParser from "cookie-parser";
+import expressSession from "express-session";
+import {myPassport} from "./myPassport";
+import {AuthView} from "./views/AuthView";
+import {isAuthenticatedMiddleware} from "./middlewares/isAuthenticatedMiddleware";
+
 const pgp = require('pg-promise')();
 
 const PORT: string = process.env.PORT || '3000'
@@ -15,6 +21,22 @@ const app = express();
 
 export const db = pgp(process.env.DATABASE_URL);
 
+app.use(cookieParser());
+app.use(expressSession({
+    secret: process.env.EXPRESS_SESSION_SECRET || '',
+    resave: false,
+    saveUninitialized: false,
+}));
+app.use(myPassport.initialize());
+app.use(myPassport.session());
+
+app.use(express.static('../frontend/build'));
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use('/', AuthView);
+app.use('/api', isAuthenticatedMiddleware, ChatView, UserView, MessageView);
+
+
 app.listen(PORT, () => {
     console.log(`
     Running on port ${PORT}.
@@ -22,7 +44,3 @@ app.listen(PORT, () => {
     Documentation: ${PROTOCOL}://${SERVER_URL}${PORT !== '80' ? `:${PORT}` : ''}/api-docs
     `);
 })
-
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-
-app.use('/api', ChatView, UserView, MessageView);

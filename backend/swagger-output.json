@@ -17,12 +17,198 @@
     "application/json"
   ],
   "paths": {
-    "/api/chat": {
+    "/auth/github": {
       "get": {
         "description": "",
         "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/auth/github/callback": {
+      "get": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/chat": {
+      "get": {
+        "tags": [
+          "Chats"
+        ],
+        "description": "Получение списка чатов",
+        "responses": {
           "200": {
-            "description": "OK"
+            "description": "Получен список чатов",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "example": 1
+                  },
+                  "type": {
+                    "type": "string",
+                    "example": "single"
+                  },
+                  "pin_message": {},
+                  "name": {
+                    "type": "string",
+                    "example": "test"
+                  },
+                  "avatar": {},
+                  "messages": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number",
+                          "example": 3
+                        },
+                        "datetime": {
+                          "type": "string",
+                          "example": "2024-04-10T02:09:40.322Z"
+                        },
+                        "text": {
+                          "type": "string",
+                          "example": "Message 2"
+                        },
+                        "from": {
+                          "type": "number",
+                          "example": 10
+                        },
+                        "read": {
+                          "type": "boolean",
+                          "example": true
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "401": {
+            "description": "Пользователь не авторизован"
+          }
+        }
+      }
+    },
+    "/api/chat/{id}": {
+      "get": {
+        "tags": [
+          "Chats"
+        ],
+        "description": "Получение чата",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "type": "int",
+            "description": "ID чата"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Получен чат",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "example": 1
+                },
+                "type": {
+                  "type": "string",
+                  "example": "single"
+                },
+                "pin_message": {},
+                "name": {
+                  "type": "string",
+                  "example": "test"
+                },
+                "avatar": {},
+                "messages": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number",
+                        "example": 3
+                      },
+                      "datetime": {
+                        "type": "string",
+                        "example": "2024-04-10T02:09:40.322Z"
+                      },
+                      "text": {
+                        "type": "string",
+                        "example": "Message 2"
+                      },
+                      "from": {
+                        "type": "number",
+                        "example": 10
+                      },
+                      "read": {
+                        "type": "boolean",
+                        "example": true
+                      }
+                    }
+                  }
+                },
+                "users": {
+                  "type": "object",
+                  "properties": {
+                    "1": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number",
+                          "example": 1
+                        },
+                        "datetime_last_activity": {
+                          "type": "string",
+                          "example": "2024-04-03T08:05:58.011Z"
+                        },
+                        "name": {
+                          "type": "string",
+                          "example": "test"
+                        },
+                        "login": {
+                          "type": "string",
+                          "example": "test"
+                        },
+                        "email": {},
+                        "avatar": {},
+                        "github_id": {}
+                      }
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "401": {
+            "description": "Пользователь не авторизован"
+          },
+          "403": {
+            "description": "У пользователя нет доступа к чату"
           }
         }
       }
@@ -37,7 +223,7 @@
         }
       }
     },
-    "/api/chat/{id}": {
+    "/api/user/{id}": {
       "get": {
         "description": "",
         "parameters": [
@@ -49,8 +235,8 @@
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "OK"
           }
         }
       }
@@ -58,6 +244,24 @@
     "/api/message": {
       "get": {
         "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/message/{id}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
