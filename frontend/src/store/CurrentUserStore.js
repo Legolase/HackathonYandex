@@ -4,7 +4,7 @@ import axios from "axios";
 
 export const useCurrentUserStore = create((set) => ({
 
-    currentUser: {},
+    currentUser: null,
     loading: true,
 
     setLoading: (loading) => {
