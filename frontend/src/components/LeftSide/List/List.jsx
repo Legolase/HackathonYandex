@@ -12,11 +12,11 @@ const List = () => {
 
     useEffect(() => {
         if (active === 'Messages') {
-            // setChats()
-            fetchChats(0)
+            setChats()
+            // fetchChats(0)
         } else {
-            // setContacts()
-            fetchContacts(0)
+            setContacts()
+            // fetchContacts(0)
         }
     }, [active]);
 

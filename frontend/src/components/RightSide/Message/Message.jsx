@@ -25,7 +25,11 @@ const Message = ({message, my}) => {
         <div className={cl.message}>
             <img className={cl.messageImg} src={url}/>
             <div className={cl.right}>
-                <div className={cl.text}>{message.text}</div>
+                <div className={cl.text}>
+                    <Markdown>
+                        {message.text}
+                    </Markdown>
+                </div>
                 <span className={cl.time}>{new Date(message.datetime).toLocaleString()}</span>
             </div>
         </div>

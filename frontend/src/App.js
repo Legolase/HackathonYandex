@@ -25,8 +25,6 @@ function App() {
         </>
     ) : <></>;
 
-    console.log(currentUser)
-    console.log(loading)
 
     if (loading)
         return (<span>LOADING</span>);

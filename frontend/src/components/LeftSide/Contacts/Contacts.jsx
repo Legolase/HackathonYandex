@@ -12,7 +12,6 @@ const Contacts = () => {
             {contentItems.map((contact, pos) =>
                 <div>
                     <Contact contact={contact} key={pos}/>
-                    <hr/>
                 </div>
 
             )}
