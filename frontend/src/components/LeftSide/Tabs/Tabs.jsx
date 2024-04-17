@@ -1,19 +1,14 @@
 import React, {useEffect} from 'react';
 import Tab from "../Tab/Tab";
 import cl from './Tabs.module.css'
-import {useLeftPanelStore} from "../../../store/LeftPanelStore";
+import {useTabsStore} from "../../../store/TabsStore";
 
 const Tabs = () => {
 
 
-
-    const setActive = useLeftPanelStore(state => state.setActive)
-    const active = useLeftPanelStore(state => state.active)
-    const setLoading = useLeftPanelStore(state => state.setLoading)
-
+    const {active, setActive, error } = useTabsStore()
 
     const handler = (active) => {
-        setLoading(true)
         setActive(active)
     }
 

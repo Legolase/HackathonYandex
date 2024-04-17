@@ -57,7 +57,7 @@ const Messenger = () => {
                 </div>
             </Modal>
             <LeftPanel/>
-            <div className={'right-panel'} style={{width: '100%', display: "flex", flexDirection: 'column', gap: '10px'}}>
+            <div className={'right-panel'} style={{width: '100%', display: "flex", flexDirection: 'column', gap: '3px'}}>
                 <CurrentChat chats={chats}/>
                 <Messages />
                 <InputMessage/>
