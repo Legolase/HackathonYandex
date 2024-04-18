@@ -1,0 +1,29 @@
+.profile {
+    display: flex;
+    gap: 7px
+}
+
+.profileImg {
+    background-color: var(--green);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    object-fit: cover
+}
+
+.profileInfo {
+    display: flex;
+    flex-direction: column;
+    padding: 5px
+}
+
+.profileName {
+    color: var(--black);
+    font-size: 19px;
+    font-weight: 420
+}
+
+.profileLogin {
+    color: var(--light-gray);
+    font-size: var(--small-text)
+}

@@ -1,0 +1,75 @@
+.message{
+    display: flex;
+    gap: 10px;
+    align-items: flex-end;
+}
+
+.messageImg {
+    background-color: var(--green);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    object-fit: cover
+}
+
+.text{
+    width: 70%;
+    position: relative;
+    background-color: var(--white);
+    padding: 10px;
+    border-radius: 8px 8px 8px 0;
+    color: var(--gray);
+}
+
+.text::before{
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 0;
+    display: block;
+    height: 0;
+    width: 0;
+    border: 6px solid white;
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+}
+
+.time{
+    color: var(--light-gray);
+    padding-left: 20px;
+}
+
+.right{
+    display: flex;
+    flex-direction: column;
+    gap: 3px
+}
+
+
+.myText{
+    margin-left: auto;
+    width: 70%;
+    position: relative;
+    background-color: var(--main);
+    padding: 10px;
+    border-radius: 8px 8px 0 8px;
+    color: var(--gray);
+}
+.myText::before{
+    content: '';
+    position: absolute;
+    top: 100%;
+    right: 0;
+    display: block;
+    height: 0;
+    width: 0;
+    border: 6px solid var(--main);
+    border-left-color: transparent;
+    border-bottom-color: transparent;
+}
+
+.myTime{
+    color: var(--light-gray);
+    text-align: right;
+    padding-right: 20px;
+}
