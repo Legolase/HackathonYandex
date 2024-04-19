@@ -1,7 +1,8 @@
 import React from 'react';
-import cl from './CurrentChat.module.css'
+import cl from './CurrentChatProfile.module.css'
 import {useModalStore} from "../../../store/ModalStore";
-const CurrentChat = ({chats}) => {
+
+const CurrentChatProfile = ({chats}) => {
 
     const setActive = useModalStore(state => state.setActive)
 
@@ -16,4 +17,4 @@ const CurrentChat = ({chats}) => {
     );
 };
 
-export default CurrentChat;
+export default CurrentChatProfile;
