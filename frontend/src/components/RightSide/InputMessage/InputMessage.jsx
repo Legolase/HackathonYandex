@@ -1,24 +1,27 @@
 import React, {useState} from 'react';
 import cl from './InputMessage.module.css'
 import {useMessagesStore} from "../../../store/MessagesStore";
+import {post} from "axios";
 
 const InputMessage = () => {
 
 
-    const addMessage = useMessagesStore(state => state.addMessage)
+    // const addMessage = useMessagesStore(state => state.addMessage)
+    const postMessage = useMessagesStore(state => state.postMessage)
     const [inputValue, setInputValue] = useState('')
     const sendMessage = (event) => {
         event.stopPropagation()
         event.preventDefault()
         if (inputValue.trim() === '')
             return
-        addMessage(inputValue)
+        // addMessage(inputValue)
+        postMessage(inputValue)
         setInputValue('')
     }
 
 
     return (
-        <form className={cl.messageInput} onSubmit={(event) => sendMessage(event)}>
+        <form className={cl.messageInput} onSubmit={(event) => sendMessage(event)} method={'post'}>
             <svg width="80" height="80" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox='0 0 100 100'>
                 <path
                     d="M19.214 3.372a9.39 9.39 0 0 1 3.043-2.267 8.722 8.722 0 0 1 3.61-.814 8.711 8.711 0 0 1 3.62.765 9.363 9.363 0 0 1 3.069 2.225 10.316 10.316 0 0 1 2.043 3.342c.471 1.25.71 2.59.702 3.941a10.994 10.994 0 0 1-.748 3.931 10.285 10.285 0 0 1-2.083 3.314l-14.582 15.88a5.628 5.628 0 0 1-1.825 1.349 5.233 5.233 0 0 1-2.161.48 5.227 5.227 0 0 1-2.165-.46A5.618 5.618 0 0 1 9.9 33.724a6.189 6.189 0 0 1-1.224-1.998 6.602 6.602 0 0 1-.424-2.358 6.598 6.598 0 0 1 .441-2.353c.288-.745.71-1.42 1.238-1.988l14.584-15.88 2.652 2.887-14.584 15.88a2.057 2.057 0 0 0-.42.663 2.2 2.2 0 0 0-.013 1.579c.094.25.233.478.41.67.175.192.385.343.615.446a1.743 1.743 0 0 0 1.45-.014 1.88 1.88 0 0 0 .609-.457l14.586-15.88a6.188 6.188 0 0 0 1.22-1.988c.282-.743.427-1.54.427-2.344 0-.804-.145-1.6-.428-2.344a6.187 6.187 0 0 0-1.22-1.987 5.62 5.62 0 0 0-1.824-1.328 5.23 5.23 0 0 0-2.153-.466 5.23 5.23 0 0 0-2.153.466 5.62 5.62 0 0 0-1.825 1.328L7.281 22.14c-1.707 1.925-2.652 4.504-2.631 7.18.021 2.677 1.007 5.238 2.745 7.13 1.739 1.893 4.09 2.967 6.548 2.99 2.458.023 4.826-1.006 6.595-2.865l15.91-17.324 2.652 2.89-15.91 17.323c-2.46 2.68-5.8 4.186-9.28 4.186-3.482 0-6.82-1.506-9.282-4.186C2.167 36.785.784 33.149.784 29.358c0-3.79 1.383-7.426 3.844-10.106l14.586-15.88Z"

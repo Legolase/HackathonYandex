@@ -1,5 +1,6 @@
 import {create} from "zustand";
 import axios from "axios";
+import {useLoggedInUserStore} from "./LoggedInUserStore";
 
 export const useMessagesStore = create((set) => ({
     messages: [],
@@ -66,6 +67,19 @@ export const useMessagesStore = create((set) => ({
         set(state => ({
             messages: [...state.messages, mess]
         }))
+    },
+
+
+    postMessage: (text) => {
+        const params = {
+            "type": "text",
+            "value": text,
+            "from": useLoggedInUserStore.getState().currentUser.id,
+            "chat_id": 1
+        }
+        axios.post('/api/message', params).then(r => {
+        }).catch(err => {
+        })
     },
 
     fetchMessages: (offset, id) => {

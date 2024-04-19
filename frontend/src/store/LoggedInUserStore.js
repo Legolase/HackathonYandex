@@ -2,9 +2,9 @@ import {create} from "zustand";
 import axios from "axios";
 
 
-export const useCurrentUserStore = create((set) => ({
+export const useLoggedInUserStore = create((set) => ({
 
-    currentUser: null,
+    currentUser: {},
     loading: true,
 
     setLoading: (loading) => {

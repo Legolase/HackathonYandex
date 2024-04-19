@@ -1,13 +1,13 @@
 import React, {useEffect} from "react";
 import './/styles/App.css'
 import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
-import {useCurrentUserStore} from "./store/CurrentUserStore";
+import {useLoggedInUserStore} from "./store/LoggedInUserStore";
 import Messenger from "./pages/Messenger";
 import Auth from "./pages/Auth";
 
 function App() {
 
-    const {currentUser, getCurrentUser, loading} = useCurrentUserStore()
+    const {currentUser, getCurrentUser, loading} = useLoggedInUserStore()
 
     useEffect(() => {
         getCurrentUser()
@@ -25,8 +25,6 @@ function App() {
         </>
     ) : <></>;
 
-    console.log(currentUser)
-    console.log(loading)
 
     if (loading)
         return (<span>LOADING</span>);
