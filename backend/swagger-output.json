@@ -121,11 +121,11 @@
               "properties": {
                 "type": {
                   "type": "string",
-                  "example": "single"
+                  "example": "single|multi|channel"
                 },
                 "name": {
                   "type": "string",
-                  "example": "test"
+                  "example": "Название чата"
                 },
                 "users": {
                   "type": "array",
@@ -146,10 +146,26 @@
             "description": "OK"
           },
           "400": {
-            "description": "Bad Request"
+            "description": "Некорректные данные запроса",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "error"
+                },
+                "error": {
+                  "type": "string",
+                  "example": "error.message"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "Пользователь не авторизован"
           }
         }
       }

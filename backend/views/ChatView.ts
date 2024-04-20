@@ -101,19 +101,19 @@ ChatView.post('/chat', async (req, res) => {
         description: 'Тело запроса',
         required: true,
         schema: {
-            "type": "single",
-            "name": "test",
-            "users": [1, 2]
+                type: 'single|multi|channel',
+                name: 'Название чата',
+                users: [1, 2]
             }
-        }
     }
-    * /
+    */
     /*
     #swagger.responses[400] = {
-    description: 'Некорректные данные запроса',
-    schema: {
-        type: 'error',
-        error: 'error.message'
+        description: 'Некорректные данные запроса',
+        schema: {
+            type: 'error',
+            error: 'error.message'
+        }
     }
     */
     /*
