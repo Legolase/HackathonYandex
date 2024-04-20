@@ -49,5 +49,5 @@ export abstract class Model {
     }
 
     abstract getObject(): object;
-    abstract validate(obj: Record<string, any>): [boolean, string];
+    abstract validate(obj: Record<string, any>): Promise<boolean>;
 }

@@ -18,7 +18,7 @@ export const MessageController = {
     },
 
     async createItem(obj: Record<string, any>) {
-        new Message().validate(obj);
+        await new Message().validate(obj);
         let message = new Message(obj);
         return await message.create(Message)
     }
