@@ -19,4 +19,8 @@ export class User extends Model {
             github_id: this.github_id
         };
     }
+
+    validate(obj: Record<string, any>): [boolean, string] {
+        return [true, 'Correct object!'];
+    }
 }

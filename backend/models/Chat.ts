@@ -77,4 +77,10 @@ export class Chat extends Model {
             avatar: this.avatar,
         };
     }
+
+    validate(obj: Record<string, any>): [boolean, string] {
+        // if (typeof obj.type !== 'string' || !Object.values(ChatTypes).includes(obj.type as string)) throw new Error('ERROR: field "type" must be string in enum');
+        // if (typeof obj.name !== 'string' || obj.value.trim() === '') throw new Error('ERROR: field "name" must be not null string!');
+        return [true, 'Correct object!'];
+    }
 }

@@ -104,6 +104,124 @@
             "description": "Пользователь не авторизован"
           }
         }
+      },
+      "post": {
+        "tags": [
+          "Chat"
+        ],
+        "description": "Создание чата",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Тело запроса",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "example": 1
+                },
+                "type": {
+                  "type": "string",
+                  "example": "single"
+                },
+                "pin_message": {},
+                "name": {
+                  "type": "string",
+                  "example": "test"
+                },
+                "avatar": {},
+                "messages": {
+                  "type": "array",
+                  "example": [],
+                  "items": {}
+                },
+                "users": {
+                  "type": "object",
+                  "properties": {
+                    "1": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number",
+                          "example": 1
+                        },
+                        "datetime_last_activity": {
+                          "type": "string",
+                          "example": "2024-04-03T08:05:58.011Z"
+                        },
+                        "name": {
+                          "type": "string",
+                          "example": "test"
+                        },
+                        "login": {
+                          "type": "string",
+                          "example": "test"
+                        },
+                        "email": {},
+                        "avatar": {},
+                        "github_id": {}
+                      }
+                    },
+                    "2": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number",
+                          "example": 2
+                        },
+                        "datetime_last_activity": {
+                          "type": "string",
+                          "example": "2024-04-03T08:05:58.011Z"
+                        },
+                        "name": {
+                          "type": "string",
+                          "example": "test 2"
+                        },
+                        "login": {
+                          "type": "string",
+                          "example": "test 2"
+                        },
+                        "email": {},
+                        "avatar": {},
+                        "github_id": {}
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Некорректные данные запроса",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "error"
+                },
+                "error": {
+                  "type": "string",
+                  "example": "error.message"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "401": {
+            "description": "Пользователь не авторизован"
+          }
+        }
       }
     },
     "/api/chat/{id}": {
@@ -117,7 +235,7 @@
             "name": "id",
             "in": "query",
             "required": true,
-            "type": "int",
+            "type": "number",
             "description": "ID чата"
           }
         ],
@@ -215,17 +333,141 @@
     },
     "/api/user": {
       "get": {
-        "description": "",
+        "tags": [
+          "User"
+        ],
+        "description": "Получение списка пользователей",
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Получен список пользователей",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "table": {
+                    "type": "string",
+                    "example": "users"
+                  },
+                  "db": {
+                    "type": "object",
+                    "properties": {}
+                  },
+                  "id": {
+                    "type": "number",
+                    "example": 17
+                  },
+                  "datetime_create": {
+                    "type": "string",
+                    "example": "2024-04-13T12:21:42.576Z"
+                  },
+                  "datetime_last_activity": {
+                    "type": "string",
+                    "example": "2024-04-13T09:21:42.575Z"
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "IlyaStepanov1104"
+                  },
+                  "login": {
+                    "type": "string",
+                    "example": "IlyaStepanov1104"
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "ilyahtml@gmail.com"
+                  },
+                  "avatar": {
+                    "type": "string",
+                    "example": "image\\avatar\\708d5e598f4ce68eab6b1c5bf9db85f6.jpeg"
+                  },
+                  "github_id": {
+                    "type": "number",
+                    "example": 102037915
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "401": {
+            "description": "Пользователь не авторизован"
+          }
+        }
+      }
+    },
+    "/api/user/current": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "description": "Получение текущего пользователя",
+        "responses": {
+          "200": {
+            "description": "Получен пользователь",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "table": {
+                  "type": "string",
+                  "example": "users"
+                },
+                "db": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "id": {
+                  "type": "number",
+                  "example": 17
+                },
+                "datetime_create": {
+                  "type": "string",
+                  "example": "2024-04-13T12:21:42.576Z"
+                },
+                "datetime_last_activity": {
+                  "type": "string",
+                  "example": "2024-04-13T09:21:42.575Z"
+                },
+                "name": {
+                  "type": "string",
+                  "example": "IlyaStepanov1104"
+                },
+                "login": {
+                  "type": "string",
+                  "example": "IlyaStepanov1104"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "ilyahtml@gmail.com"
+                },
+                "avatar": {
+                  "type": "string",
+                  "example": "image\\avatar\\708d5e598f4ce68eab6b1c5bf9db85f6.jpeg"
+                },
+                "github_id": {
+                  "type": "number",
+                  "example": 102037915
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "401": {
+            "description": "Пользователь не авторизован"
           }
         }
       }
     },
     "/api/user/{id}": {
       "get": {
-        "description": "",
+        "tags": [
+          "User"
+        ],
+        "description": "Получение пользователя по id",
         "parameters": [
           {
             "name": "id",
@@ -236,24 +478,185 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Получен пользователь",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "table": {
+                  "type": "string",
+                  "example": "users"
+                },
+                "db": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "id": {
+                  "type": "number",
+                  "example": 17
+                },
+                "datetime_create": {
+                  "type": "string",
+                  "example": "2024-04-13T12:21:42.576Z"
+                },
+                "datetime_last_activity": {
+                  "type": "string",
+                  "example": "2024-04-13T09:21:42.575Z"
+                },
+                "name": {
+                  "type": "string",
+                  "example": "IlyaStepanov1104"
+                },
+                "login": {
+                  "type": "string",
+                  "example": "IlyaStepanov1104"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "ilyahtml@gmail.com"
+                },
+                "avatar": {
+                  "type": "string",
+                  "example": "image\\avatar\\708d5e598f4ce68eab6b1c5bf9db85f6.jpeg"
+                },
+                "github_id": {
+                  "type": "number",
+                  "example": 102037915
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "401": {
+            "description": "Пользователь не авторизован"
           }
         }
       }
     },
     "/api/message": {
       "get": {
-        "description": "",
+        "tags": [
+          "Message"
+        ],
+        "description": "Получение списка сообщений",
+        "responses": {
+          "200": {
+            "description": "Получен список сообщений",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "table": {
+                    "type": "string",
+                    "example": "messages"
+                  },
+                  "db": {
+                    "type": "object",
+                    "properties": {}
+                  },
+                  "id": {
+                    "type": "number",
+                    "example": 3
+                  },
+                  "datetime": {
+                    "type": "string",
+                    "example": "2024-04-10T02:09:40.322Z"
+                  },
+                  "text": {
+                    "type": "string",
+                    "example": "Message 2"
+                  },
+                  "from": {
+                    "type": "number",
+                    "example": 10
+                  },
+                  "read": {
+                    "type": "boolean",
+                    "example": true
+                  },
+                  "chat_id": {
+                    "type": "number",
+                    "example": 1
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "401": {
+            "description": "Пользователь не авторизован"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Message"
+        ],
+        "description": "Отправка сообщения",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Тело запроса",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "text|image|video|document|resend"
+                },
+                "value": {
+                  "type": "string",
+                  "example": "value of message"
+                },
+                "chat_id": {
+                  "type": "number",
+                  "example": 1
+                }
+              }
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "400": {
+            "description": "Некорректные данные запроса",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "error"
+                },
+                "error": {
+                  "type": "string",
+                  "example": "error.message"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "401": {
+            "description": "Пользователь не авторизован"
           }
         }
       }
     },
     "/api/message/{id}": {
       "get": {
-        "description": "",
+        "tags": [
+          "Message"
+        ],
+        "description": "Получение сообщения по id. Зачем, а главное зачем?",
         "parameters": [
           {
             "name": "id",
@@ -264,7 +667,50 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Получено сообщение",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "table": {
+                  "type": "string",
+                  "example": "messages"
+                },
+                "db": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "id": {
+                  "type": "number",
+                  "example": 1
+                },
+                "datetime": {
+                  "type": "string",
+                  "example": "2024-04-10T02:09:09.151Z"
+                },
+                "text": {
+                  "type": "string",
+                  "example": "Message 1"
+                },
+                "from": {
+                  "type": "number",
+                  "example": 1
+                },
+                "read": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "chat_id": {
+                  "type": "number",
+                  "example": 1
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "401": {
+            "description": "Пользователь не авторизован"
           }
         }
       }

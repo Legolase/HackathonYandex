@@ -18,4 +18,11 @@ export const ChatController = {
         });
         return chat;
     },
+
+
+    async createItem(obj: Record<string, any>) {
+        new Chat().validate(obj);
+        let chat = new Chat(obj);
+        return await chat.create(Chat)
+    }
 }

@@ -43,7 +43,7 @@ ChatView.get('/chat/:id', (req, res) => {
         /* #swagger.parameters['id'] = {
             in: 'query',
             description: 'ID чата',
-            type: 'int'
+            type: 'number'
         } */
         /* #swagger.responses[200] = {
             description: 'Получен чат',
@@ -91,3 +91,67 @@ ChatView.get('/chat/:id', (req, res) => {
         ChatController.getItem(req.params.id).then(data => res.json(data))
     }
 );
+
+ChatView.post('/chat', async (req, res) => {
+    // #swagger.description = 'Создание чата'
+    // #swagger.tags = ['Chat']
+    /*
+    #swagger.parameters['body'] = {
+        in: 'body',
+        description: 'Тело запроса',
+        required: true,
+        schema: {
+            "id": 1,
+            "type": "single",
+            "pin_message": null,
+            "name": "test",
+            "avatar": null,
+            "messages": [],
+            "users": {
+                "1": {
+                    "id": 1,
+                    "datetime_last_activity": "2024-04-03T08:05:58.011Z",
+                    "name": "test",
+                    "login": "test",
+                    "email": null,
+                    "avatar": null,
+                    "github_id": null
+                },
+                "2": {
+                    "id": 2,
+                    "datetime_last_activity": "2024-04-03T08:05:58.011Z",
+                    "name": "test 2",
+                    "login": "test 2",
+                    "email": null,
+                    "avatar": null,
+                    "github_id": null
+                }
+            }
+        }
+    }
+    * /
+    /*
+    #swagger.responses[400] = {
+    description: 'Некорректные данные запроса',
+    schema: {
+        type: 'error',
+        error: 'error.message'
+    }
+}
+*/
+    /*
+    #swagger.responses[401] = {
+        description: 'Пользователь не авторизован'
+    }
+    */
+    ChatController.createItem(req.body)
+        .then((data) => res.json(data))
+        .catch((error) => {
+            res.status(400);
+            res.json({
+                type: 'error',
+                error: error.message
+            })
+        });
+})
+;

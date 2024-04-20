@@ -1,10 +1,10 @@
 import {db} from "../index";
+import {DataValue} from "../types/DataValue";
 
 
 export class DB {
     constructor() {
     }
-
 
     async selectOne(table: string, where: object): Promise<Record<string, any>> {
         try {
@@ -13,7 +13,7 @@ export class DB {
                 if (key === 'order') {
                     where_query += `ORDER BY ${value} `;
                 } else {
-                    if (where_query !== ''){
+                    if (where_query !== '') {
                         where_query += 'AND ';
                     }
                     where_query += `${key} ${value} `;
@@ -45,9 +45,13 @@ export class DB {
         }
     }
 
-    async insert(table: string, fields: object = {}): Promise<Record<string, any> | null> {
+    async insert(table: string, fields: object = {}): Promise<Record<string, DataValue> | null> {
         try {
-            let query = `INSERT INTO ${table} (${Object.keys(fields)}) VALUES (${Object.values(fields).map((item) => {return item?`'${item}'`:'NULL'})}) RETURNING *`;
+            let query = `INSERT INTO ${table} (${Object.keys(fields).map((item) => {
+                return `"${item}"`
+            })}) VALUES (${Object.values(fields).map((item) => {
+                             return item ? `'${item}'` : 'NULL'
+                         })}) RETURNING *`;
             return await db.one(query);
         } catch (e) {
             console.error(e);
