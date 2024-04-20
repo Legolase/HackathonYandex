@@ -7,7 +7,8 @@
     "start": "ts-node index.ts",
     "documentation": "node swagger.js",
     "create-migration": "node-pg-migrate create",
-    "migrate": "node-pg-migrate up"
+    "migrate": "node-pg-migrate up",
+    "migrate down": "node-pg-migrate down -- -a"
   },
   "author": "StepanovIlya1104",
   "license": "ISC",

@@ -6,12 +6,10 @@ exports.up = (pgm) => {
     },
     datetime_create: {
       type: 'timestamp',
-      notNull: true,
       default: pgm.func('current_timestamp')
     },
     datetime_last_activity: {
       type: 'timestamp',
-      notNull: true,
       default: pgm.func('current_timestamp')
     },
     name: {

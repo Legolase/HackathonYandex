@@ -13,6 +13,7 @@ import {isAuthenticatedMiddleware} from "./middlewares/isAuthenticatedMiddleware
 import path from "path";
 
 const pgp = require('pg-promise')();
+const bodyParser = require('body-parser');
 
 const PORT: string = process.env.PORT || '3000'
 const SERVER_URL: string = process.env.URL || 'localhost'
@@ -23,6 +24,8 @@ const app = express();
 export const db = pgp(process.env.DATABASE_URL);
 
 app.use(cookieParser());
+app.use(bodyParser.json());
+
 app.use(expressSession({
     secret: process.env.EXPRESS_SESSION_SECRET || '',
     resave: false,
@@ -38,7 +41,7 @@ app.use(express.static('../frontend/build'));
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use('/', AuthView);
 app.use('/api', isAuthenticatedMiddleware, ChatView, UserView, MessageView);
-app.get('*', function(req, res) {
+app.get('*', function (req, res) {
     res.sendFile(path.join(__dirname, '../frontend/build/index.html'));
 });
 

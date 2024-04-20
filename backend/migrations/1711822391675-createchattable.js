@@ -8,7 +8,6 @@ exports.up = (pgm) => {
     },
     datetime: {
       type: 'timestamp',
-      notNull: true,
       default: pgm.func('current_timestamp')
     },
     type: {

@@ -6,7 +6,6 @@ exports.up = (pgm) => {
     },
     datetime: {
       type: 'timestamp',
-      notNull: true,
       default: pgm.func('current_timestamp')
     },
     text: {
@@ -20,7 +19,6 @@ exports.up = (pgm) => {
     },
     read: {
       type: 'boolean',
-      notNull: true,
       default: false
     }
   });
