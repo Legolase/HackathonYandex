@@ -7,7 +7,7 @@ export const ChatView: Router = Router();
 
 ChatView.get('/chat', async (req, res) => {
         // #swagger.description = 'Получение списка чатов'
-        // #swagger.tags = ['Chats']
+        // #swagger.tags = ['Chat']
         /* #swagger.responses[200] = {
             description: 'Получен список чатов',
             schema: [
@@ -39,7 +39,7 @@ ChatView.get('/chat', async (req, res) => {
 );
 ChatView.get('/chat/:id', (req, res) => {
         // #swagger.description = 'Получение чата'
-        // #swagger.tags = ['Chats']
+        // #swagger.tags = ['Chat']
         /* #swagger.parameters['id'] = {
             in: 'query',
             description: 'ID чата',
@@ -101,44 +101,21 @@ ChatView.post('/chat', async (req, res) => {
         description: 'Тело запроса',
         required: true,
         schema: {
-            "id": 1,
-            "type": "single",
-            "pin_message": null,
-            "name": "test",
-            "avatar": null,
-            "messages": [],
-            "users": {
-                "1": {
-                    "id": 1,
-                    "datetime_last_activity": "2024-04-03T08:05:58.011Z",
-                    "name": "test",
-                    "login": "test",
-                    "email": null,
-                    "avatar": null,
-                    "github_id": null
-                },
-                "2": {
-                    "id": 2,
-                    "datetime_last_activity": "2024-04-03T08:05:58.011Z",
-                    "name": "test 2",
-                    "login": "test 2",
-                    "email": null,
-                    "avatar": null,
-                    "github_id": null
-                }
+                type: 'single|multi|channel',
+                name: 'Название чата',
+                users: [1, 2]
             }
-        }
     }
-    * /
+    */
     /*
     #swagger.responses[400] = {
-    description: 'Некорректные данные запроса',
-    schema: {
-        type: 'error',
-        error: 'error.message'
+        description: 'Некорректные данные запроса',
+        schema: {
+            type: 'error',
+            error: 'error.message'
+        }
     }
-}
-*/
+    */
     /*
     #swagger.responses[401] = {
         description: 'Пользователь не авторизован'

@@ -14,11 +14,11 @@ export class Message extends Model {
     read: boolean | undefined;
     chat_id: number | undefined;
 
-    validate(obj: Record<string, any>): [boolean, string] {
+    async validate(obj: Record<string, any>): Promise<boolean> {
         if (typeof obj.type !== 'string' || !Object.values(MessageType).includes(obj.type as string)) throw new Error('ERROR: field "type" must be string in enum');
         if (typeof obj.value !== 'string' || obj.value.trim() === '') throw new Error('ERROR: field "value" must be not null string!');
         if (typeof obj.chat_id !== 'number' || !Number.isInteger(obj.chat_id)) throw new Error('ERROR: field "chat_id" must be not null number!');
-        return [true, 'Correct object!'];
+        return true;
     }
 
     getObject(): object {

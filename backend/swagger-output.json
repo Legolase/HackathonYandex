@@ -40,7 +40,7 @@
     "/api/chat": {
       "get": {
         "tags": [
-          "Chats"
+          "Chat"
         ],
         "description": "Получение списка чатов",
         "responses": {
@@ -119,76 +119,22 @@
             "schema": {
               "type": "object",
               "properties": {
-                "id": {
-                  "type": "number",
-                  "example": 1
-                },
                 "type": {
                   "type": "string",
-                  "example": "single"
+                  "example": "single|multi|channel"
                 },
-                "pin_message": {},
                 "name": {
                   "type": "string",
-                  "example": "test"
-                },
-                "avatar": {},
-                "messages": {
-                  "type": "array",
-                  "example": [],
-                  "items": {}
+                  "example": "Название чата"
                 },
                 "users": {
-                  "type": "object",
-                  "properties": {
-                    "1": {
-                      "type": "object",
-                      "properties": {
-                        "id": {
-                          "type": "number",
-                          "example": 1
-                        },
-                        "datetime_last_activity": {
-                          "type": "string",
-                          "example": "2024-04-03T08:05:58.011Z"
-                        },
-                        "name": {
-                          "type": "string",
-                          "example": "test"
-                        },
-                        "login": {
-                          "type": "string",
-                          "example": "test"
-                        },
-                        "email": {},
-                        "avatar": {},
-                        "github_id": {}
-                      }
-                    },
-                    "2": {
-                      "type": "object",
-                      "properties": {
-                        "id": {
-                          "type": "number",
-                          "example": 2
-                        },
-                        "datetime_last_activity": {
-                          "type": "string",
-                          "example": "2024-04-03T08:05:58.011Z"
-                        },
-                        "name": {
-                          "type": "string",
-                          "example": "test 2"
-                        },
-                        "login": {
-                          "type": "string",
-                          "example": "test 2"
-                        },
-                        "email": {},
-                        "avatar": {},
-                        "github_id": {}
-                      }
-                    }
+                  "type": "array",
+                  "example": [
+                    1,
+                    2
+                  ],
+                  "items": {
+                    "type": "number"
                   }
                 }
               }
@@ -227,7 +173,7 @@
     "/api/chat/{id}": {
       "get": {
         "tags": [
-          "Chats"
+          "Chat"
         ],
         "description": "Получение чата",
         "parameters": [

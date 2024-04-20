@@ -20,7 +20,7 @@ export class User extends Model {
         };
     }
 
-    validate(obj: Record<string, any>): [boolean, string] {
-        return [true, 'Correct object!'];
+    async validate(obj: Record<string, any>): Promise<boolean> {
+        return true;
     }
 }

@@ -11,10 +11,9 @@ import {myPassport} from "./myPassport";
 import {AuthView} from "./views/AuthView";
 import {isAuthenticatedMiddleware} from "./middlewares/isAuthenticatedMiddleware";
 import path from "path";
+import bodyParser from "body-parser";
 
 const pgp = require('pg-promise')();
-const bodyParser = require('body-parser');
-
 const PORT: string = process.env.PORT || '3000'
 const SERVER_URL: string = process.env.URL || 'localhost'
 const PROTOCOL: string = process.env.PROTOCOL || 'http'
