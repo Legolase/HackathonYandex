@@ -1,5 +1,6 @@
 #!/bin/bash
 
+git pull origin dev
 # Переходим в каталог frontend, устанавливаем зависимости и собираем проект
 cd ./frontend && npm install && npm run build
 

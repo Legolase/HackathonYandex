@@ -80,7 +80,6 @@ export class Chat extends Model {
 
     async validate(obj: Record<string, any>): Promise<boolean> {
         if (typeof obj.type !== 'string' || !Object.values(ChatTypes).includes(obj.type as string)) throw new Error('ERROR: field "type" must be string in enum');
-        if (typeof obj.name !== 'string' || obj.name.trim() === '') throw new Error('ERROR: field "name" must be not null string!');
         if (typeof obj.users !== 'object' || obj.users.length == 0) throw new Error('ERROR: field "users" must be not empty array!');
         for (const user_id of obj.users) {
             await new User().getById(user_id, User).then(user => {
