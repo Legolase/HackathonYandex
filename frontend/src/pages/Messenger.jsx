@@ -6,21 +6,7 @@ import {useRightPanelStore} from "../store/RightPanelStore";
 import UserProfile from "../components/UserProfile/UserProfile";
 import UnSelected from "../components/RightSide/UnSelected/UnSelected";
 
-const Messenger = () => {
-
-    const active = useRightPanelStore(state => state.active)
-
-    let activePanel;
-    switch (active) {
-        case 'Contact':
-            activePanel = <UserProfile/>
-            break
-        case 'Messages':
-            activePanel = <SelectedChat/>
-            break
-        default:
-            activePanel = <UnSelected/>
-    }
+const Messenger = ({activePanel}) => {
 
 
 
@@ -32,9 +18,7 @@ const Messenger = () => {
                 </div>
             </Modal>
             <LeftPanel/>
-            {/* todo: Choose between chats and contacts*/}
             {activePanel}
-            {/*<SelectedChat/>*/}
         </div>
     );
 };

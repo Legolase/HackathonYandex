@@ -46,6 +46,7 @@ SingleChatView.get('/single_chat', async (req, res) => {
             description: 'Сущности не существует'
         } */
         res.status(404);
+        res.json({error: "ERROR: Not found entity!!"})
     }
 );
 
@@ -82,5 +83,6 @@ SingleChatView.post('/single_chat', async (req, res) => {
     }
     */
     res.status(418);
+    res.json({error: "ERROR: Not found entity!!"})
 })
 ;
