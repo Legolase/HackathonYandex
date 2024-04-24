@@ -7,22 +7,6 @@ export const useCurrentContactStore = create((set, get) => ({
     error: null,
     loading: false,
 
-    // ----------------------------------------------------
-    // -------------------THIS FOR TESTING-----------------
-    // ----------------------------------------------------
-    //  {
-    //                 "id": 15,
-    //                 "datetime_create": "2024-04-13T11:00:17.197Z",
-    //                 "datetime_last_activity": "2024-04-13T08:00:17.196Z",
-    //                 "name": "IlyaStepanov1104",
-    //                 "login": "IlyaStepanov1104",
-    //                 "email": "ilyahtml@gmail.com",
-    //                 "avatar": "storage\\image\\avatar\\bf1f5bf9a2a23aaa37c9ec809f3f706c.jpeg",
-    //                 "github_id": 102037915
-    //             }
-    // ----------------------------------------------------
-    // ----------------------------------------------------
-    // ----------------------------------------------------
 
     nullifyContact: () => {
         set(() => ({
@@ -38,7 +22,7 @@ export const useCurrentContactStore = create((set, get) => ({
 
 
     fetchContact: (id) => {
-        axios.get(process.env.REACT_APP_BACKEND_URL+`/api/user/${id}`).then((response) => {
+        axios.get(process.env.REACT_APP_BACKEND_URL + `/api/user/${id}`).then((response) => {
             // todo: Check response code
             set(() => ({
                 contact: response.data

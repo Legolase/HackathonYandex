@@ -19,6 +19,7 @@ const Chat = ({chat}) => {
     if (currentChat && currentChat.id === chat.id)
         root.push(cl.active)
 
+    console.log(chat)
     return (
         <li className={root.join(' ')} onClick={() => {
             setActivePanel('Messages')
@@ -32,7 +33,7 @@ const Chat = ({chat}) => {
             <img className={cl.avatar} src={chat.avatar} alt={'?'}/>
             <div className={cl.textInfo}>
                 <span className={cl.name}>{chat.name}</span>
-                <span className={cl.lastMessage}>{chat.last_message.text}</span>
+                {/*<span className={cl.lastMessage}>{chat.last_message.text}</span>*/}
             </div>
         </li>
     );

@@ -6,7 +6,6 @@ import {useMessagesStore} from "../../../store/MessagesStore";
 const Messages = () => {
 
     const messages = useMessagesStore(state => state.messages)
-    const setMessages = useMessagesStore(state => state.setMessages)
     const messagesEndRef = useRef(null)
 
     const scrollToBottom = () => {
@@ -17,9 +16,6 @@ const Messages = () => {
         scrollToBottom()
     }, [messages]);
 
-    useEffect(() => {
-        setMessages()
-    }, []);
 
     return (
         <div className={cl.messages}>

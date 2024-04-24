@@ -1,5 +1,5 @@
 .idea/
 */node_modules/
-/backend/.env
+*/.env
 */build/
 /backend/storage

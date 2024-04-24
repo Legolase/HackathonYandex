@@ -24,7 +24,7 @@ export const useChatsStore = create((set, get) => ({
                 throw Error(`Error: ${response.status}. ${response.error}`)
             set(() => (
                 {
-                    contentItems: [...response.data],
+                    chats: [...response.data],
                     loading: false
                 }
             ))
