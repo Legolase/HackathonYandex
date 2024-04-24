@@ -37,6 +37,148 @@
         }
       }
     },
+    "/api/single_chat": {
+      "get": {
+        "tags": [
+          "Single Chat"
+        ],
+        "description": "Получение личного чата",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Тело запроса",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "user": {
+                  "type": "number",
+                  "example": 1
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Получен чат",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "example": 1
+                  },
+                  "type": {
+                    "type": "string",
+                    "example": "single"
+                  },
+                  "pin_message": {},
+                  "name": {
+                    "type": "string",
+                    "example": "test"
+                  },
+                  "avatar": {},
+                  "messages": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number",
+                          "example": 3
+                        },
+                        "datetime": {
+                          "type": "string",
+                          "example": "2024-04-10T02:09:40.322Z"
+                        },
+                        "text": {
+                          "type": "string",
+                          "example": "Message 2"
+                        },
+                        "from": {
+                          "type": "number",
+                          "example": 10
+                        },
+                        "read": {
+                          "type": "boolean",
+                          "example": true
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "401": {
+            "description": "Пользователь не авторизован"
+          },
+          "404": {
+            "description": "Сущности не существует"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Single Chat"
+        ],
+        "description": "Создание личного чата",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Тело запроса",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "user": {
+                  "type": "number",
+                  "example": 1
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Некорректные данные запроса",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "error"
+                },
+                "error": {
+                  "type": "string",
+                  "example": "error.message"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "401": {
+            "description": "Пользователь не авторизован"
+          },
+          "418": {
+            "description": "Я — чайник"
+          }
+        }
+      }
+    },
     "/api/chat": {
       "get": {
         "tags": [
