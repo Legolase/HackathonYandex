@@ -13,14 +13,29 @@ import {isAuthenticatedMiddleware} from "./middlewares/isAuthenticatedMiddleware
 import path from "path";
 import bodyParser from "body-parser";
 
+
 const pgp = require('pg-promise')();
 const PORT: string = process.env.PORT || '3000'
 const SERVER_URL: string = process.env.URL || 'localhost'
 const PROTOCOL: string = process.env.PROTOCOL || 'http'
 
+
 const app = express();
 
+
 export const db = pgp(process.env.DATABASE_URL);
+
+
+let EasyYandexS3 = require('easy-yandex-s3');
+export const s3 = new EasyYandexS3({
+    auth: {
+        accessKeyId: 'YCAJEO03Ws0ASV-aZlFCo1Lmn',
+        secretAccessKey: 'YCONRm-NMPbr-NOnFz1fSHmfVjDL5Fw5Ywdw4pvN',
+    },
+    Bucket: 'team2',
+    debug: true, // Дебаг в консоли, потом можете удалить в релизе
+});
+
 
 app.use(cookieParser());
 app.use(bodyParser.json());

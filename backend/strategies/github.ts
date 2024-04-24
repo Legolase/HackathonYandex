@@ -4,12 +4,17 @@ import fs from "fs";
 import https from "https";
 import crypto from "crypto";
 import path from "path";
+import {s3} from "../index";
 
-const generateFileName = () => {
-    const currentTime = new Date().getTime().toString(); // Получаем текущее время в миллисекундах и преобразуем в строку
-    const hash = crypto.createHash('md5').update(currentTime).digest('hex'); // Создаем MD5 хеш от строки текущего времени
-    return `${hash}.jpeg`; // Возвращаем имя файла с расширением .jpeg
-};
+async function downloadImageToBuffer(url: string) {
+    const response = await fetch(url);
+    if (!response.ok) {
+        throw new Error(`Failed to fetch image: ${response.statusText}`);
+    }
+    const arrayBuffer = await response.arrayBuffer();
+    return Buffer.from(arrayBuffer); // Преобразование ArrayBuffer в Buffer
+}
+
 
 export const githubStrategy = new passportGithub.Strategy(
     {
@@ -24,23 +29,16 @@ export const githubStrategy = new passportGithub.Strategy(
         let login = profile.username ? profile.username : '';
         let email = profile.emails ? profile.emails[0].value : '';
         let photo = profile.photos ? profile.photos[0].value : '';
-        const fileName = generateFileName(); // Генерируем уникальное имя файла
-        const fileStaticPath = path.join('image', 'avatar', fileName);
-        const filePath = path.join('storage', fileStaticPath); // Полный путь к файлу
         let user = await new User().getOne(User, {github_id: `= ${githubId}`});
+        let filePath = null;
         if (!user) {
             if (photo) {
-                const file = fs.createWriteStream(filePath);
-                https.get(photo, response => {
-                    response.pipe(file);
-                    file.on('finish', () => {
-                        file.close();
-                    });
-                }).on('error', err => {
-                    fs.unlink(filePath, () => {
-                    }); // Удаляем файл, если произошла ошибка
-                    console.error(err);
-                });
+                try {
+                    const fileBuffer = await downloadImageToBuffer(photo); // Получение изображения в виде буфера
+                    filePath = await s3.Upload({buffer: fileBuffer}, '/avatar/') || undefined; // Загрузка на Yandex Object Storage
+                } catch (error) {
+                    console.error('Error uploading file:', error);
+                }
             }
             user = new User();
             user.datetime_last_activity = new Date();
@@ -48,7 +46,7 @@ export const githubStrategy = new passportGithub.Strategy(
             user.github_id = githubId;
             user.login = login;
             user.email = email;
-            user.avatar = fileStaticPath;
+            user.avatar = filePath ? filePath.Location : undefined;
             user = await user.create(User);
         }
         if (!user) {
