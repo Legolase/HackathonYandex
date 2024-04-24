@@ -5,6 +5,7 @@ import https from "https";
 import crypto from "crypto";
 import path from "path";
 import {s3} from "../index";
+// TODO: delete!
 // @ts-ignore
 import identicon from "identicon";
 

@@ -12,6 +12,7 @@ import {AuthView} from "./views/AuthView";
 import {isAuthenticatedMiddleware} from "./middlewares/isAuthenticatedMiddleware";
 import path from "path";
 import bodyParser from "body-parser";
+import {SingleChatView} from "./views/SingleChatView";
 
 
 const pgp = require('pg-promise')();
@@ -33,7 +34,7 @@ export const s3 = new EasyYandexS3({
         secretAccessKey: 'YCONRm-NMPbr-NOnFz1fSHmfVjDL5Fw5Ywdw4pvN',
     },
     Bucket: 'team2',
-    debug: true, // Дебаг в консоли, потом можете удалить в релизе
+    debug: false, // TODO: Дебаг в консоли, потом можете удалить в релизе
 });
 
 
@@ -54,7 +55,7 @@ app.use(express.static('../frontend/build'));
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use('/', AuthView);
-app.use('/api', isAuthenticatedMiddleware, ChatView, UserView, MessageView);
+app.use('/api', isAuthenticatedMiddleware, SingleChatView, ChatView, UserView, MessageView);
 app.get('*', function (req, res) {
     res.sendFile(path.join(__dirname, '../frontend/build/index.html'));
 });
