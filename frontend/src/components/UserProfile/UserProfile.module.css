@@ -23,6 +23,8 @@
 
 .textInfo{
     padding: 10px 0;
+    display: flex;
+    flex-direction: column;
 }
 
 .name{
@@ -31,7 +33,8 @@
 }
 
 .login{
-
+    font-weight: 100;
+    color: var(--light-gray);
 }
 
 .buttons{

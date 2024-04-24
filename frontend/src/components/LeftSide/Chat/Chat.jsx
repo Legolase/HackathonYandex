@@ -11,7 +11,7 @@ const Chat = ({chat}) => {
     // todo:  Тут нужен Илья, ибо мне надо понять, что он мне возвращает, и что мне надо получить от него
     const currentChat = useCurrentChatStore(state => state.chat)
     const setCurrentChat = useCurrentChatStore(state => state.setChat)
-    const fetchChat = useCurrentChatStore(state => state.fetchChat)
+    const fetchChat = useCurrentChatStore(state => state.fetchChatById)
 
     const nullifyContact = useCurrentContactStore(state => state.nullifyContact)
 

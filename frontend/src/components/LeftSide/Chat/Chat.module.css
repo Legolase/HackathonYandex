@@ -38,7 +38,7 @@
 }
 
 .lastMessage {
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 1;
     overflow: hidden;
     display: -webkit-box;
     text-overflow: ellipsis;

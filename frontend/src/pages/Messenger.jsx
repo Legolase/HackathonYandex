@@ -32,9 +32,7 @@ const Messenger = () => {
                 </div>
             </Modal>
             <LeftPanel/>
-            {/* todo: Choose between chats and contacts*/}
             {activePanel}
-            {/*<SelectedChat/>*/}
         </div>
     );
 };

@@ -92,7 +92,7 @@ export const useMessagesStore = create((set) => ({
             }
         }
 
-        axios.get(`/chat/${id}`, params).then(response => {
+        axios.get(process.env.REACT_APP_BACKEND_URL+`/chat/${id}`, params).then(response => {
             if (response.error)
                 throw Error(`Error: ${response.status}. ${response.error}`)
             set(state => (

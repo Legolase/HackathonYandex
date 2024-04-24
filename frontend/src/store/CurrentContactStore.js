@@ -38,7 +38,7 @@ export const useCurrentContactStore = create((set, get) => ({
 
 
     fetchContact: (id) => {
-        axios.get(`/api/user/${id}`).then((response) => {
+        axios.get(process.env.REACT_APP_BACKEND_URL+`/api/user/${id}`).then((response) => {
             // todo: Check response code
             set(() => ({
                 contact: response.data

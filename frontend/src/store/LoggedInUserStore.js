@@ -4,7 +4,7 @@ import axios from "axios";
 
 export const useLoggedInUserStore = create((set) => ({
 
-    currentUser: {},
+    currentUser: null,
     loading: true,
 
     setLoading: (loading) => {
@@ -15,7 +15,7 @@ export const useLoggedInUserStore = create((set) => ({
 
 
     getCurrentUser: () => {
-        axios.get('/api/user/current').then((response) => {
+        axios.get(process.env.REACT_APP_BACKEND_URL+'/api/user/current').then((response) => {
             if (response.status === 200) {
                 set(() => ({
                     currentUser: response.data,

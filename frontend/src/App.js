@@ -4,6 +4,7 @@ import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 import {useLoggedInUserStore} from "./store/LoggedInUserStore";
 import Messenger from "./pages/Messenger";
 import Auth from "./pages/Auth";
+import FOFError from "./pages/FOFError";
 
 function App() {
 
@@ -13,13 +14,20 @@ function App() {
         getCurrentUser()
     }, []);
 
+    // todo: Хотим показывать auth только если юзер не вошел, иначе не хотим
     const baseRoutes = (
         <>
             <Route path={'/auth'} element={<Auth/>}/>
         </>
     );
 
-    let privateRoutes = currentUser ? (
+    const fofErr = (
+        <>
+            <Route path={'/foferr'} element={<FOFError/>}/>
+        </>
+    );
+
+    const privateRoutes = currentUser ? (
         <>
             <Route index={true} element={<Messenger/>}/>
         </>
@@ -34,6 +42,7 @@ function App() {
             <Routes>
                 {baseRoutes}
                 {privateRoutes}
+                {fofErr}
                 <Route path={'*'} element={<Navigate replace to='/auth'/>}/>
             </Routes>
         </BrowserRouter>
