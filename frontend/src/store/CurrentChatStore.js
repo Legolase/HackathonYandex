@@ -10,19 +10,17 @@ export const useCurrentChatStore = create((set, get) => ({
     error: null,
     loading: false,
 
+    setChat: (chat)=>{
+        set(()=>({
+            chat: chat
+        }))
+    },
 
     nullifyChat: () => {
         set(() => ({
             chat: null
         }))
     },
-
-    setChat: (chat) => {
-        set(() => ({
-            chat: chat
-        }))
-    },
-
 
     fetchChatById: (id) => {
         axios.get(process.env.REACT_APP_BACKEND_URL + `/api/chat/${id}`).then((response) => {
@@ -60,6 +58,7 @@ export const useCurrentChatStore = create((set, get) => ({
     },
 
     createChatWithUserByUserId: (id) => {
+        // todo: Change name
         const params = {
             type: 'single',
             name: 'Biba',

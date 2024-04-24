@@ -6,13 +6,15 @@ const Message = ({message, my}) => {
 
     const url = "https://res.cloudinary.com/practicaldev/image/fetch/s--zqAnyWih--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://res.cloudinary.com/dzynqn10l/image/upload/v1632280924/JS%2520Bits/cover_gaenes.jpg"
 
-    if (my)
+    const root = [cl.message]
+    if (my) {
+        root.push(cl.myMessage)
         return (
-            <div className={cl.message}>
+            <div className={root.join(' ')}>
                 <div className={cl.right}>
                     <div className={cl.myText}>
                         <Markdown>
-                            {message.text}
+                            {message.value}
                         </Markdown>
                     </div>
                     <span className={cl.myTime}>{new Date(message.datetime).toLocaleString()}</span>
@@ -20,6 +22,7 @@ const Message = ({message, my}) => {
                 <img className={cl.messageImg} src={url}/>
             </div>
         );
+    }
 
     return (
         <div className={cl.message}>
@@ -27,7 +30,7 @@ const Message = ({message, my}) => {
             <div className={cl.right}>
                 <div className={cl.text}>
                     <Markdown>
-                        {message.text}
+                        {message.value}
                     </Markdown>
                 </div>
                 <span className={cl.time}>{new Date(message.datetime).toLocaleString()}</span>

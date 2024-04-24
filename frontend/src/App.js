@@ -5,6 +5,10 @@ import {useLoggedInUserStore} from "./store/LoggedInUserStore";
 import Messenger from "./pages/Messenger";
 import Auth from "./pages/Auth";
 import FOFError from "./pages/FOFError";
+import {useRightPanelStore} from "./store/RightPanelStore";
+import UserProfile from "./components/UserProfile/UserProfile";
+import SelectedChat from "./components/RightSide/SelectedChat/SelectedChat";
+import UnSelected from "./components/RightSide/UnSelected/UnSelected";
 
 function App() {
 
@@ -13,6 +17,22 @@ function App() {
     useEffect(() => {
         getCurrentUser()
     }, []);
+
+
+    // const active = useRightPanelStore(state => state.active)
+    //
+    // let activePanel;
+    // switch (active) {
+    //     case 'Contact':
+    //         activePanel = <UserProfile/>
+    //         break
+    //     case 'Messages':
+    //         activePanel = <SelectedChat/>
+    //         break
+    //     default:
+    //         activePanel = <UnSelected/>
+    // }
+
 
     // todo: Хотим показывать auth только если юзер не вошел, иначе не хотим
     const baseRoutes = (
@@ -29,7 +49,14 @@ function App() {
 
     const privateRoutes = currentUser ? (
         <>
-            <Route index={true} element={<Messenger/>}/>
+            <Route index={true} element={<Messenger activePanel={<UnSelected/>}/>}/>
+            <Route exact path={'/chat/:id'} element={<Messenger activePanel={<SelectedChat/>}/>}/>
+            <Route exact path={'/user/:id'}
+                   element={
+                       <Messenger activePanel={<UserProfile/>}/>
+                   }
+            />
+
         </>
     ) : <></>;
 

@@ -19,7 +19,6 @@ export const useLoggedInUserStore = create((set) => ({
             if (response.status === 200) {
                 set(() => ({
                     currentUser: response.data,
-
                 }))
             }
         }).catch((err) => {

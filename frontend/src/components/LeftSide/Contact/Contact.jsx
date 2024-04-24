@@ -3,23 +3,24 @@ import cl from './Contact.module.css'
 import {useRightPanelStore} from "../../../store/RightPanelStore";
 import {useCurrentContactStore} from "../../../store/CurrentContactStore";
 import {useCurrentChatStore} from "../../../store/CurrentChatStore";
+import {useNavigate} from "react-router";
 
 const Contact = ({contact}) => {
 
     const root = [cl.contact]
-    const setActivePanel = useRightPanelStore(state => state.setActive)
     const setCurrentContact = useCurrentContactStore(state => state.setContact)
     const currentContact = useCurrentContactStore(state => state.contact)
     const nullifyChat = useCurrentChatStore(state => state.nullifyChat)
+    const router = useNavigate()
 
     if (currentContact && currentContact.id === contact.id)
         root.push(cl.active)
 
     return (
         <li className={root.join(' ')} onClick={() => {
-            setActivePanel('Contact')
             nullifyChat()
             setCurrentContact(contact)
+            router(`/user/${contact.id}`)
         }}>
             <img className={cl.avatar} src={contact.avatar} alt={'?'}/>
             <div className={cl.textInfo}>
