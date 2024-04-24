@@ -18,6 +18,7 @@ export class Message extends Model {
         if (typeof obj.type !== 'string' || !Object.values(MessageType).includes(obj.type as string)) throw new Error('ERROR: field "type" must be string in enum');
         if (typeof obj.value !== 'string' || obj.value.trim() === '') throw new Error('ERROR: field "value" must be not null string!');
         if (typeof obj.chat_id !== 'number' || !Number.isInteger(obj.chat_id)) throw new Error('ERROR: field "chat_id" must be not null number!');
+        if (typeof obj.user_id !== 'number' || !Number.isInteger(obj.user_id)) throw new Error('ERROR: field "user_id" must be not null number!');
         return true;
     }
 
