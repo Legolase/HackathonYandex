@@ -13,6 +13,7 @@ import {isAuthenticatedMiddleware} from "./middlewares/isAuthenticatedMiddleware
 import path from "path";
 import bodyParser from "body-parser";
 import {SingleChatView} from "./views/SingleChatView";
+import {S3} from "./facades/S3";
 
 
 const pgp = require('pg-promise')();
@@ -23,20 +24,8 @@ const PROTOCOL: string = process.env.PROTOCOL || 'http'
 
 const app = express();
 
-
+export const s3 = new S3(process.env.accessKeyId, process.env.secretAccessKey, process.env.Bucket);
 export const db = pgp(process.env.DATABASE_URL);
-
-
-let EasyYandexS3 = require('easy-yandex-s3');
-export const s3 = new EasyYandexS3({
-    auth: {
-        accessKeyId: 'YCAJEO03Ws0ASV-aZlFCo1Lmn',
-        secretAccessKey: 'YCONRm-NMPbr-NOnFz1fSHmfVjDL5Fw5Ywdw4pvN',
-    },
-    Bucket: 'team2',
-    debug: false, // TODO: Дебаг в консоли, потом можете удалить в релизе
-});
-
 
 app.use(cookieParser());
 app.use(bodyParser.json());

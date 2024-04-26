@@ -25,7 +25,6 @@ export class Message extends Model {
     getObject(): object {
         return {
             user_id: this.user_id,
-            datetime: this.datetime,
             type: this.type,
             value: this.value,
             read: this.read,
