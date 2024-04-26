@@ -1,13 +1,7 @@
 import passportGithub from "passport-github";
 import {User} from "../models/User";
-import fs from "fs";
-import https from "https";
-import crypto from "crypto";
-import path from "path";
 import {s3} from "../index";
-// TODO: delete!
-// @ts-ignore
-import identicon from "identicon";
+import {Identicon} from "../facades/Identicon";
 
 async function downloadImageToBuffer(url: string) {
     const response = await fetch(url);
@@ -23,7 +17,6 @@ export const githubStrategy = new passportGithub.Strategy(
     {
         clientID: process.env.GITHUB_CLIENT_ID || '',
         clientSecret: process.env.GITHUB_CLIENT_SECRET || '',
-        // Адрес, на который пользователь будет возвращён после авторизации в GitHub
         callbackURL: '/auth/github/callback'
     },
     async (accessToken, refreshToken, profile, done) => {
@@ -35,13 +28,13 @@ export const githubStrategy = new passportGithub.Strategy(
         let user = await new User().getOne(User, {github_id: `= ${githubId}`});
         let filePath = null;
         if (!user) {
-            let fileBuffer;
+            let fileBuffer: Buffer;
             if (photo) {
-                fileBuffer = await downloadImageToBuffer(photo); // Получение изображения в виде буфера
+                fileBuffer = await downloadImageToBuffer(photo);
             } else {
-                fileBuffer = identicon.generateSync({id: githubId, size: 150})
+                fileBuffer = Identicon.generateImage(githubId, 150);
             }
-            filePath = await s3.Upload({buffer: fileBuffer}, '/avatar/'); // Загрузка на Yandex Object Storage
+            filePath = await s3.uploadFile(fileBuffer, '/avatar/');
             user = new User();
             user.datetime_last_activity = new Date();
             user.name = name;

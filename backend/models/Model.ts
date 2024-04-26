@@ -1,4 +1,4 @@
-import {DB} from '../database/DB';
+import {DB} from '../facades/DB';
 import {DataValue} from "../types/DataValue";
 
 export abstract class Model {
