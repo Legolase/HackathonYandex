@@ -6,8 +6,6 @@ const CurrentChatProfile = ({chat}) => {
 
     const nullifyChat = useCurrentChatStore(state => state.nullifyChat)
 
-    console.log(chat)
-
     return (
         <div className={cl.chat}>
             <img className={cl.avatar} src={chat.avatar} onClick={() => {

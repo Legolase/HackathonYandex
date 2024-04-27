@@ -8,17 +8,19 @@ export const useCurrentChatStore = create((set, get) => ({
 
     chat: null,
     error: null,
-    loading: false,
+    loading: true,
 
     setChat: (chat)=>{
         set(()=>({
-            chat: chat
+            chat: chat,
+            loading: false
         }))
     },
 
     nullifyChat: () => {
         set(() => ({
-            chat: null
+            chat: null,
+            loading: false
         }))
     },
 
@@ -27,7 +29,8 @@ export const useCurrentChatStore = create((set, get) => ({
 
             // todo: Check response code
             set(() => ({
-                chat: response.data
+                chat: response.data,
+                loading: false
             }))
             useMessagesStore.setState(() => ({
                 messages: response.data.messages

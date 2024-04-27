@@ -1,19 +1,32 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import cl from './UserProfile.module.css'
 import Button from "../Button/Button";
 import {useCurrentContactStore} from "../../store/CurrentContactStore";
 import {useCurrentChatStore} from "../../store/CurrentChatStore";
+import {useParams} from "react-router-dom";
 
 const UserProfile = () => {
 
 
     const contact = useCurrentContactStore(state => state.contact)
     const fetchChatByUserId = useCurrentChatStore(state => state.getChatByUserId)
+    const loading = useCurrentContactStore(state => state.loading)
+    const fetchContact = useCurrentContactStore(state => state.fetchContact)
+
+    const {contactId} = useParams()
+
+    useEffect(() => {
+        console.log(contactId)
+        fetchContact(contactId)
+    }, [contactId]);
 
     const beginChat = () => {
         // todo: Change page to chat
         fetchChatByUserId(contact.id)
     };
+
+    if (loading)
+        return <span>LOADING</span>
     return (
         <div className={cl.userProfile}>
             <div className={cl.header}>
