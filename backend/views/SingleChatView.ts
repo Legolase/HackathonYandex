@@ -1,6 +1,6 @@
 import {Router} from "express";
-import {ChatController} from "../controllers/ChatController";
 import {User} from "../models/User";
+import {SingleChatController} from "../controllers/SingleChatController";
 
 export const SingleChatView: Router = Router();
 
@@ -45,8 +45,15 @@ SingleChatView.get('/single_chat', async (req, res) => {
         /* #swagger.responses[404] = {
             description: 'Сущности не существует'
         } */
-        res.status(404);
-        res.json({error: "ERROR: Not found entity!!"})
+        let user = await req.user as User;
+        req.body.user = 2;
+        let result = await SingleChatController.getItemByUser([req.body.user, user.id]);
+        if (result === undefined) {
+            res.status(404);
+            res.json({type: "error", "message": "Can not find entity!"});
+        } else {
+            res.json(result);
+        }
     }
 );
 

@@ -5,7 +5,7 @@ import {ChatUser} from "../models/ChatUser";
 export const ChatController = {
     async getList(user: User) {
         if (!user.id) return [];
-        return await new Chat().getListByUsers(user.id);
+        return await new Chat().getListByUser(user.id);
     },
 
     getItem: async function (id: string) {
