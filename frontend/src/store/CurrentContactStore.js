@@ -5,18 +5,20 @@ export const useCurrentContactStore = create((set, get) => ({
 
     contact: null,
     error: null,
-    loading: false,
+    loading: true,
 
 
     nullifyContact: () => {
         set(() => ({
-            contact: null
+            contact: null,
+            loading: false
         }))
     },
 
     setContact: (contact) => {
         set(() => ({
-            contact: contact
+            contact: contact,
+            loading: false
         }))
     },
 
@@ -25,7 +27,8 @@ export const useCurrentContactStore = create((set, get) => ({
         axios.get(process.env.REACT_APP_BACKEND_URL + `/api/user/${id}`).then((response) => {
             // todo: Check response code
             set(() => ({
-                contact: response.data
+                contact: response.data,
+                loading: false
             }))
         }).catch((err) => {
             // todo: Handle Err
