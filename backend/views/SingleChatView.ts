@@ -46,8 +46,8 @@ SingleChatView.get('/single_chat', async (req, res) => {
             description: 'Сущности не существует'
         } */
         let user = await req.user as User;
-        req.body.user = 2;
-        let result = await SingleChatController.getItemByUser([req.body.user, user.id]);
+        // @ts-ignore
+        let result = await SingleChatController.getItemByUsers([+req.query.user, user.id]);
         if (result === undefined) {
             res.status(404);
             res.json({type: "error", "message": "Can not find entity!"});
@@ -79,17 +79,39 @@ SingleChatView.post('/single_chat', async (req, res) => {
         }
     }
     */
+    /* #swagger.responses[201] = {
+        description: 'Создан чат',
+        schema: [
+          {
+            "id": 1,
+            "type": "single",
+            "pin_message": null,
+            "name": "test",
+            "avatar": null,
+            "messages": [],
+            users: []
+          }
+        ]
+    } */
     /*
     #swagger.responses[401] = {
         description: 'Пользователь не авторизован'
     }
     */
     /*
-    #swagger.responses[418] = {
-        description: 'Я — чайник'
+    #swagger.responses[409] = {
+        description: 'Сущность уже существует'
     }
     */
-    res.status(418);
-    res.json({error: "ERROR: Not found entity!!"})
-})
-;
+    let user = await req.user as User;
+    let search = await SingleChatController.getItemByUsers([req.body.user, user.id]);
+    if (search !== undefined) {
+        res.status(409);
+        res.json({type: "error", "message": "Entity already exist!"});
+        return;
+    }
+    await SingleChatController.createItemByUsers([req.body.user, user.id]).then(data => {
+        res.status(201);
+        res.json(data)
+    });
+});

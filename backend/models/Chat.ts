@@ -4,6 +4,7 @@ import {Message} from "./Message";
 import {db} from "../index";
 import {User} from "./User";
 import * as console from "console";
+import {ChatUser} from "./ChatUser";
 
 
 export enum ChatTypes {
@@ -58,6 +59,13 @@ export class Chat extends Model {
             console.error(e);
             return [];
         }
+    }
+
+    async addUser(user_id: number) {
+        let relationship = new ChatUser();
+        relationship.chat_id = this.id;
+        relationship.user_id = user_id;
+        await relationship.create(ChatUser);
     }
 
     async getListByUsers(users: number[]): Promise<Chat[]> {
