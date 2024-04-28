@@ -10,8 +10,8 @@ export const useCurrentChatStore = create((set, get) => ({
     error: null,
     loading: true,
 
-    setChat: (chat)=>{
-        set(()=>({
+    setChat: (chat) => {
+        set(() => ({
             chat: chat,
             loading: false
         }))
@@ -42,7 +42,9 @@ export const useCurrentChatStore = create((set, get) => ({
 
     getChatByUserId: (id) => {
         const params = {
-            user: id
+            params: {
+                user: id
+            }
         }
         axios.get(process.env.REACT_APP_BACKEND_URL + `/api/single_chat`, params).then((response) => {
             if (response.status === 200) {
@@ -76,9 +78,6 @@ export const useCurrentChatStore = create((set, get) => ({
                     }))
                     useMessagesStore.setState(() => ({
                         messages: response.data.messages
-                    }))
-                    useRightPanelStore.setState(() => ({
-                        active: 'Messages'
                     }))
                     break
                 default:
