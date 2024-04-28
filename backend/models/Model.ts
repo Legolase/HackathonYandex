@@ -4,7 +4,7 @@ import {DataValue} from "../types/DataValue";
 export abstract class Model {
     table: string = '';
     id: number | undefined;
-    private db: DB;
+    db: DB;
 
     constructor(fields: Record<string, DataValue> = {}) {
         this.db = new DB();
@@ -21,7 +21,7 @@ export abstract class Model {
     }
 
     async getById<T extends Model>(id: string, classConstructor: new (fields: Record<string, DataValue>) => T): Promise<T | undefined> {
-        let data: Record<string, any> = await this.db.selectOne(this.table, {id: '=' + id});
+        let data: Record<string, any> = await this.db.selectOne(this.table, {id: id});
         if (data) {
             return new classConstructor(data);
         }

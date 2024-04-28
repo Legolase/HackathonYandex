@@ -8,21 +8,12 @@ export class DB {
 
     async selectOne(table: string, where: object): Promise<Record<string, any>> {
         try {
-            let where_query = '';
-            for (const [key, value] of Object.entries(where)) {
-                if (key === 'order') {
-                    where_query += `ORDER BY ${value} `;
-                } else {
-                    if (where_query !== '') {
-                        where_query += 'AND ';
-                    }
-                    where_query += `${key} ${value} `;
-                }
-            }
+            let {where_query, values} = this.generateValues(where);
             let query = `SELECT *
                          FROM ${table}
-                         WHERE ${where_query ? where_query : 'true'} LIMIT 1`;
-            return await db.oneOrNone(query);
+                         WHERE ${where_query ? where_query : 'true'}
+                         LIMIT 1`;
+            return await db.oneOrNone(query, values);
         } catch (e) {
             console.error(e);
             return {};
@@ -31,28 +22,43 @@ export class DB {
 
     async selectAll(table: string, where: object = {}): Promise<Record<string, any>[] | null> {
         try {
-            let where_query = '';
-            for (const [key, value] of Object.entries(where)) {
-                where_query += `${key} ${value}`;
-            }
+            let {where_query, values} = this.generateValues(where);
             let query = `SELECT *
                          FROM ${table}
                          WHERE ${where_query ? where_query : 'true'}`;
-            return await db.any(query);
+            return await db.any(query, values);
         } catch (e) {
             console.error(e);
             return null;
         }
     }
 
-    async insert(table: string, fields: object = {}): Promise<Record<string, DataValue> | null> {
+    private generateValues(where: object) {
+        let where_query = '';
+        const values = [];
+        for (const [key, value] of Object.entries(where)) {
+            if (key === 'order') {
+                where_query += `ORDER BY ${value[0]} ${value[1]}`;
+            } else {
+                if (where_query !== '') {
+                    where_query += 'AND ';
+                }
+                where_query += `${key} = $${values.length + 1} `;
+                values.push(value);
+            }
+        }
+        return {where_query, values};
+    }
+
+    async insert(table: string, fields: Record<string, any> = {}): Promise<Record<string, DataValue> | null> {
         try {
-            let query = `INSERT INTO ${table} (${Object.keys(fields).map((item) => {
-                return `"${item}"`
-            })}) VALUES (${Object.values(fields).map((item) => {
-                             return item ? `'${item}'` : 'NULL'
-                         })}) RETURNING *`;
-            return await db.one(query);
+            const keys = Object.keys(fields).filter(key => fields[key] !== undefined);
+            const values = Object.values(fields).filter(value => value !== undefined);
+
+            const query = `INSERT INTO ${table} (${keys.join(', ')})
+                           VALUES (${values.map((_, index) => `$${index + 1}`).join(', ')})
+                           RETURNING *`;
+            return await db.one(query, values);
         } catch (e) {
             console.error(e);
             return null;
@@ -61,21 +67,14 @@ export class DB {
 
     async update(table: string, search_fields: object, fields: object = {}): Promise<Record<string, any> | null> {
         try {
-            let update_query = '';
-            let search_query = '';
-            for (const [key, value] of Object.entries(fields)) {
-                update_query += `${key} = ${value}, `;
-            }
-            update_query = update_query.slice(0, -2);
-            for (const [key, value] of Object.entries(search_fields)) {
-                search_query += `${key} = ${value} AND `;
-            }
-            search_query = search_query.slice(0, -5);
+            const {where_query: update_query, values: update_values} = this.generateValues(fields);
+            const {where_query: search_query, values: search_values} = this.generateValues(search_fields);
 
-            let query = `UPDATE ${table}
-                         SET ${update_query}
-                         WHERE ${search_query} RETURNING *`;
-            return await db.one(query);
+            const query = `UPDATE ${table}
+                           SET ${update_query}
+                           WHERE ${search_query}
+                           RETURNING *`;
+            return await db.one(query, [...update_values, ...search_values]);
         } catch (e) {
             console.error(e);
             return null;
@@ -84,17 +83,29 @@ export class DB {
 
     async delete(table: string, where: object): Promise<null> {
         try {
-            let where_query = '';
-            for (const [key, value] of Object.entries(where)) {
-                where_query += `${key} ${value}`;
-            }
+            let {where_query, values} = this.generateValues(where);
             let query = `DELETE
                          FROM ${table}
-                         WHERE ${where_query} LIMIT 1`;
-            return await db.none(query);
+                         WHERE ${where_query ? where_query : 'true'} 
+                         LIMIT 1`;
+            return await db.none(query, values);
         } catch (e) {
             console.error(e);
             return null;
+        }
+    }
+
+    async join(select: string, from: string, join_table: string, on: string, where: object): Promise<Record<string, any>[]> {
+        try {
+            let {where_query, values} = this.generateValues(where);
+            let query = `SELECT ${select}
+                         FROM ${from}
+                                  JOIN ${join_table} ON ${on}
+                         WHERE ${where_query ? where_query : true}`;
+            return await db.any(query, values);
+        } catch (e) {
+            console.error(e);
+            return [];
         }
     }
 }

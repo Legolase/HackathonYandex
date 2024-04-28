@@ -25,7 +25,7 @@ export const githubStrategy = new passportGithub.Strategy(
         let login = profile.username ? profile.username : '';
         let email = profile.emails ? profile.emails[0].value : '';
         let photo = profile.photos ? profile.photos[0].value : '';
-        let user = await new User().getOne(User, {github_id: `= ${githubId}`});
+        let user = await new User().getOne(User, {github_id: githubId});
         let filePath = null;
         if (!user) {
             let fileBuffer: Buffer;

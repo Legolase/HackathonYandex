@@ -45,6 +45,11 @@
         "description": "Получение личного чата",
         "parameters": [
           {
+            "name": "user",
+            "in": "query",
+            "type": "string"
+          },
+          {
             "name": "body",
             "in": "body",
             "description": "Тело запроса",
@@ -151,6 +156,44 @@
           "200": {
             "description": "OK"
           },
+          "201": {
+            "description": "Создан чат",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "example": 1
+                  },
+                  "type": {
+                    "type": "string",
+                    "example": "single"
+                  },
+                  "pin_message": {},
+                  "name": {
+                    "type": "string",
+                    "example": "test"
+                  },
+                  "avatar": {},
+                  "messages": {
+                    "type": "array",
+                    "example": [],
+                    "items": {}
+                  },
+                  "users": {
+                    "type": "array",
+                    "example": [],
+                    "items": {}
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
           "400": {
             "description": "Некорректные данные запроса",
             "schema": {
@@ -173,8 +216,8 @@
           "401": {
             "description": "Пользователь не авторизован"
           },
-          "418": {
-            "description": "Я — чайник"
+          "409": {
+            "description": "Сущность уже существует"
           }
         }
       }
