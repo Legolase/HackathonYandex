@@ -40,7 +40,7 @@ export const useCurrentChatStore = create((set, get) => ({
         })
     },
 
-    getChatByUserId: (id) => {
+    getChatByUserId: (id, cb) => {
         const params = {
             params: {
                 user: id
@@ -55,14 +55,14 @@ export const useCurrentChatStore = create((set, get) => ({
                 useMessagesStore.setState(() => ({
                     messages: response.data.messages
                 }))
+                cb(`/chat/${get().chat.id}`)
             }
         }).catch((err) => {
-            console.log('creating')
-            get().createChatWithUserByUserId(id)
+            get().createChatWithUserByUserId(id, cb)
         })
     },
 
-    createChatWithUserByUserId: (id) => {
+    createChatWithUserByUserId: (id, cb) => {
         // todo: Change name
         const params = {
             type: 'single',
@@ -72,13 +72,13 @@ export const useCurrentChatStore = create((set, get) => ({
         axios.post(process.env.REACT_APP_BACKEND_URL + `/api/chat`, params).then((response) => {
             switch (response.status) {
                 case 200:
-
                     useCurrentChatStore.setState(() => ({
                         chat: response.data
                     }))
                     useMessagesStore.setState(() => ({
                         messages: response.data.messages
                     }))
+                    cb(`/chat/${get().chat.id}`)
                     break
                 default:
                     console.log(response)

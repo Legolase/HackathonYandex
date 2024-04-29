@@ -4,25 +4,32 @@ import Button from "../Button/Button";
 import {useCurrentContactStore} from "../../store/CurrentContactStore";
 import {useCurrentChatStore} from "../../store/CurrentChatStore";
 import {useParams} from "react-router-dom";
+import {useNavigate} from "react-router";
 
 const UserProfile = () => {
 
 
     const contact = useCurrentContactStore(state => state.contact)
     const fetchChatByUserId = useCurrentChatStore(state => state.getChatByUserId)
+    const chat = useCurrentChatStore(state => state.chat)
     const loading = useCurrentContactStore(state => state.loading)
     const fetchContact = useCurrentContactStore(state => state.fetchContact)
 
     const {contactId} = useParams()
+    const navigate = useNavigate()
 
     useEffect(() => {
         console.log(contactId)
         fetchContact(contactId)
     }, [contactId]);
 
+
+    const moveToChat = (query) => {
+        navigate(query)
+    }
+
     const beginChat = () => {
-        // todo: Change page to chat
-        fetchChatByUserId(contact.id)
+        fetchChatByUserId(contact.id, moveToChat)
     };
 
     if (loading)
