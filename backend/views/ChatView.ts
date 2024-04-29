@@ -37,7 +37,7 @@ ChatView.get('/chat', async (req, res) => {
         ChatController.getList(user as User).then(data => res.json(data));
     }
 );
-ChatView.get('/chat/:id', (req, res) => {
+ChatView.get('/chat/:id', async (req, res) => {
         // #swagger.description = 'Получение чата'
         // #swagger.tags = ['Chat']
         /* #swagger.parameters['id'] = {
@@ -88,6 +88,8 @@ ChatView.get('/chat/:id', (req, res) => {
         /* #swagger.responses[403] = {
             description: 'У пользователя нет доступа к чату'
         } */
+        let user = await req.user as User;
+        await user.updateActivity();
         ChatController.getItem(req.params.id).then(data => res.json(data))
     }
 );
@@ -121,6 +123,8 @@ ChatView.post('/chat', async (req, res) => {
         description: 'Пользователь не авторизован'
     }
     */
+    let user = await req.user as User;
+    await user.updateActivity();
     ChatController.createItem(req.body)
         .then((data) => res.json(data))
         .catch((error) => {
