@@ -10,8 +10,8 @@ export const useCurrentChatStore = create((set, get) => ({
     error: null,
     loading: true,
 
-    setChat: (chat)=>{
-        set(()=>({
+    setChat: (chat) => {
+        set(() => ({
             chat: chat,
             loading: false
         }))
@@ -40,9 +40,11 @@ export const useCurrentChatStore = create((set, get) => ({
         })
     },
 
-    getChatByUserId: (id) => {
+    getChatByUserId: (id, cb) => {
         const params = {
-            user: id
+            params: {
+                user: id
+            }
         }
         axios.get(process.env.REACT_APP_BACKEND_URL + `/api/single_chat`, params).then((response) => {
             if (response.status === 200) {
@@ -53,14 +55,14 @@ export const useCurrentChatStore = create((set, get) => ({
                 useMessagesStore.setState(() => ({
                     messages: response.data.messages
                 }))
+                cb(`/chat/${get().chat.id}`)
             }
         }).catch((err) => {
-            console.log('creating')
-            get().createChatWithUserByUserId(id)
+            get().createChatWithUserByUserId(id, cb)
         })
     },
 
-    createChatWithUserByUserId: (id) => {
+    createChatWithUserByUserId: (id, cb) => {
         // todo: Change name
         const params = {
             type: 'single',
@@ -70,16 +72,13 @@ export const useCurrentChatStore = create((set, get) => ({
         axios.post(process.env.REACT_APP_BACKEND_URL + `/api/chat`, params).then((response) => {
             switch (response.status) {
                 case 200:
-
                     useCurrentChatStore.setState(() => ({
                         chat: response.data
                     }))
                     useMessagesStore.setState(() => ({
                         messages: response.data.messages
                     }))
-                    useRightPanelStore.setState(() => ({
-                        active: 'Messages'
-                    }))
+                    cb(`/chat/${get().chat.id}`)
                     break
                 default:
                     console.log(response)

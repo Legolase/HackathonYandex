@@ -1,6 +1,5 @@
-import React, {useState} from 'react';
+import React from 'react';
 import cl from './Contact.module.css'
-import {useRightPanelStore} from "../../../store/RightPanelStore";
 import {useCurrentContactStore} from "../../../store/CurrentContactStore";
 import {useCurrentChatStore} from "../../../store/CurrentChatStore";
 import {useNavigate} from "react-router";

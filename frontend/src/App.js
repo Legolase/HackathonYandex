@@ -5,12 +5,9 @@ import {useLoggedInUserStore} from "./store/LoggedInUserStore";
 import Messenger from "./pages/Messenger";
 import Auth from "./pages/Auth";
 import FOFError from "./pages/FOFError";
-import {useRightPanelStore} from "./store/RightPanelStore";
 import UserProfile from "./components/UserProfile/UserProfile";
 import SelectedChat from "./components/RightSide/SelectedChat/SelectedChat";
 import UnSelected from "./components/RightSide/UnSelected/UnSelected";
-import {useCurrentContactStore} from "./store/CurrentContactStore";
-import {useCurrentChatStore} from "./store/CurrentChatStore";
 
 function App() {
 
