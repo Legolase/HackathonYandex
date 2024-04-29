@@ -43,11 +43,12 @@ export abstract class Model {
 
     async update<T extends Model>(classConstructor: new (fields: Record<string, DataValue>) => T) {
         let obj = this.getObject();
-        return this.db.update(this.table, {id: `id == ${this.id}`}, obj).then((data) => {
+        return this.db.update(this.table, {id: this.id}, obj).then((data) => {
             if (data) return new classConstructor(data);
         });
     }
 
     abstract getObject(): object;
+
     abstract validate(obj: Record<string, any>): Promise<boolean>;
 }

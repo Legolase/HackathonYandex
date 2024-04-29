@@ -35,6 +35,28 @@ SingleChatView.get('/single_chat', async (req, res) => {
                     "from": 10,
                     "read": true
                   }
+                ],
+                "users": [
+                    "1": {
+                      "id": 1,
+                      "datetime_last_activity": "2024-04-03T08:05:58.011Z",
+                      "name": "test",
+                      "login": "test",
+                      "email": null,
+                      "avatar": null,
+                      "github_id": null,
+                      "last_activity": 10
+                    },
+                    "2": {
+                      "id": 2,
+                      "datetime_last_activity": "2024-04-03T08:05:58.011Z",
+                      "name": "test",
+                      "login": "test",
+                      "email": null,
+                      "avatar": null,
+                      "github_id": null,
+                      "last_activity": 10
+                    }
                 ]
               }
             ]
@@ -46,6 +68,7 @@ SingleChatView.get('/single_chat', async (req, res) => {
             description: 'Сущности не существует'
         } */
         let user = await req.user as User;
+        await user.updateActivity();
         // @ts-ignore
         let result = await SingleChatController.getItemByUsers([+req.query.user, user.id]);
         if (result === undefined) {
@@ -89,7 +112,28 @@ SingleChatView.post('/single_chat', async (req, res) => {
             "name": "test",
             "avatar": null,
             "messages": [],
-            users: []
+            "users": [
+                    "1": {
+                      "id": 1,
+                      "datetime_last_activity": "2024-04-03T08:05:58.011Z",
+                      "name": "test",
+                      "login": "test",
+                      "email": null,
+                      "avatar": null,
+                      "github_id": null,
+                      "last_activity": 10
+                    },
+                    "2": {
+                      "id": 2,
+                      "datetime_last_activity": "2024-04-03T08:05:58.011Z",
+                      "name": "test",
+                      "login": "test",
+                      "email": null,
+                      "avatar": null,
+                      "github_id": null,
+                      "last_activity": 10
+                }
+            ]
           }
         ]
     } */
@@ -104,6 +148,7 @@ SingleChatView.post('/single_chat', async (req, res) => {
     }
     */
     let user = await req.user as User;
+    await user.updateActivity();
     let search = await SingleChatController.getItemByUsers([req.body.user, user.id]);
     if (search !== undefined) {
         res.status(409);
@@ -111,6 +156,7 @@ SingleChatView.post('/single_chat', async (req, res) => {
         return;
     }
     await SingleChatController.createItemByUsers([req.body.user, user.id]).then(data => {
+        data?.getUsers()
         res.status(201);
         res.json(data)
     });

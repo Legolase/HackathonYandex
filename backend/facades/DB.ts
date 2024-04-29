@@ -33,7 +33,7 @@ export class DB {
         }
     }
 
-    private generateValues(where: object) {
+    private generateValues(where: object, start: number = 0, separator: string = 'AND ') {
         let where_query = '';
         const values = [];
         for (const [key, value] of Object.entries(where)) {
@@ -41,9 +41,9 @@ export class DB {
                 where_query += `ORDER BY ${value[0]} ${value[1]}`;
             } else {
                 if (where_query !== '') {
-                    where_query += 'AND ';
+                    where_query += separator;
                 }
-                where_query += `${key} = $${values.length + 1} `;
+                where_query += `${key} = $${start + values.length + 1} `;
                 values.push(value);
             }
         }
@@ -67,8 +67,11 @@ export class DB {
 
     async update(table: string, search_fields: object, fields: object = {}): Promise<Record<string, any> | null> {
         try {
-            const {where_query: update_query, values: update_values} = this.generateValues(fields);
-            const {where_query: search_query, values: search_values} = this.generateValues(search_fields);
+            const {where_query: update_query, values: update_values} = this.generateValues(fields, 0, ',');
+            const {
+                where_query: search_query,
+                values: search_values
+            } = this.generateValues(search_fields, update_values.length);
 
             const query = `UPDATE ${table}
                            SET ${update_query}
@@ -86,8 +89,7 @@ export class DB {
             let {where_query, values} = this.generateValues(where);
             let query = `DELETE
                          FROM ${table}
-                         WHERE ${where_query ? where_query : 'true'} 
-                         LIMIT 1`;
+                         WHERE ${where_query ? where_query : 'true'} LIMIT 1`;
             return await db.none(query, values);
         } catch (e) {
             console.error(e);

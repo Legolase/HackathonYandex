@@ -1,9 +1,10 @@
 import {Router} from "express";
 import {UserController} from "../controllers/UserController";
+import {User} from "../models/User";
 
 export const UserView: Router = Router();
 
-UserView.get('/user', (req, res) => {
+UserView.get('/user', async (req, res) => {
         // #swagger.description = 'Получение списка пользователей'
         // #swagger.tags = ['User']
         /* #swagger.responses[200] = {
@@ -56,6 +57,8 @@ UserView.get('/user', (req, res) => {
         /* #swagger.responses[401] = {
             description: 'Пользователь не авторизован'
         } */
+        let user = await req.user as User;
+        await user.updateActivity();
         UserController.getList().then(data => res.json(data));
     }
 );
@@ -82,13 +85,14 @@ UserView.get('/user/current', async (req, res) => {
         /* #swagger.responses[401] = {
             description: 'Пользователь не авторизован'
         } */
-        let user = await req.user;
-        // TODO: CHANGE TYPE!!!
+
+        let user = await req.user as User;
+        await user.updateActivity();
         res.json(user);
     }
 );
 
-UserView.get('/user/:id', (req, res) => {
+UserView.get('/user/:id', async (req, res) => {
         // #swagger.description = 'Получение пользователя по id'
         // #swagger.tags = ['User']
         /* #swagger.responses[200] = {
@@ -112,6 +116,8 @@ UserView.get('/user/:id', (req, res) => {
         /* #swagger.responses[401] = {
             description: 'Пользователь не авторизован'
         } */
+        let user = await req.user as User;
+        await user.updateActivity();
         UserController.getItem(req.params.id).then(data => res.json(data))
     }
 );

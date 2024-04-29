@@ -10,8 +10,12 @@ export class User extends Model {
     github_id: string | undefined;
 
     getObject(): object {
+        const isoString = this.datetime_last_activity?.toISOString();
+        const datePart = isoString?.substring(0, 10); // YYYY-MM-DD
+        const timePart = isoString?.substring(11, 23); // HH:MI:SS.MS
+
         return {
-            datetime_last_activity: this.datetime_last_activity?.toISOString(),
+            datetime_last_activity: isoString ? `${datePart} ${timePart}` : undefined,
             name: this.name,
             login: this.login,
             email: this.email,
@@ -22,5 +26,10 @@ export class User extends Model {
 
     async validate(obj: Record<string, any>): Promise<boolean> {
         return true;
+    }
+
+    async updateActivity() {
+        this.datetime_last_activity = new Date();
+        await this.update(User);
     }
 }
