@@ -40,6 +40,22 @@ export const useCurrentChatStore = create((set, get) => ({
         })
     },
 
+    handleResponse: (response) => {
+        const curUserId = useLoggedInUserStore.getState().currentUser.id.toString()
+        let data;
+        let users = response.data.users;
+        for (let k of Object.keys(users)) {
+            if (k !== curUserId) {
+                data = {
+                    id: response.data['id'],
+                    avatar: users[k]['avatar'],
+                    name: users[k]['name']
+                }
+            }
+        }
+        return data
+    },
+
     getChatByUserId: (id, cb) => {
         const params = {
             params: {
@@ -47,37 +63,37 @@ export const useCurrentChatStore = create((set, get) => ({
             }
         }
         axios.get(process.env.REACT_APP_BACKEND_URL + `/api/single_chat`, params).then((response) => {
+            // todo: add last activity
             if (response.status === 200) {
-                // todo: Change page to chat
-                set(() => ({
-                    chat: response.data
-                }))
-                useMessagesStore.setState(() => ({
-                    messages: response.data.messages
-                }))
+                // todo: nulify contact
+                get().setChatFromResponse(response)
                 cb(`/chat/${get().chat.id}`)
             }
         }).catch((err) => {
+            // todo: check keys
             get().createChatWithUserByUserId(id, cb)
         })
     },
 
+
+    setChatFromResponse: (response) =>{
+        useCurrentChatStore.setState(() => ({
+            chat: get().handleResponse(response)
+        }))
+        useMessagesStore.setState(() => ({
+            messages: response.data.messages
+        }))
+    },
+
     createChatWithUserByUserId: (id, cb) => {
-        // todo: Change name
         const params = {
-            type: 'single',
-            name: 'Biba',
-            users: [id, useLoggedInUserStore.getState().currentUser.id]
+            user: id
         }
-        axios.post(process.env.REACT_APP_BACKEND_URL + `/api/chat`, params).then((response) => {
+        axios.post(process.env.REACT_APP_BACKEND_URL + `/api/single_chat`, params).then((response) => {
+            console.log(response.data)
             switch (response.status) {
-                case 200:
-                    useCurrentChatStore.setState(() => ({
-                        chat: response.data
-                    }))
-                    useMessagesStore.setState(() => ({
-                        messages: response.data.messages
-                    }))
+                case 201:
+                    get().setChatFromResponse(response)
                     cb(`/chat/${get().chat.id}`)
                     break
                 default:
