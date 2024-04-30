@@ -21,32 +21,15 @@ export const useMessagesStore = create((set) => ({
         })
     },
 
-    fetchMessages: (offset, id) => {
-        set(() => (
-            {error: ''}
-        ))
-        const params = {
-            params: {
-                offset: offset
-            }
-        }
+    getMessagesByChatId: (id) => {
+        axios.get(`/api/chat/${id}`).then((response) => {
+            console.log(response)
+            set(() => ({
+                messages: response.data.messages
+            }))
+        }).catch(() => {
 
-        axios.get(process.env.REACT_APP_BACKEND_URL+`/chat/${id}`, params).then(response => {
-            if (response.error)
-                throw Error(`Error: ${response.status}. ${response.error}`)
-            set(state => (
-                {
-                    chats: [...state.messages, response.data]
-                }
-            ))
-        }).catch(err => {
-            set(() => (
-                {
-                    error: err
-                }
-            ))
         })
     }
-
 
 }))

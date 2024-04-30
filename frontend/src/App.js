@@ -11,6 +11,8 @@ import UnSelected from "./components/RightSide/UnSelected/UnSelected";
 
 function App() {
 
+    // todo: при отрисовке чата по контаку контак остается активным
+
     const {currentUser, getCurrentUser, loading} = useLoggedInUserStore()
 
     useEffect(() => {
