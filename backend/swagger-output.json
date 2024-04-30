@@ -114,6 +114,67 @@
                         }
                       }
                     }
+                  },
+                  "users": {
+                    "type": "object",
+                    "properties": {
+                      "1": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "number",
+                            "example": 1
+                          },
+                          "datetime_last_activity": {
+                            "type": "string",
+                            "example": "2024-04-03T08:05:58.011Z"
+                          },
+                          "name": {
+                            "type": "string",
+                            "example": "test"
+                          },
+                          "login": {
+                            "type": "string",
+                            "example": "test"
+                          },
+                          "email": {},
+                          "avatar": {},
+                          "github_id": {},
+                          "last_activity": {
+                            "type": "number",
+                            "example": 10
+                          }
+                        }
+                      },
+                      "2": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "number",
+                            "example": 2
+                          },
+                          "datetime_last_activity": {
+                            "type": "string",
+                            "example": "2024-04-03T08:05:58.011Z"
+                          },
+                          "name": {
+                            "type": "string",
+                            "example": "test"
+                          },
+                          "login": {
+                            "type": "string",
+                            "example": "test"
+                          },
+                          "email": {},
+                          "avatar": {},
+                          "github_id": {},
+                          "last_activity": {
+                            "type": "number",
+                            "example": 10
+                          }
+                        }
+                      }
+                    }
                   }
                 }
               },
@@ -159,33 +220,86 @@
           "201": {
             "description": "Создан чат",
             "schema": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "number",
-                    "example": 1
-                  },
-                  "type": {
-                    "type": "string",
-                    "example": "single"
-                  },
-                  "pin_message": {},
-                  "name": {
-                    "type": "string",
-                    "example": "test"
-                  },
-                  "avatar": {},
-                  "messages": {
-                    "type": "array",
-                    "example": [],
-                    "items": {}
-                  },
-                  "users": {
-                    "type": "array",
-                    "example": [],
-                    "items": {}
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "example": 1
+                },
+                "type": {
+                  "type": "string",
+                  "example": "single"
+                },
+                "pin_message": {},
+                "name": {
+                  "type": "string",
+                  "example": "test"
+                },
+                "avatar": {},
+                "messages": {
+                  "type": "array",
+                  "example": [],
+                  "items": {}
+                },
+                "users": {
+                  "type": "object",
+                  "properties": {
+                    "1": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number",
+                          "example": 1
+                        },
+                        "datetime_last_activity": {
+                          "type": "string",
+                          "example": "2024-04-03T08:05:58.011Z"
+                        },
+                        "name": {
+                          "type": "string",
+                          "example": "test"
+                        },
+                        "login": {
+                          "type": "string",
+                          "example": "test"
+                        },
+                        "email": {},
+                        "avatar": {},
+                        "github_id": {},
+                        "last_activity": {
+                          "type": "number",
+                          "example": 10
+                        }
+                      }
+                    },
+                    "2": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number",
+                          "example": 2
+                        },
+                        "datetime_last_activity": {
+                          "type": "string",
+                          "example": "2024-04-03T08:05:58.011Z"
+                        },
+                        "name": {
+                          "type": "string",
+                          "example": "test"
+                        },
+                        "login": {
+                          "type": "string",
+                          "example": "test"
+                        },
+                        "email": {},
+                        "avatar": {},
+                        "github_id": {},
+                        "last_activity": {
+                          "type": "number",
+                          "example": 10
+                        }
+                      }
+                    }
                   }
                 }
               },

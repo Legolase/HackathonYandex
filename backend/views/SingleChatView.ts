@@ -36,7 +36,7 @@ SingleChatView.get('/single_chat', async (req, res) => {
                     "read": true
                   }
                 ],
-                "users": [
+                "users": {
                     "1": {
                       "id": 1,
                       "datetime_last_activity": "2024-04-03T08:05:58.011Z",
@@ -57,7 +57,7 @@ SingleChatView.get('/single_chat', async (req, res) => {
                       "github_id": null,
                       "last_activity": 10
                     }
-                ]
+                }
               }
             ]
         } */
@@ -94,25 +94,16 @@ SingleChatView.post('/single_chat', async (req, res) => {
     }
     */
     /*
-    #swagger.responses[400] = {
-        description: 'Некорректные данные запроса',
-        schema: {
-            type: 'error',
-            error: 'error.message'
-        }
-    }
-    */
-    /* #swagger.responses[201] = {
+    #swagger.responses[201] = {
         description: 'Создан чат',
-        schema: [
-          {
+        schema: {
             "id": 1,
             "type": "single",
             "pin_message": null,
             "name": "test",
             "avatar": null,
             "messages": [],
-            "users": [
+            "users": {
                     "1": {
                       "id": 1,
                       "datetime_last_activity": "2024-04-03T08:05:58.011Z",
@@ -132,11 +123,19 @@ SingleChatView.post('/single_chat', async (req, res) => {
                       "avatar": null,
                       "github_id": null,
                       "last_activity": 10
-                }
-            ]
+                    }
+            }
           }
-        ]
     } */
+    /*
+    #swagger.responses[400] = {
+        description: 'Некорректные данные запроса',
+        schema: {
+            type: 'error',
+            error: 'error.message'
+        }
+    }
+    */
     /*
     #swagger.responses[401] = {
         description: 'Пользователь не авторизован'
