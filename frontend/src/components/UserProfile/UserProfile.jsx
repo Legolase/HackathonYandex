@@ -11,9 +11,9 @@ const UserProfile = () => {
 
     const contact = useCurrentContactStore(state => state.contact)
     const fetchChatByUserId = useCurrentChatStore(state => state.getChatByUserId)
-    const chat = useCurrentChatStore(state => state.chat)
     const loading = useCurrentContactStore(state => state.loading)
     const fetchContact = useCurrentContactStore(state => state.fetchContact)
+    const setActive = useCurrentContactStore(state => state.setActive)
 
     const {contactId} = useParams()
     const navigate = useNavigate()
@@ -30,6 +30,7 @@ const UserProfile = () => {
 
     const beginChat = () => {
         fetchChatByUserId(contact.id, moveToChat)
+        setActive(false)
     };
 
     if (loading)
