@@ -1,7 +1,6 @@
 import {create} from "zustand";
 import axios from "axios";
 import {useMessagesStore} from "./MessagesStore";
-import {useRightPanelStore} from "./RightPanelStore";
 import {useLoggedInUserStore} from "./LoggedInUserStore";
 
 export const useCurrentChatStore = create((set, get) => ({
