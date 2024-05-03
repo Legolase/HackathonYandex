@@ -6,7 +6,14 @@ export const useCurrentContactStore = create((set, get) => ({
     contact: null,
     error: null,
     loading: true,
+    active: false,
 
+
+    setActive: (active) =>{
+        set(() => ({
+            active: active
+        }))
+    },
 
     nullifyContact: () => {
         set(() => ({
