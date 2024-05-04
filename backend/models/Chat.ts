@@ -53,6 +53,7 @@ export class Chat extends Model {
             return await Promise.all(chats.map(async (item: Record<string, DataValue>) => {
                 let chat = new Chat(item);
                 await chat.getLastMessages();
+                await chat.getUsers();
                 return chat;
             }));
         } catch (e) {
