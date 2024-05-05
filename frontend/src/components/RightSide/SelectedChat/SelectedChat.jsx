@@ -14,7 +14,6 @@ const SelectedChat = () => {
     const fetchChatById = useCurrentChatStore(state => state.fetchChatById)
 
     useEffect(() => {
-        console.log(chatId)
         fetchChatById(chatId)
     }, [chatId]);
 

@@ -19,7 +19,6 @@ const UserProfile = () => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        console.log(contactId)
         fetchContact(contactId)
     }, [contactId]);
 

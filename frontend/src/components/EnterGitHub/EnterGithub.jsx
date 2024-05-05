@@ -2,7 +2,6 @@ import React from 'react';
 import cl from './EnterGithub.module.css'
 
 const EnterGithub = () => {
-    console.log(process.env.REACT_APP_BACKEND_URL + '/auth/github')
 
     return (
         <div className={cl.enter}>
