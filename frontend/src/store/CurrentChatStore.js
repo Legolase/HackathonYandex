@@ -39,6 +39,19 @@ export const useCurrentChatStore = create((set, get) => ({
         })
     },
 
+    getDataByChat: (chat) =>{
+        const loggedUser = useLoggedInUserStore.getState().currentUser
+        const users = chat.users
+        for (const usersKey in users) {
+            if (loggedUser.id.toString() !== usersKey) {
+                return {
+                    name: users[usersKey].name,
+                    avatar: users[usersKey].avatar
+                }
+            }
+        }
+    },
+
     handleResponse: (response) => {
         const curUserId = useLoggedInUserStore.getState().currentUser.id.toString()
         let data;
@@ -89,7 +102,6 @@ export const useCurrentChatStore = create((set, get) => ({
             user: id
         }
         axios.post(process.env.REACT_APP_BACKEND_URL + `/api/single_chat`, params).then((response) => {
-            console.log(response.data)
             switch (response.status) {
                 case 201:
                     get().setChatFromResponse(response)
