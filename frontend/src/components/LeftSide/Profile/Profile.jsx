@@ -1,10 +1,10 @@
 import React from 'react';
 import cl from './Profile.module.css'
-import {useCurrentUserStore} from "../../../store/CurrentUserStore";
+import {useLoggedInUserStore} from "../../../store/LoggedInUserStore";
 
 const Profile = () => {
 
-    const user = useCurrentUserStore(state => state.currentUser)
+    const user = useLoggedInUserStore(state => state.currentUser)
 
     return (
         <header className={cl.profile}>

@@ -4,6 +4,10 @@
     align-items: flex-end;
 }
 
+.myMessage{
+    justify-content: flex-end;
+}
+
 .messageImg {
     background-color: var(--green);
     border-radius: 50%;
@@ -13,12 +17,13 @@
 }
 
 .text{
-    width: 70%;
+    max-width: 760px;
     position: relative;
     background-color: var(--white);
     padding: 10px;
     border-radius: 8px 8px 8px 0;
     color: var(--gray);
+    word-break: break-all;
 }
 
 .text::before{
@@ -45,15 +50,15 @@
     gap: 3px
 }
 
-
 .myText{
     margin-left: auto;
-    width: 70%;
+    max-width: 760px;
     position: relative;
     background-color: var(--main);
     padding: 10px;
     border-radius: 8px 8px 0 8px;
     color: var(--gray);
+    word-break: break-all;
 }
 .myText::before{
     content: '';

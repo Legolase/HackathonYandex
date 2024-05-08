@@ -1,27 +1,12 @@
-import React, {useEffect} from 'react';
-import {useLeftPanelStore} from "../../../store/LeftPanelStore";
+import React from 'react';
 import Contacts from "../Contacts/Contacts";
 import Chats from "../Chats/Chats";
+import {useTabsStore} from "../../../store/TabsStore";
 
 const List = () => {
 
-    const {fetchChats, fetchContacts, isLoading, error, active} = useLeftPanelStore()
-    const setChats = useLeftPanelStore(state => state.setChats)
-    const setContacts = useLeftPanelStore(state => state.setContacts)
 
-
-    useEffect(() => {
-        if (active === 'Messages') {
-            // setChats()
-            fetchChats(0)
-        } else {
-            // setContacts()
-            fetchContacts(0)
-        }
-    }, [active]);
-
-    if (isLoading)
-        return <span>LOADING</span>
+    const {active} = useTabsStore()
 
     if (active === 'Messages') {
         return (

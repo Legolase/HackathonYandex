@@ -4,12 +4,13 @@ import {Message} from "./Message";
 import {db} from "../index";
 import {User} from "./User";
 import * as console from "console";
+import {ChatUser} from "./ChatUser";
 
 
-enum ChatTypes {
-    'single',
-    'multi',
-    'channel'
+export enum ChatTypes {
+    single = 'single',
+    multi = 'multi',
+    channel = 'channel'
 }
 
 export class Chat extends Model {
@@ -23,21 +24,17 @@ export class Chat extends Model {
 
 
     async getMessages(): Promise<void> {
-        this.messages = await new Message().getList(Message, {chat_id: `=${this.id}`});
+        this.messages = await new Message().getList(Message, {chat_id: this.id});
     }
 
     async getLastMessages(): Promise<void> {
-        let messages = await new Message().getOne(Message, {chat_id: `= ${this.id}`, order: 'datetime DESC'});
+        let messages = await new Message().getOne(Message, {chat_id: this.id, order: ['datetime', 'DESC']});
         if (messages) this.messages = [messages];
     }
 
     async getUsers(): Promise<void> {
         try {
-            let query = `SELECT u.*
-                         FROM chats_users cu
-                                  JOIN users u ON cu.user_id = u.id
-                         WHERE cu.chat_id = ${this.id}`;
-            let users = await db.any(query);
+            let users = await this.db.join('u.*', 'chats_users cu', 'users u', 'cu.user_id = u.id', {'cu.chat_id': this.id});
             let map = new Map();
             for (let user of users) {
                 if (user.id) {
@@ -50,13 +47,38 @@ export class Chat extends Model {
         }
     }
 
-    async getListByUsers(user_id: number): Promise<Chat[]> {
+    async getListByUser(user_id: number): Promise<Chat[]> {
         try {
-            let query = `SELECT c.*
-                         FROM chats_users cu
-                                  JOIN chats c ON cu.chat_id = c.id
-                         WHERE cu.user_id = ${user_id}`;
-            let chats = await db.any(query);
+            let chats = await this.db.join('c.*', 'chats_users cu', 'chats c', 'cu.chat_id = c.id', {'cu.user_id': user_id});
+            return await Promise.all(chats.map(async (item: Record<string, DataValue>) => {
+                let chat = new Chat(item);
+                await chat.getLastMessages();
+                await chat.getUsers();
+                return chat;
+            }));
+        } catch (e) {
+            console.error(e);
+            return [];
+        }
+    }
+
+    async addUser(user_id: number) {
+        let relationship = new ChatUser();
+        relationship.chat_id = this.id;
+        relationship.user_id = user_id;
+        await relationship.create(ChatUser);
+    }
+
+    async getListByUsers(users: number[]): Promise<Chat[]> {
+        try {
+            let query = 'SELECT c.* ' +
+                'FROM chats_users cu1 ' +
+                'JOIN chats_users cu2 ' +
+                'ON cu1.chat_id = cu2.chat_id ' +
+                'JOIN chats c ' +
+                'ON cu1.chat_id = c.id ' +
+                'WHERE cu1.user_id = $1 AND EXISTS ( SELECT 1 FROM chats_users WHERE chat_id = cu1.chat_id AND user_id = $2) GROUP BY c.id;';
+            let chats = await db.any(query, users);
 
             return await Promise.all(chats.map(async (item: Record<string, DataValue>) => {
                 let chat = new Chat(item);
@@ -76,5 +98,18 @@ export class Chat extends Model {
             name: this.name,
             avatar: this.avatar,
         };
+    }
+
+    async validate(obj: Record<string, any>): Promise<boolean> {
+        if (typeof obj.type !== 'string' || !(obj.type in ChatTypes)) throw new Error('ERROR: field "type" must be string in enum');
+        if (typeof obj.users !== 'object' || obj.users.length == 0) throw new Error('ERROR: field "users" must be not empty array!');
+        for (const user_id of obj.users) {
+            await new User().getById(user_id, User).then(user => {
+                if (user === undefined) {
+                    throw new Error(`ERROR: can not find user with id = ${user_id}!`)
+                }
+            });
+        }
+        return true;
     }
 }

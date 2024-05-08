@@ -1,10 +1,11 @@
 import {Chat} from "../models/Chat";
 import {User} from "../models/User";
+import {ChatUser} from "../models/ChatUser";
 
 export const ChatController = {
     async getList(user: User) {
         if (!user.id) return [];
-        return await new Chat().getListByUsers(user.id);
+        return await new Chat().getListByUser(user.id);
     },
 
     getItem: async function (id: string) {
@@ -18,4 +19,20 @@ export const ChatController = {
         });
         return chat;
     },
+
+
+    async createItem(obj: Record<string, any>) {
+        await new Chat().validate(obj);
+        let chat = await new Chat(obj).create(Chat);
+        if (chat === undefined) throw new Error('Can not create chat!');
+        for (const user of obj.users) {
+            let relation = new ChatUser();
+            relation.chat_id = chat.id;
+            relation.user_id = user;
+            await relation.create(ChatUser);
+        }
+        await chat.getMessages();
+        await chat.getUsers();
+        return chat;
+    }
 }

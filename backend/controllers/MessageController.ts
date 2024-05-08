@@ -8,11 +8,18 @@ export const MessageController = {
         });
         return messages;
     },
+
     async getItem(id: string) {
-        let chat;
+        let message;
         await new Message().getById(id, Message).then(data => {
-            chat = data
+            message = data
         });
-        return chat;
+        return message;
     },
+
+    async createItem(obj: Record<string, any>) {
+        await new Message().validate(obj);
+        let message = new Message(obj);
+        return await message.create(Message)
+    }
 }

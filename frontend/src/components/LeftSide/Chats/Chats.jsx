@@ -1,15 +1,29 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import cl from "../List/List.module.css";
 import Chat from "../Chat/Chat";
-import {useLeftPanelStore} from "../../../store/LeftPanelStore";
+import {useChatsStore} from "../../../store/ChatsStore";
+import {useTabsStore} from "../../../store/TabsStore";
+import {useChangeActive} from "../../../hooks/useChangeActive";
 
 const Chats = () => {
 
-    const contentItems = useLeftPanelStore(state => state.contentItems)
+    const {chats, loading} = useChatsStore()
+    const {active} = useTabsStore()
+    const [downloadChats] = useChangeActive()
+
+
+    useEffect(() => {
+        if (chats.length !== 0)
+            return
+        downloadChats()
+    }, [active]);
+
+    if (loading)
+        return <span>LOADING</span>
 
     return (
         <ul className={cl.chats}>
-            {contentItems.map((chat, pos) =>
+            {chats.map((chat, pos) =>
                 <Chat chat={chat} key={pos}/>
             )}
         </ul>

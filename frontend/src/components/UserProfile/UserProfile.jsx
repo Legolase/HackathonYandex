@@ -1,36 +1,57 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import cl from './UserProfile.module.css'
 import Button from "../Button/Button";
+import {useCurrentContactStore} from "../../store/CurrentContactStore";
+import {useCurrentChatStore} from "../../store/CurrentChatStore";
+import {useParams} from "react-router-dom";
+import {useNavigate} from "react-router";
 
 const UserProfile = () => {
 
-    const url = "https://res.cloudinary.com/practicaldev/image/fetch/s--zqAnyWih--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://res.cloudinary.com/dzynqn10l/image/upload/v1632280924/JS%2520Bits/cover_gaenes.jpg"
 
-    const user = {
-        "id": 1,
-        "datetime_create": "2024-04-03T08:05:58.011Z",
-        "datetime_last_activity": "2024-04-03T08:05:58.011Z",
-        "name": "test",
-        "login": "test",
-        "email": null,
-        "avatar": url,
-        "github_id": null
+    const contact = useCurrentContactStore(state => state.contact)
+    const fetchChatByUserId = useCurrentChatStore(state => state.getSingleChatByUserId)
+    const loading = useCurrentContactStore(state => state.loading)
+    const fetchContact = useCurrentContactStore(state => state.fetchContact)
+    const setActive = useCurrentContactStore(state => state.setActive)
+
+    const {contactId} = useParams()
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        fetchContact(contactId)
+    }, [contactId]);
+
+
+    const moveToChat = (query) => {
+        navigate(query)
     }
 
     const beginChat = () => {
-        // начать чат - route to chat
+        fetchChatByUserId(contact.id, moveToChat)
+        setActive(false)
     };
+
+    if (loading)
+        return <span>LOADING</span>
     return (
-        <div>
+        <div className={cl.userProfile}>
             <div className={cl.header}>
-                <img className={cl.avatar} src={url}/>
+                <img className={cl.avatar} src={contact.avatar}/>
                 <div className={cl.textInfo}>
-                    <span className={cl.name}>{user.name}</span>
-                    <span className={cl.login}>{user.login}</span>
+                    <span className={cl.name}>{contact.name}</span>
+                    <span className={cl.login}>@{contact.login}</span>
                 </div>
             </div>
             <div className={cl.buttons}>
-                <Button onClickHandler={beginChat}>
+                <Button
+                    name={'Message'}
+                    onClickHandler={beginChat}>
+                </Button>
+                <Button
+                    name={'Add to contacts'}
+                    onClickHandler={() => {
+                    }}>
                 </Button>
             </div>
         </div>

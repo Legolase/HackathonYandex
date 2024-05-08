@@ -7,7 +7,7 @@ export const ChatView: Router = Router();
 
 ChatView.get('/chat', async (req, res) => {
         // #swagger.description = 'Получение списка чатов'
-        // #swagger.tags = ['Chats']
+        // #swagger.tags = ['Chat']
         /* #swagger.responses[200] = {
             description: 'Получен список чатов',
             schema: [
@@ -37,13 +37,13 @@ ChatView.get('/chat', async (req, res) => {
         ChatController.getList(user as User).then(data => res.json(data));
     }
 );
-ChatView.get('/chat/:id', (req, res) => {
+ChatView.get('/chat/:id', async (req, res) => {
         // #swagger.description = 'Получение чата'
-        // #swagger.tags = ['Chats']
+        // #swagger.tags = ['Chat']
         /* #swagger.parameters['id'] = {
             in: 'query',
             description: 'ID чата',
-            type: 'int'
+            type: 'number'
         } */
         /* #swagger.responses[200] = {
             description: 'Получен чат',
@@ -88,6 +88,51 @@ ChatView.get('/chat/:id', (req, res) => {
         /* #swagger.responses[403] = {
             description: 'У пользователя нет доступа к чату'
         } */
+        let user = await req.user as User;
+        await user.updateActivity();
         ChatController.getItem(req.params.id).then(data => res.json(data))
     }
 );
+
+ChatView.post('/chat', async (req, res) => {
+    // #swagger.description = 'Создание чата'
+    // #swagger.tags = ['Chat']
+    /*
+    #swagger.parameters['body'] = {
+        in: 'body',
+        description: 'Тело запроса',
+        required: true,
+        schema: {
+                type: 'single|multi|channel',
+                name: 'Название чата',
+                users: [1, 2]
+            }
+    }
+    */
+    /*
+    #swagger.responses[400] = {
+        description: 'Некорректные данные запроса',
+        schema: {
+            type: 'error',
+            error: 'error.message'
+        }
+    }
+    */
+    /*
+    #swagger.responses[401] = {
+        description: 'Пользователь не авторизован'
+    }
+    */
+    let user = await req.user as User;
+    await user.updateActivity();
+    ChatController.createItem(req.body)
+        .then((data) => res.json(data))
+        .catch((error) => {
+            res.status(400);
+            res.json({
+                type: 'error',
+                error: error.message
+            })
+        });
+})
+;

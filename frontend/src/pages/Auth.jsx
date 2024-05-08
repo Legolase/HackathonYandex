@@ -1,13 +1,12 @@
 import React from 'react';
-import Button from "../components/Button/Button";
-import axios from "axios";
+import EnterGithub from "../components/EnterGitHub/EnterGithub";
 
 const Auth = () => {
 
-
     return (
-        <div style={{display: "flex", alignItems: 'center', justifyContent: "center", flexDirection: "column"}}>
-            <a href={'/auth/github'}>Войти через GitHub</a>
+        <div className={'auth'}>
+            {/*todo: Здесь может быть ваша регистрация*/}
+            <EnterGithub/>
         </div>
     );
 };

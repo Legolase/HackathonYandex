@@ -1,0 +1,101 @@
+import {create} from "zustand";
+import axios from "axios";
+import {useMessagesStore} from "./MessagesStore";
+import {useLoggedInUserStore} from "./LoggedInUserStore";
+
+export const useCurrentChatStore = create((set, get) => ({
+
+    chat: null,
+    error: null,
+    loading: true,
+
+    setChat: (chat) => {
+        set(() => ({
+            chat: chat,
+            loading: false
+        }))
+    },
+
+    nullifyChat: () => {
+        set(() => ({
+            chat: null,
+            loading: false
+        }))
+    },
+
+    setLoading: (loading) => {
+        set(() => ({
+            loading: loading
+        }))
+    },
+
+    getChatById: (id) => {
+        get().setLoading(true)
+        axios.get(process.env.REACT_APP_BACKEND_URL + `/api/chat/${id}`).then((response) => {
+            get().setChatFromResponse(response)
+        }).catch((error) => {
+            // todo: check keys
+            // todo: посмотреть как выглядят ошибки
+        })
+    },
+
+    getSingleChatByUserId: (id, cb) => {
+        get().setLoading(true)
+        const params = {
+            params: {
+                user: id
+            }
+        }
+        axios.get(process.env.REACT_APP_BACKEND_URL + `/api/single_chat`, params).then((response) => {
+            get().setChatFromResponse(response)
+            cb(`/chat/${get().chat.id}`)
+        }).catch((err) => {
+            // todo: check keys
+            // todo: посмотреть как выглядят ошибки
+            get().createChatByUserId(id, cb)
+        })
+    },
+
+
+    createChatByUserId: (id, cb) => {
+        get().setLoading(true)
+        const params = {
+            user: id
+        }
+        axios.post(process.env.REACT_APP_BACKEND_URL + `/api/single_chat`, params).then((response) => {
+            get().setChatFromResponse(response)
+            cb(`/chat/${response.data.id}`)
+        }).catch((err) => {
+            // todo: check keys
+            // todo: посмотреть как выглядят ошибки
+        })
+    },
+
+
+    // for getting name and avatar of single chat - its own name and avatar
+    getDataByChat: (chat) => {
+        // todo: check chatType before
+        const loggedUser = useLoggedInUserStore.getState().currentUser
+        const users = chat.users
+        for (const usersKey in users) {
+            if (loggedUser.id.toString() !== usersKey) {
+                return {
+                    name: users[usersKey].name,
+                    avatar: users[usersKey].avatar
+                }
+            }
+        }
+    },
+
+    setChatFromResponse: (response) => {
+        set(() => ({
+            chat: response.data,
+            loading: false
+        }))
+        useMessagesStore.setState(() => ({
+            messages: response.data.messages
+        }))
+    }
+
+
+}))
