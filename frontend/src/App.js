@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import './/styles/App.css'
-import {BrowserRouter, Navigate, Route, Routes, useParams} from "react-router-dom";
+import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 import {useLoggedInUserStore} from "./store/LoggedInUserStore";
 import Messenger from "./pages/Messenger";
 import Auth from "./pages/Auth";
@@ -19,6 +19,7 @@ function App() {
         getCurrentUser()
     }, []);
 
+    console.log(currentUser)
 
     // todo: Хотим показывать auth только если юзер не вошел, иначе не хотим
     const baseRoutes = (
