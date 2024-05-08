@@ -18,6 +18,7 @@ export const SingleChatController = {
         for (const user of users) {
             await chat.addUser(user);
         }
+        await chat.getUsers();
         return chat;
     }
 }

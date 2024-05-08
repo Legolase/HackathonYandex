@@ -155,7 +155,6 @@ SingleChatView.post('/single_chat', async (req, res) => {
         return;
     }
     await SingleChatController.createItemByUsers([req.body.user, user.id]).then(data => {
-        data?.getUsers()
         res.status(201);
         res.json(data)
     });
