@@ -8,6 +8,11 @@ export const useCurrentContactStore = create((set, get) => ({
     loading: true,
     active: false,
 
+    setLoading: (loading) =>{
+        set(() => ({
+            loading: loading
+        }))
+    },
 
     setActive: (active) =>{
         set(() => ({
@@ -31,6 +36,7 @@ export const useCurrentContactStore = create((set, get) => ({
 
 
     fetchContact: (id) => {
+        get().setLoading(true)
         axios.get(process.env.REACT_APP_BACKEND_URL + `/api/user/${id}`).then((response) => {
             set(() => ({
                 contact: response.data,
