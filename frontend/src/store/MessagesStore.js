@@ -4,6 +4,7 @@ import {useLoggedInUserStore} from "./LoggedInUserStore";
 import {useCurrentChatStore} from "./CurrentChatStore";
 
 export const useMessagesStore = create((set) => ({
+
     messages: [],
     isLoading: false,
     error: '',
@@ -18,16 +19,18 @@ export const useMessagesStore = create((set) => ({
         }
         axios.post('/api/message', params).then(response => {
         }).catch(err => {
+            // todo: check error codes
         })
     },
 
     getMessagesByChatId: (id) => {
         axios.get(`/api/chat/${id}`).then((response) => {
+            console.log(response)
             set(() => ({
                 messages: response.data.messages
             }))
-        }).catch(() => {
-
+        }).catch((err) => {
+            // todo: check error codes
         })
     }
 

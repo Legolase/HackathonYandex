@@ -22,9 +22,12 @@ const Messages = () => {
     }, [messages]);
 
     useEffect(() => {
-        setInterval(() => {
+        const intervalId = setInterval(() => {
             getMessagesByChatId(chatId)
         }, 1500)
+        return () => {
+            clearInterval(intervalId)
+        }
     }, []);
 
 

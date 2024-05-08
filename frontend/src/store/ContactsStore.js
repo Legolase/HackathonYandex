@@ -7,24 +7,15 @@ export const useContactsStore = create((set, get) => ({
     loading: false,
     error: null,
 
-    setLoading: () => {
+    setLoading: (loading) => {
         set(() => (
-            {loading: true}
+            {loading: loading}
         ))
     },
 
-    fetch: function (offset, query) {
-        set(() => (
-            {error: null, loading: true}
-        ))
-        const params = {
-            params: {
-                offset: offset
-            }
-        }
-        axios.get(process.env.REACT_APP_BACKEND_URL + query, params).then((response) => {
-            if (response.error)
-                throw Error(`Error: ${response.status}. ${response.error}`)
+    fetchContacts: function () {
+        get().setLoading(true)
+        axios.get(process.env.REACT_APP_BACKEND_URL + '/api/user').then((response) => {
             set(() => (
                 {
                     contacts: [...response.data],
@@ -32,6 +23,7 @@ export const useContactsStore = create((set, get) => ({
                 }
             ))
         }).catch((err) => {
+            // todo: check Unauthorized
             set(() => (
                 {
                     error: err,
@@ -41,11 +33,5 @@ export const useContactsStore = create((set, get) => ({
         })
     },
 
-    fetchContacts: (offset) => {
-        get().fetch(offset, '/api/user')
-    },
-
-
 
 }))
-window.store = useContactsStore

@@ -10,7 +10,7 @@ const UserProfile = () => {
 
 
     const contact = useCurrentContactStore(state => state.contact)
-    const fetchChatByUserId = useCurrentChatStore(state => state.getChatByUserId)
+    const fetchChatByUserId = useCurrentChatStore(state => state.getSingleChatByUserId)
     const loading = useCurrentContactStore(state => state.loading)
     const fetchContact = useCurrentContactStore(state => state.fetchContact)
     const setActive = useCurrentContactStore(state => state.setActive)

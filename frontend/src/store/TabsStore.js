@@ -26,5 +26,3 @@ export const useTabsStore = create((set, get) => ({
     }
 
 }))
-
-// window.store = useTabsStore

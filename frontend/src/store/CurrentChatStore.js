@@ -23,10 +23,15 @@ export const useCurrentChatStore = create((set, get) => ({
         }))
     },
 
-    fetchChatById: (id) => {
-        axios.get(process.env.REACT_APP_BACKEND_URL + `/api/chat/${id}`).then((response) => {
+    setLoading: (loading) => {
+        set(() => ({
+            loading: loading
+        }))
+    },
 
-            // todo: Check response code
+    fetchChatById: (id) => {
+        get().setLoading(true)
+        axios.get(process.env.REACT_APP_BACKEND_URL + `/api/chat/${id}`).then((response) => {
             set(() => ({
                 chat: response.data,
                 loading: false
@@ -34,12 +39,46 @@ export const useCurrentChatStore = create((set, get) => ({
             useMessagesStore.setState(() => ({
                 messages: response.data.messages
             }))
-        }).catch((err) => {
-            // todo: Handle Err
+        }).catch((error) => {
+            // todo: check keys
+            // todo: посмотреть как выглядят ошибки
         })
     },
 
-    getDataByChat: (chat) =>{
+    getSingleChatByUserId: (id, cb) => {
+        const params = {
+            params: {
+                user: id
+            }
+        }
+        axios.get(process.env.REACT_APP_BACKEND_URL + `/api/single_chat`, params).then((response) => {
+            get().setChatFromResponse(response)
+            cb(`/chat/${get().chat.id}`)
+        }).catch((err) => {
+            // todo: check keys
+            // todo: посмотреть как выглядят ошибки
+            get().createChatByUserId(id, cb)
+        })
+    },
+
+
+    createChatByUserId: (id, cb) => {
+        const params = {
+            user: id
+        }
+        axios.post(process.env.REACT_APP_BACKEND_URL + `/api/single_chat`, params).then((response) => {
+            get().setChatFromResponse(response)
+            cb(`/chat/${response.data.id}`)
+        }).catch((err) => {
+            // todo: check keys
+            // todo: посмотреть как выглядят ошибки
+        })
+    },
+
+
+    // for getting name and avatar of chat (single chat) - its name and
+    getDataByChat: (chat) => {
+        // todo: check chatType before
         const loggedUser = useLoggedInUserStore.getState().currentUser
         const users = chat.users
         for (const usersKey in users) {
@@ -52,6 +91,7 @@ export const useCurrentChatStore = create((set, get) => ({
         }
     },
 
+    // only for singleChat
     handleResponse: (response) => {
         const curUserId = useLoggedInUserStore.getState().currentUser.id.toString()
         let data;
@@ -59,64 +99,22 @@ export const useCurrentChatStore = create((set, get) => ({
         for (let k of Object.keys(users)) {
             if (k !== curUserId) {
                 data = {
-                    id: response.data['id'],
-                    avatar: users[k]['avatar'],
-                    name: users[k]['name']
+                    id: response.data.id,
+                    avatar: users[k].avatar,
+                    name: users[k].name
                 }
             }
         }
         return data
     },
 
-    getChatByUserId: (id, cb) => {
-        const params = {
-            params: {
-                user: id
-            }
-        }
-        axios.get(process.env.REACT_APP_BACKEND_URL + `/api/single_chat`, params).then((response) => {
-            // todo: add last activity
-            if (response.status === 200) {
-                // todo: nulify contact
-                get().setChatFromResponse(response)
-                cb(`/chat/${get().chat.id}`)
-            }
-        }).catch((err) => {
-            // todo: check keys
-            get().createChatWithUserByUserId(id, cb)
-        })
-    },
-
-
-    setChatFromResponse: (response) =>{
-        useCurrentChatStore.setState(() => ({
+    setChatFromResponse: (response) => {
+        set(() => ({
             chat: get().handleResponse(response)
         }))
         useMessagesStore.setState(() => ({
             messages: response.data.messages
         }))
     },
-
-    createChatWithUserByUserId: (id, cb) => {
-        const params = {
-            user: id
-        }
-        axios.post(process.env.REACT_APP_BACKEND_URL + `/api/single_chat`, params).then((response) => {
-            switch (response.status) {
-                case 201:
-                    get().setChatFromResponse(response)
-                    cb(`/chat/${get().chat.id}`)
-                    break
-                default:
-                    console.log(response)
-            }
-        }).catch((err) => {
-            console.log(err)
-            switch (err) {
-
-            }
-        })
-    }
-
 
 }))

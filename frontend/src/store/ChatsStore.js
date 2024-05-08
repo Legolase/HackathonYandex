@@ -7,28 +7,19 @@ export const useChatsStore = create((set, get) => ({
     loading: false,
     error: null,
 
-    fetch: function (offset, query) {
-        set(() => (
-            {
-                error: '',
-                loading: true
-            }
-        ))
-        const params = {
-            params: {
-                offset: offset
-            }
-        }
-        axios.get(process.env.REACT_APP_BACKEND_URL + query, params).then((response) => {
-            if (response.error)
-                throw Error(`Error: ${response.status}. ${response.error}`)
+
+    fetchChats: function () {
+        get().setLoading(true)
+        axios.get(process.env.REACT_APP_BACKEND_URL + '/api/chat').then((response) => {
             set(() => (
                 {
                     chats: [...response.data],
-                    loading: false
+                    loading: false,
+                    error: null
                 }
             ))
         }).catch((err) => {
+            // todo: check Unauthorized
             set(() => (
                 {
                     error: err,
@@ -36,11 +27,6 @@ export const useChatsStore = create((set, get) => ({
                 }
             ))
         })
-    },
-
-
-    fetchChats: function (offset) {
-        get().fetch(offset, '/api/chat')
     },
 
     setLoading: (loading) => {
@@ -53,5 +39,3 @@ export const useChatsStore = create((set, get) => ({
 
 
 }))
-
-// window.store = useChatsStore
