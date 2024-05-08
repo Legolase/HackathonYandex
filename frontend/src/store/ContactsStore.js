@@ -8,24 +8,23 @@ export const useContactsStore = create((set, get) => ({
     error: null,
 
     setLoading: (loading) => {
-        set(() => (
-            {loading: loading}
+        set(() => ({
+                loading: loading
+            }
         ))
     },
 
     fetchContacts: function () {
         get().setLoading(true)
         axios.get(process.env.REACT_APP_BACKEND_URL + '/api/user').then((response) => {
-            set(() => (
-                {
+            set(() => ({
                     contacts: [...response.data],
                     loading: false
                 }
             ))
         }).catch((err) => {
             // todo: check Unauthorized
-            set(() => (
-                {
+            set(() => ({
                     error: err,
                     loading: false,
                 }

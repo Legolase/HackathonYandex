@@ -29,16 +29,10 @@ export const useCurrentChatStore = create((set, get) => ({
         }))
     },
 
-    fetchChatById: (id) => {
+    getChatById: (id) => {
         get().setLoading(true)
         axios.get(process.env.REACT_APP_BACKEND_URL + `/api/chat/${id}`).then((response) => {
-            set(() => ({
-                chat: response.data,
-                loading: false
-            }))
-            useMessagesStore.setState(() => ({
-                messages: response.data.messages
-            }))
+            get().setChatFromResponse(response)
         }).catch((error) => {
             // todo: check keys
             // todo: посмотреть как выглядят ошибки
@@ -53,13 +47,8 @@ export const useCurrentChatStore = create((set, get) => ({
             }
         }
         axios.get(process.env.REACT_APP_BACKEND_URL + `/api/single_chat`, params).then((response) => {
-            console.log(response)
-            set(() => ({
-                chat: response.data
-            }))
-            // get().setChatFromResponse(response)
+            get().setChatFromResponse(response)
             cb(`/chat/${get().chat.id}`)
-            get().setLoading(false)
         }).catch((err) => {
             // todo: check keys
             // todo: посмотреть как выглядят ошибки
@@ -98,34 +87,15 @@ export const useCurrentChatStore = create((set, get) => ({
         }
     },
 
-    // only for singleChat
-    handleResponse: (response) => {
-        console.log("handling")
-        const curUserId = useLoggedInUserStore.getState().currentUser.id.toString()
-        let data;
-        let users = response.data.users;
-        for (let k of Object.keys(users)) {
-            if (k !== curUserId) {
-                data = {
-                    id: response.data.id,
-                    avatar: users[k].avatar,
-                    name: users[k].name
-                }
-            }
-        }
-        console.log(data)
-        return data
-    },
-
     setChatFromResponse: (response) => {
-        console.log("setting")
         set(() => ({
-            chat: get().handleResponse(response),
+            chat: response.data,
             loading: false
         }))
         useMessagesStore.setState(() => ({
             messages: response.data.messages
         }))
-    },
+    }
+
 
 }))

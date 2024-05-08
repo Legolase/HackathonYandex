@@ -7,7 +7,7 @@ export const useMessagesStore = create((set) => ({
 
     messages: [],
     isLoading: false,
-    error: '',
+    error: null,
 
 
     postMessage: (text) => {

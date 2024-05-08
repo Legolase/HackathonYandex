@@ -20,8 +20,7 @@ export const useChatsStore = create((set, get) => ({
             ))
         }).catch((err) => {
             // todo: check Unauthorized
-            set(() => (
-                {
+            set(() => ({
                     error: err,
                     loading: false
                 }
@@ -30,8 +29,7 @@ export const useChatsStore = create((set, get) => ({
     },
 
     setLoading: (loading) => {
-        set(() => (
-            {
+        set(() => ({
                 loading: loading
             }
         ))

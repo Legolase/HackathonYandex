@@ -8,7 +8,7 @@ import {useLoggedInUserStore} from "../../../store/LoggedInUserStore";
 const Chat = ({chat}) => {
     const root = [cl.chat]
     const currentChat = useCurrentChatStore(state => state.chat)
-    const fetchChat = useCurrentChatStore(state => state.fetchChatById)
+    const fetchChat = useCurrentChatStore(state => state.getChatById)
     const setChat = useCurrentChatStore(state => state.setChat)
     const nullifyContact = useCurrentContactStore(state => state.nullifyContact)
     const router = useNavigate()
