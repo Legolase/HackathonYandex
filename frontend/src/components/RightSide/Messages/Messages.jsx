@@ -4,6 +4,7 @@ import Message from "../Message/Message";
 import {useMessagesStore} from "../../../store/MessagesStore";
 import {useLoggedInUserStore} from "../../../store/LoggedInUserStore";
 import {useCurrentChatStore} from "../../../store/CurrentChatStore";
+import {useInView} from "react-intersection-observer";
 
 const Messages = () => {
 
@@ -22,6 +23,7 @@ const Messages = () => {
     }, [messages]);
 
     useEffect(() => {
+        scrollToBottom()
         const intervalId = setInterval(() => {
             getMessagesByChatId(chatId)
         }, 1500)
@@ -33,8 +35,9 @@ const Messages = () => {
 
     return (
         <div className={cl.messages}>
-            {messages.map((message, pos) => (
-                <Message key={pos} message={message} my={message.user_id === loggedInUser.id}/>)
+            {messages.map((message, pos) => {
+                    return <Message key={pos} message={message} my={message.user_id === loggedInUser.id}/>
+                }
             )}
             <div ref={messagesEndRef}></div>
         </div>
