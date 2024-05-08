@@ -11,12 +11,11 @@ const SelectedChat = () => {
     const {chatId} = useParams()
     const currentChat = useCurrentChatStore(state => state.chat)
     const loading = useCurrentChatStore(state => state.loading)
-    const fetchChatById = useCurrentChatStore(state => state.fetchChatById)
+    const fetchChatById = useCurrentChatStore(state => state.getChatById)
 
     useEffect(() => {
         fetchChatById(chatId)
     }, [chatId]);
-
 
     if (loading)
         return <span>LOADING</span>

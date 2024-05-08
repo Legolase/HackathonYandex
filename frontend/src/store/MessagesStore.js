@@ -7,7 +7,7 @@ export const useMessagesStore = create((set) => ({
 
     messages: [],
     isLoading: false,
-    error: '',
+    error: null,
 
 
     postMessage: (text) => {
@@ -25,7 +25,6 @@ export const useMessagesStore = create((set) => ({
 
     getMessagesByChatId: (id) => {
         axios.get(`/api/chat/${id}`).then((response) => {
-            console.log(response)
             set(() => ({
                 messages: response.data.messages
             }))

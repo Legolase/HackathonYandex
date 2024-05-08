@@ -19,7 +19,6 @@ function App() {
         getCurrentUser()
     }, []);
 
-    console.log(currentUser)
 
     // todo: Хотим показывать auth только если юзер не вошел, иначе не хотим
     const baseRoutes = (

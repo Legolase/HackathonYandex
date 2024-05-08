@@ -29,16 +29,10 @@ export const useCurrentChatStore = create((set, get) => ({
         }))
     },
 
-    fetchChatById: (id) => {
+    getChatById: (id) => {
         get().setLoading(true)
         axios.get(process.env.REACT_APP_BACKEND_URL + `/api/chat/${id}`).then((response) => {
-            set(() => ({
-                chat: response.data,
-                loading: false
-            }))
-            useMessagesStore.setState(() => ({
-                messages: response.data.messages
-            }))
+            get().setChatFromResponse(response)
         }).catch((error) => {
             // todo: check keys
             // todo: посмотреть как выглядят ошибки
@@ -46,6 +40,7 @@ export const useCurrentChatStore = create((set, get) => ({
     },
 
     getSingleChatByUserId: (id, cb) => {
+        get().setLoading(true)
         const params = {
             params: {
                 user: id
@@ -63,6 +58,7 @@ export const useCurrentChatStore = create((set, get) => ({
 
 
     createChatByUserId: (id, cb) => {
+        get().setLoading(true)
         const params = {
             user: id
         }
@@ -76,7 +72,7 @@ export const useCurrentChatStore = create((set, get) => ({
     },
 
 
-    // for getting name and avatar of chat (single chat) - its name and
+    // for getting name and avatar of single chat - its own name and avatar
     getDataByChat: (chat) => {
         // todo: check chatType before
         const loggedUser = useLoggedInUserStore.getState().currentUser
@@ -91,30 +87,15 @@ export const useCurrentChatStore = create((set, get) => ({
         }
     },
 
-    // only for singleChat
-    handleResponse: (response) => {
-        const curUserId = useLoggedInUserStore.getState().currentUser.id.toString()
-        let data;
-        let users = response.data.users;
-        for (let k of Object.keys(users)) {
-            if (k !== curUserId) {
-                data = {
-                    id: response.data.id,
-                    avatar: users[k].avatar,
-                    name: users[k].name
-                }
-            }
-        }
-        return data
-    },
-
     setChatFromResponse: (response) => {
         set(() => ({
-            chat: get().handleResponse(response)
+            chat: response.data,
+            loading: false
         }))
         useMessagesStore.setState(() => ({
             messages: response.data.messages
         }))
-    },
+    }
+
 
 }))
