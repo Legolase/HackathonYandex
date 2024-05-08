@@ -2,22 +2,41 @@
     display: flex;
     background-color: var(--white);
     padding: 10px;
-    border-radius: 8px;
-    height: 5vh;
-    align-items: center;
+    gap: 10px;
+    align-items: flex-end;
 }
 
 
-.input{
-    border: none;
+.textarea{
+    border: 0;
     width: 100%;
-    font-size: 1.2rem;
+    font-size: var(--simple-text);
+    border-radius: 15px;
+    padding: 5px 10px;
+    resize: none;
+    line-height: 1.2;
+    max-height: 300px;
 }
 
-.input:focus{
+.textarea:focus{
     outline: none;
 }
 
-svg{
+.svg{
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+    color: var(--light-gray);
+}
+
+.button {
+    background-color: transparent;
+    border: 0;
     cursor: pointer;
+    transition: opacity 0.15s ease-in-out;
+    height: 40px;
+}
+
+.button:hover {
+    opacity: 0.8;
 }

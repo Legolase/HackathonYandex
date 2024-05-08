@@ -12,6 +12,11 @@
     --font: "Roboto", sans-serif;
 }
 
+#root.redesigned {
+    --light-gray: rgba(60, 60, 67, 0.6);
+    --simple-text: 22px;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -46,4 +51,12 @@ code {
     align-items: center;
     justify-content: center;
     flex-direction: column;
+}
+
+*::-webkit-scrollbar,
+*::-webkit-scrollbar-thumb {
+    width: 26px;
+    border-radius: 13px;
+    background-clip: padding-box;
+    border: 10px solid transparent;
 }
