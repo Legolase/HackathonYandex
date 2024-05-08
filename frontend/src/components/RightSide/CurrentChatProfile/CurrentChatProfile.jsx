@@ -8,6 +8,8 @@ const CurrentChatProfile = ({chat}) => {
     const getDataByChat = useCurrentChatStore(state => state.getDataByChat)
     const data = getDataByChat(chat)
 
+    console.log(data)
+
     return (
         <div className={cl.chat}>
             <img className={cl.avatar} src={data.avatar} onClick={() => {

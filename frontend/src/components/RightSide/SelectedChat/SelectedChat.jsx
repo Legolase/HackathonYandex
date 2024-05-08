@@ -17,7 +17,6 @@ const SelectedChat = () => {
         fetchChatById(chatId)
     }, [chatId]);
 
-
     if (loading)
         return <span>LOADING</span>
     return (

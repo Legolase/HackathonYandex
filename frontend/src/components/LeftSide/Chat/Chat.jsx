@@ -22,6 +22,7 @@ const Chat = ({chat}) => {
 
     return (
         <li className={root.join(' ')} onClick={() => {
+            console.log(chat)
             setChat(chat)
             fetchChat(chat.id)
             nullifyContact()
