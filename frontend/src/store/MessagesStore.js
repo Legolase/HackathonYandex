@@ -9,6 +9,14 @@ export const useMessagesStore = create((set) => ({
     isLoading: false,
     error: null,
 
+    postFile: (file) => {
+        const params = {
+            "type": "image",
+            "value": file,
+            "from": useLoggedInUserStore.getState().currentUser.id,
+            "chat_id": useCurrentChatStore.getState().chat.id
+        }
+    },
 
     postMessage: (text) => {
         const params = {

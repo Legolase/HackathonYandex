@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import CurrentChatProfile from "../CurrentChatProfile/CurrentChatProfile";
 import Messages from "../Messages/Messages";
 import InputMessage from "../InputMessage/InputMessage";
 import {useCurrentChatStore} from "../../../store/CurrentChatStore";
-import chat from "../../LeftSide/Chat/Chat";
 import {useParams} from "react-router-dom";
+import cl from './SelectedChat.module.css'
 
 const SelectedChat = () => {
 
@@ -20,7 +20,7 @@ const SelectedChat = () => {
     if (loading)
         return <span>LOADING</span>
     return (
-        <div className={'right-panel'} style={{width: '100%', display: "flex", flexDirection: 'column', gap: '3px'}}>
+        <div className={cl.rightPanel} >
             <CurrentChatProfile chat={currentChat}/>
             <Messages/>
             <InputMessage/>
