@@ -1,0 +1,20 @@
+.dnd{
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.15s ease-in-out;
+    border: 1px dashed blue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white
+}
+
+.dnd_active{
+    z-index: 1;
+    opacity: 1;
+}
