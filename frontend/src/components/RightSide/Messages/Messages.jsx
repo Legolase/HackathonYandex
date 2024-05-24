@@ -1,10 +1,12 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import cl from './Messages.module.css'
 import Message from "../Message/Message";
 import {useMessagesStore} from "../../../store/MessagesStore";
 import {useLoggedInUserStore} from "../../../store/LoggedInUserStore";
 import {useCurrentChatStore} from "../../../store/CurrentChatStore";
-import {useInView} from "react-intersection-observer";
+import DnD from "../../DnD/DnD";
+import DialogDnD from "../../DialogDnD/DialogDnD";
+import {useFilesStore} from "../../../store/FilesStore";
 
 const Messages = () => {
 
@@ -13,6 +15,9 @@ const Messages = () => {
     const loggedInUser = useLoggedInUserStore(state => state.currentUser)
     const getMessagesByChatId = useMessagesStore(state => state.getMessagesByChatId)
     const chatId = useCurrentChatStore(state => state.chat.id)
+    const dialog = useRef(null)
+    const setActive = useFilesStore(state => state.setActiveBackground)
+
 
     const scrollToBottom = () => {
         messagesEndRef.current.scrollIntoView()
@@ -33,13 +38,22 @@ const Messages = () => {
     }, []);
 
 
+    const dragOver = (e) => {
+        e.preventDefault()
+        setActive(true)
+    }
+
     return (
-        <div className={cl.messages}>
+        <div className={cl.messages}
+             onDragOver={e => dragOver(e)}
+        >
             {messages.map((message, pos) => {
                     return <Message key={pos} message={message} my={message.user_id === loggedInUser.id}/>
                 }
             )}
             <div ref={messagesEndRef}></div>
+            <DnD dialog={dialog}/>
+            <DialogDnD dialog={dialog}/>
         </div>
     );
 };

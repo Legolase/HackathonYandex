@@ -9,6 +9,19 @@ export const useMessagesStore = create((set) => ({
     isLoading: false,
     error: null,
 
+    postFile: (file) => {
+        const params = {
+            "type": "image",
+            "value": file,
+            "from": useLoggedInUserStore.getState().currentUser.id,
+            "chat_id": useCurrentChatStore.getState().chat.id
+        }
+        axios.post('/api/message', params).then(response => {
+
+        }).catch(err => {
+            // todo: check error codes
+        })
+    },
 
     postMessage: (text) => {
         const params = {
