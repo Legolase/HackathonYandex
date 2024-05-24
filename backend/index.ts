@@ -20,6 +20,11 @@ import {User} from "./models/User";
 import {MessageController} from "./controllers/MessageController";
 
 import fileUpload from "express-fileupload";
+import {Server} from "socket.io";
+import * as http from "http";
+import {User} from "./models/User";
+import {MessageController} from "./controllers/MessageController";
+
 
 const pgp = require('pg-promise')();
 const PORT: string = process.env.PORT || '3000'
