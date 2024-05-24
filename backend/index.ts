@@ -14,6 +14,10 @@ import path from "path";
 import bodyParser from "body-parser";
 import {SingleChatView} from "./views/SingleChatView";
 import {S3} from "./facades/S3";
+import {Server} from "socket.io";
+import * as http from "http";
+import {User} from "./models/User";
+import {MessageController} from "./controllers/MessageController";
 
 
 const pgp = require('pg-promise')();
@@ -23,6 +27,8 @@ const PROTOCOL: string = process.env.PROTOCOL || 'http'
 
 
 const app = express();
+const server = http.createServer(app);
+const io = new Server(server);
 
 export const s3 = new S3(process.env.accessKeyId, process.env.secretAccessKey, process.env.Bucket);
 export const db = pgp(process.env.DATABASE_URL);
@@ -49,7 +55,33 @@ app.get('*', function (req, res) {
     res.sendFile(path.join(__dirname, '../frontend/build/index.html'));
 });
 
-app.listen(PORT, () => {
+io.on('connection', (socket) => {
+    console.log("connected")
+
+    socket.on('send_message', async (req) => {
+        console.log(req)
+        let user = await req.user as User;
+        await user.updateActivity();
+        req.body.user_id = user.id;
+        MessageController.createItem(req.body).then((data) => {
+            console.log(data)
+            socket.emit('receive_message', {
+                // todo: тут хочется отправить сохраненное сообщение на фронт, чтобы отрисовать его и отказаться от setTimeout
+            })
+            // res.json(data)
+        }).catch((error) => {
+            // res.status(400);
+            // res.json({
+            //     type: 'error',
+            //     error: error.message
+            // })
+        });
+    })
+
+})
+
+
+server.listen(PORT, () => {
     console.log(`
     Running on port ${PORT}.
     URL: ${PROTOCOL}://${SERVER_URL}${PORT !== '80' ? `:${PORT}` : ''}
