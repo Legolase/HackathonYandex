@@ -8,7 +8,7 @@ import {useFilesStore} from "../../store/FilesStore";
 const DialogDnD = ({dialog}) => {
 
     // todo: replace method to filesStore
-    // const postFile = useMessagesStore(state => state.postFile)
+    const postFile = useMessagesStore(state => state.postFile)
 
     const files = useFilesStore(state => state.files)
     const nulifyFiles = useFilesStore(state => state.nulifyFiles)
@@ -31,9 +31,9 @@ const DialogDnD = ({dialog}) => {
                 style={{display: 'flex', flexDirection: 'column', gap: '15px'}}
                 onSubmit={(e) => {
                     e.preventDefault()
-                        // files.map((file) => {
-                        //     postFile(file)
-                        // })
+                    files.map((file) => {
+                        postFile(file)
+                    })
                     dialog.current.close()
                 }}>
                 <Files files={files}/>
