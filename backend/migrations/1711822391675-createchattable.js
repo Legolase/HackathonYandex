@@ -3,7 +3,8 @@ exports.up = (pgm) => {
 
   pgm.createTable('chats', {
     id: {
-      type: 'serial',
+      type: 'varchar(36)',
+      notNull: true,
       primaryKey: true
     },
     datetime: {

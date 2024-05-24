@@ -47,7 +47,7 @@ export class Chat extends Model {
         }
     }
 
-    async getListByUser(user_id: number): Promise<Chat[]> {
+    async getListByUser(user_id: string): Promise<Chat[]> {
         try {
             let chats = await this.db.join('c.*', 'chats_users cu', 'chats c', 'cu.chat_id = c.id', {'cu.user_id': user_id});
             return await Promise.all(chats.map(async (item: Record<string, DataValue>) => {
@@ -62,7 +62,7 @@ export class Chat extends Model {
         }
     }
 
-    async addUser(user_id: number) {
+    async addUser(user_id: string) {
         let relationship = new ChatUser();
         relationship.chat_id = this.id;
         relationship.user_id = user_id;
@@ -93,6 +93,7 @@ export class Chat extends Model {
 
     getObject(): object {
         return {
+            id: this.id,
             type: this.type,
             pin_message: this.pin_message,
             name: this.name,

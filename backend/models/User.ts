@@ -15,6 +15,7 @@ export class User extends Model {
         const timePart = isoString?.substring(11, 23); // HH:MI:SS.MS
 
         return {
+            id: this.id,
             datetime_last_activity: isoString ? `${datePart} ${timePart}` : undefined,
             name: this.name,
             login: this.login,

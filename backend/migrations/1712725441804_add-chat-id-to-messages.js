@@ -1,7 +1,7 @@
 exports.up = (pgm) => {
   pgm.addColumn('messages', {
     chat_id: {
-      type: 'integer',
+      type: 'varchar(36)',
       notNull: true,
       references: 'chats(id)'
     }
