@@ -14,6 +14,7 @@ import path from "path";
 import bodyParser from "body-parser";
 import {SingleChatView} from "./views/SingleChatView";
 import {S3} from "./facades/S3";
+import {User} from "./models/User";
 import {Server} from "socket.io";
 import * as http from "http";
 import {User} from "./models/User";
@@ -22,7 +23,6 @@ import {MessageController} from "./controllers/MessageController";
 import fileUpload from "express-fileupload";
 import {Server} from "socket.io";
 import * as http from "http";
-import {User} from "./models/User";
 import {MessageController} from "./controllers/MessageController";
 
 
