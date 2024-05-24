@@ -1,9 +1,10 @@
 import {DB} from '../facades/DB';
 import {DataValue} from "../types/DataValue";
+import {v4 as uuidv4} from "uuid";
 
 export abstract class Model {
     table: string = '';
-    id: number | undefined;
+    id: string | undefined;
     db: DB;
 
     constructor(fields: Record<string, DataValue> = {}) {
@@ -35,6 +36,7 @@ export abstract class Model {
     }
 
     async create<T extends Model>(classConstructor: new (fields: Record<string, DataValue>) => T) {
+        this.id = this.id ? this.id : uuidv4();
         let obj = this.getObject();
         return this.db.insert(this.table, obj).then((data) => {
             if (data) return new classConstructor(data);

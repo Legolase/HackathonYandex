@@ -2,11 +2,12 @@ import {Model} from "./Model";
 
 export class ChatUser extends Model {
     table: string = 'chats_users';
-    chat_id: number|undefined;
-    user_id: number|undefined;
+    chat_id: string | undefined;
+    user_id: string | undefined;
 
     getObject(): object {
         return {
+            id: this.id,
             chat_id: this.chat_id,
             user_id: this.user_id
         };

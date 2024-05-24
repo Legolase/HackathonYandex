@@ -70,7 +70,7 @@ SingleChatView.get('/single_chat', async (req, res) => {
         let user = await req.user as User;
         await user.updateActivity();
         // @ts-ignore
-        let result = await SingleChatController.getItemByUsers([+req.query.user, user.id]);
+        let result = await SingleChatController.getItemByUsers([req.query.user, user.id]);
         if (result === undefined) {
             res.status(404);
             res.json({type: "error", "message": "Can not find entity!"});

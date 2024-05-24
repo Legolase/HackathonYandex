@@ -2,6 +2,7 @@ import passportGithub from "passport-github";
 import {User} from "../models/User";
 import {s3} from "../index";
 import {Identicon} from "../facades/Identicon";
+import {v4 as uuidv4} from "uuid";
 
 async function downloadImageToBuffer(url: string) {
     const response = await fetch(url);
@@ -36,6 +37,7 @@ export const githubStrategy = new passportGithub.Strategy(
             }
             filePath = await s3.uploadFile(fileBuffer, '/avatar/');
             user = new User();
+            user.id = uuidv4();
             user.datetime_last_activity = new Date();
             user.name = name;
             user.github_id = githubId;
