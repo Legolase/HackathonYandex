@@ -14,7 +14,7 @@ import path from "path";
 import bodyParser from "body-parser";
 import {SingleChatView} from "./views/SingleChatView";
 import {S3} from "./facades/S3";
-
+import fileUpload from "express-fileupload";
 
 const pgp = require('pg-promise')();
 const PORT: string = process.env.PORT || '3000'
@@ -38,6 +38,9 @@ app.use(expressSession({
 
 app.use(myPassport.initialize());
 app.use(myPassport.session());
+
+app.use(fileUpload({}));
+
 
 app.use(express.static('./storage'));
 app.use(express.static('../frontend/build'));

@@ -1,5 +1,6 @@
 import React, {useEffect} from "react";
-import './/styles/App.css'
+import './/styles/App.css';
+import 'react-photo-view/dist/react-photo-view.css';
 import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 import {useLoggedInUserStore} from "./store/LoggedInUserStore";
 import Messenger from "./pages/Messenger";
