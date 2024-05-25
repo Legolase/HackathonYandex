@@ -959,6 +959,177 @@
           }
         }
       }
+    },
+    "/api/contact": {
+      "get": {
+        "tags": [
+          "Contact"
+        ],
+        "description": "Получение списка контактов",
+        "responses": {
+          "200": {
+            "description": "Получен список контактов",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "example": 1
+                  },
+                  "type": {
+                    "type": "string",
+                    "example": "single"
+                  },
+                  "pin_message": {},
+                  "name": {
+                    "type": "string",
+                    "example": "test"
+                  },
+                  "avatar": {},
+                  "messages": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number",
+                          "example": 3
+                        },
+                        "datetime": {
+                          "type": "string",
+                          "example": "2024-04-10T02:09:40.322Z"
+                        },
+                        "text": {
+                          "type": "string",
+                          "example": "Message 2"
+                        },
+                        "from": {
+                          "type": "number",
+                          "example": 10
+                        },
+                        "read": {
+                          "type": "boolean",
+                          "example": true
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "401": {
+            "description": "Пользователь не авторизован"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Contact"
+        ],
+        "description": "Создание контакта",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Тело запроса",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "single|multi|channel"
+                },
+                "name": {
+                  "type": "string",
+                  "example": "Название чата"
+                },
+                "users": {
+                  "type": "array",
+                  "example": [
+                    1,
+                    2
+                  ],
+                  "items": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Некорректные данные запроса",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "error"
+                },
+                "error": {
+                  "type": "string",
+                  "example": "error.message"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "401": {
+            "description": "Пользователь не авторизован"
+          }
+        }
+      }
+    },
+    "/api/service/upload_file": {
+      "get": {
+        "tags": [
+          "Service"
+        ],
+        "description": "Загрузка файла",
+        "responses": {
+          "200": {
+            "description": "Файл загружен",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "link": {
+                    "type": "string",
+                    "example": "url to file in s3"
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "original name"
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "400": {
+            "description": "Файл не отправлен"
+          },
+          "401": {
+            "description": "Пользователь не авторизован"
+          }
+        }
+      }
     }
   }
 }
