@@ -16,7 +16,12 @@ export const useMessagesStore = create((set) => ({
             "from": useLoggedInUserStore.getState().currentUser.id,
             "chat_id": useCurrentChatStore.getState().chat.id
         }
-        axios.post('/api/message', params).then(response => {
+        console.log(params);
+        axios.post('/api/message', params, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        }).then(response => {
 
         }).catch(err => {
             // todo: check error codes

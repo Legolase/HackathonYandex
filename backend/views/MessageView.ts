@@ -1,6 +1,7 @@
 import {Router} from "express";
 import {MessageController} from "../controllers/MessageController";
 import {User} from "../models/User";
+import {s3} from "../index";
 
 export const MessageView: Router = Router();
 
@@ -97,7 +98,12 @@ MessageView.post('/message', async (req, res) => {
     let user = await req.user as User;
     await user.updateActivity();
     req.body.user_id = user.id;
-    MessageController.createItem(req.body)
+    let obj = req.body;
+    if(req.files) {
+        obj.value = await s3.uploadFile(Array.isArray(req.files.value) ? req.files.value[0].data : req.files.value.data, '/uploads/');
+        obj.value = obj.value.Location;
+    }
+    MessageController.createItem(obj)
         .then((data) => res.json(data))
         .catch((error) => {
             res.status(400);
