@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start": "concurrently \"cd ./frontend && npm run dev\" \"cd ./backend && npm run dev\""
+    "start": "concurrently \"cd ./frontend && npm i && npm run dev\" \"cd ./backend && npm i && npm run dev\""
   },
   "devDependencies": {
     "concurrently": "^8.2.2"
