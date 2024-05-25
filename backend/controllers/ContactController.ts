@@ -3,6 +3,7 @@ import {User} from "../models/User";
 import {ChatUser} from "../models/ChatUser";
 import {Contact} from "../models/Contact";
 import {DataValue} from "../types/DataValue";
+import {db} from "../index";
 
 export const ContactController = {
     async getList(user: User) {
@@ -22,5 +23,9 @@ export const ContactController = {
         if (contact === undefined) throw new Error('Can not create contact!');
         await contact.loadUser();
         return contact;
+    },
+
+    async searchByName(id: string, name: string) {
+        return await new Contact().searchByName(id, name);
     }
 }

@@ -33,4 +33,11 @@ export class User extends Model {
         this.datetime_last_activity = new Date();
         await this.update(User);
     }
+
+    async searchByName(name: string) {
+        let users = await this.db.selectAll(this.table, ['name ILIKE \'%\' || $1 || \'%\' OR login ILIKE \'%\' || $1 || \'%\'', [name]]);
+        return users.map((item) => {
+            return new User(item)
+        });
+    }
 }

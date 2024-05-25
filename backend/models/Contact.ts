@@ -27,4 +27,10 @@ export class Contact extends Model {
             this.contact_user = await new User().getById(this.contact_user_id, User);
         }
     }
+
+    async searchByName(id: string, name: string) {
+        let contacts = await this.db.join('u.*', 'users u', 'contacts c', 'u.id = c.contact_user_id',
+            ['c.user_id = $1 AND (u.name ILIKE \'%\' || $2 || \'%\' OR u.login ILIKE \'%\' || $2 || \'%\')', [id, name]]);
+        return contacts.map((item) => new User(item));
+    }
 }

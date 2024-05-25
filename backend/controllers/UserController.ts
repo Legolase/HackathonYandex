@@ -15,4 +15,7 @@ export const UserController = {
         });
         return chat;
     },
+    async searchByName(name: string) {
+        return await new User().searchByName(name);
+    }
 }
