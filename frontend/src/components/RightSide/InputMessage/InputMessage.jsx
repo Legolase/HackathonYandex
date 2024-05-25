@@ -12,10 +12,8 @@ const InputMessage = () => {
     const formRef = useRef();
     const [showPicker, setShowPicker] = useState(false);
 
-    const sendMessage = (event) => {
-        console.log('submit')
-        event.stopPropagation()
-        event.preventDefault()
+    const sendMessage = () => {
+        console.log('send-message')
         if (inputValue.trim() === '')
             return
         // addMessage(inputValue)
@@ -23,12 +21,12 @@ const InputMessage = () => {
         setInputValue('')
     }
 
-    const onEmojiClick = (event, emojiObject) => {
-        console.log(emojiObject)
-        setInputValue(prevInput => prevInput + emojiObject.emoji);
-        setShowPicker(false);
-    };
-
+    const submitForm = (event) => {
+        event.stopPropagation();
+        event.preventDefault();
+        sendMessage();
+        setRows(1);
+    }
 
     const textareaChanged = async (e) => {
         setInputValue(e.target.value);
@@ -44,15 +42,20 @@ const InputMessage = () => {
     };
 
     const handleKeyPress = (e) => {
-        if (e.key === 'Enter' && e.shiftKey) {
-            // TODO: add submit form!
-            console.log(formRef.current);
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            e.stopPropagation();
+            sendMessage();
+        } else {
+            console.log('enter');
         }
     }
 
     return (<>
-            {showPicker && <EmojiPicker className={cl.emojiPicker} onEmojiClick={onEmojiClick} searchDisabled={true}/>}
-            <form ref={formRef} className={cl.messageInput} onSubmit={(event) => sendMessage(event)} method={'post'}>
+            <form ref={formRef} className={cl.messageInput} onSubmit={(event) => submitForm(event)} method={'post'}>
+                {showPicker && <div className={cl.emojiPicker}><EmojiPicker
+                    onEmojiClick={(event) => setInputValue(prevInput => prevInput + event.emoji)} searchDisabled={true}
+                    emojiStyle="native"/></div>}
                 {/* TODO: add onClick event! */}
                 <button type={"submit"} className={cl.button} style={{backgroundColor: 'transparent', border: 'none'}}>
                     <svg className={cl.svg} width="40" height="44" viewBox="0 0 40 44" fill="none"
@@ -67,11 +70,12 @@ const InputMessage = () => {
                           onChange={textareaChanged}
                           onKeyUp={handleKeyPress}
                 />
-                <button type={"button"} className={cl.button} onClick={() => setShowPicker(val => !val)} style={{backgroundColor: 'transparent', border: 'none'}}>
+                <button type={"button"} className={cl.button} onClick={() => setShowPicker(val => !val)}
+                        style={{backgroundColor: 'transparent', border: 'none'}}>
                     <svg width="49" height="46" viewBox="0 0 49 46" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M24.5 33.5417C29.2571 33.5417 33.2791 30.7433 34.9329 26.8333H14.0671C15.7004 30.7433 19.7429 33.5417 24.5 33.5417ZM17.3541 21.0833C18.1664 21.0833 18.9453 20.7804 19.5197 20.2413C20.094 19.7021 20.4166 18.9708 20.4166 18.2083C20.4166 17.4458 20.094 16.7146 19.5197 16.1754C18.9453 15.6362 18.1664 15.3333 17.3541 15.3333C16.5419 15.3333 15.763 15.6362 15.1886 16.1754C14.6143 16.7146 14.2916 17.4458 14.2916 18.2083C14.2916 18.9708 14.6143 19.7021 15.1886 20.2413C15.763 20.7804 16.5419 21.0833 17.3541 21.0833ZM31.6458 21.0833C32.458 21.0833 33.237 20.7804 33.8113 20.2413C34.3857 19.7021 34.7083 18.9708 34.7083 18.2083C34.7083 17.4458 34.3857 16.7146 33.8113 16.1754C33.237 15.6362 32.458 15.3333 31.6458 15.3333C30.8336 15.3333 30.0546 15.6362 29.4803 16.1754C28.906 16.7146 28.5833 17.4458 28.5833 18.2083C28.5833 18.9708 28.906 19.7021 29.4803 20.2413C30.0546 20.7804 30.8336 21.0833 31.6458 21.0833ZM24.5 38.3333C20.1681 38.3333 16.0137 36.7179 12.9506 33.8423C9.88747 30.9668 8.16665 27.0667 8.16665 23C8.16665 18.9334 9.88747 15.0333 12.9506 12.1577C16.0137 9.28215 20.1681 7.66668 24.5 7.66668C28.8318 7.66668 32.9863 9.28215 36.0494 12.1577C39.1125 15.0333 40.8333 18.9334 40.8333 23C40.8333 27.0667 39.1125 30.9668 36.0494 33.8423C32.9863 36.7179 28.8318 38.3333 24.5 38.3333ZM24.5 3.83334C13.2096 3.83334 4.08331 12.4583 4.08331 23C4.08331 28.0833 6.23435 32.9584 10.0632 36.5529C11.9591 38.3327 14.2098 39.7445 16.6869 40.7077C19.1639 41.6709 21.8188 42.1667 24.5 42.1667C29.9148 42.1667 35.1079 40.1473 38.9367 36.5529C42.7656 32.9584 44.9166 28.0833 44.9166 23C44.9166 20.483 44.3886 17.9907 43.3625 15.6652C42.3365 13.3398 40.8326 11.2269 38.9367 9.44713C37.0409 7.66734 34.7902 6.25553 32.3131 5.29232C29.836 4.3291 27.1811 3.83334 24.5 3.83334Z"
-                            fill="black" fill-opacity="0.47"/>
+                            fill="black" fillOpacity="0.47"/>
                     </svg>
                 </button>
                 <button type={"submit"} className={cl.button}>
