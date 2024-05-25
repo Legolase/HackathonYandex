@@ -16,7 +16,7 @@ export const useContactsStore = create((set, get) => ({
 
     fetchContacts: function () {
         get().setLoading(true)
-        axios.get(process.env.REACT_APP_BACKEND_URL + '/api/contact').then((response) => {
+        axios.get('/api/contact').then((response) => {
             set(() => ({
                     contacts: [...response.data],
                     loading: false

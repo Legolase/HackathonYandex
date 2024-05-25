@@ -36,7 +36,7 @@ export const useCurrentContactStore = create((set, get) => ({
 
     fetchContact: (id) => {
         get().setLoading(true)
-        axios.get(process.env.REACT_APP_BACKEND_URL + `/api/user/${id}`).then((response) => {
+        axios.get(`/api/user/${id}`).then((response) => {
             set(() => ({
                 contact: response.data,
                 loading: false
@@ -50,7 +50,7 @@ export const useCurrentContactStore = create((set, get) => ({
         const params = {
             contact_user_id: id
         }
-        axios.post(process.env.REACT_APP_BACKEND_URL + `/api/contact`, params).then((response) => {
+        axios.post(`/api/contact`, params).then((response) => {
             get().fetchContacts()
         }).catch((err) => {
             // todo: check keys
