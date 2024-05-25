@@ -16,6 +16,9 @@ const Message = ({message, my}) => {
                     <PhotoView key={message.id} src={message.value}>
                         <img className={cl.messageContentImage} src={message.value} alt='Uploaded image'/>
                     </PhotoView>}
+                {message.type === 'document' &&
+                    <a href={message.value} target="_blank">{message.file_name}</a>
+                }
             </div>
             <span className={cl.myTime}>{new Date(message.datetime).toLocaleString()}</span>
         </div>);

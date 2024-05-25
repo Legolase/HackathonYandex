@@ -24,13 +24,11 @@ const InputMessage = () => {
             return
         const data = {
             "type": "text",
-            "value": inputValue,
+            "value": inputValue.trim(),
             "from": useLoggedInUserStore.getState().currentUser.id,
             "chat_id": useCurrentChatStore.getState().chat.id
         }
         socket.emit('send_message', data)
-        // addMessage(inputValue)
-        // postMessage(inputValue)
         setInputValue('')
     }
 
@@ -54,11 +52,12 @@ const InputMessage = () => {
         setRows(lines);
     };
 
-    const handleKeyPress = (e) => {
+    const handleKeyDown = (e) => {
         if (e.key === 'Enter' && !e.shiftKey) {
             e.preventDefault();
             e.stopPropagation();
             sendMessage();
+            setRows(1);
         }
     }
 
@@ -79,7 +78,7 @@ const InputMessage = () => {
                 <textarea ref={textareaRef} className={cl.textarea} rows={rows} placeholder={'Write message...'}
                           value={inputValue}
                           onChange={textareaChanged}
-                          onKeyUp={handleKeyPress}
+                          onKeyDown={handleKeyDown}
                 />
                 <button type={"button"} className={cl.button} onClick={() => setShowPicker(val => !val)}
                         style={{backgroundColor: 'transparent', border: 'none'}}>
