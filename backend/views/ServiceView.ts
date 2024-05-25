@@ -7,7 +7,7 @@ import {ServiceController} from "../controllers/ServiceController";
 export const ServiceView: Router = Router();
 
 
-ServiceView.get('/service/upload_file', async (req, res) => {
+ServiceView.post('/service/upload_file', async (req, res) => {
         // #swagger.description = 'Загрузка файла'
         // #swagger.tags = ['Service']
         /* #swagger.responses[200] = {
@@ -29,6 +29,7 @@ ServiceView.get('/service/upload_file', async (req, res) => {
         if (req.files) {
             file = Array.isArray(req.files.value) ? req.files.value[0] : req.files.value;
         }
+        console.log(req.files);
         if (!file) {
             res.status(400);
             res.json({
