@@ -13,6 +13,7 @@ export class Message extends Model {
     value: string | undefined;
     read: boolean | undefined;
     chat_id: string | undefined;
+    file_name: string | undefined;
 
     async validate(obj: Record<string, any>): Promise<boolean> {
         if (typeof obj.type !== 'string' || !Object.values(MessageType).includes(obj.type as string)) throw new Error('ERROR: field "type" must be string in enum');
@@ -30,6 +31,7 @@ export class Message extends Model {
             value: this.value,
             read: this.read,
             chat_id: this.chat_id,
+            file_name: this.file_name,
         };
     }
 }
