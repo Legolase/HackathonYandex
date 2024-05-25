@@ -11,6 +11,7 @@ const Contacts = () => {
     const {contacts, loading} = useContactsStore()
     const {active} = useTabsStore()
     const [, downloadContacts] = useChangeActive()
+    const searchQuery = useContactsStore(state => state.searchQuery)
 
     useEffect(() => {
         if (contacts.length !== 0)
@@ -21,15 +22,16 @@ const Contacts = () => {
     if (loading)
         return <span>LOADING</span>
 
-    return (
-        <ul className={cl.chats}>
-            {contacts.map((contact, pos) =>
-                <div>
-                    <Contact contact={contact.contact_user} key={pos}/>
-                </div>
-            )}
-        </ul>
-    );
+    if (searchQuery === '')
+        return (
+            <ul className={cl.chats}>
+                {contacts.map((contact, pos) =>
+                    <div>
+                        <Contact contact={contact.contact_user} key={pos}/>
+                    </div>
+                )}
+            </ul>
+        );
 };
 
 export default Contacts;
