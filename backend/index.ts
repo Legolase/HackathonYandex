@@ -21,6 +21,7 @@ import fileUpload from "express-fileupload";
 import {ParamsDictionary} from "express-serve-static-core";
 import {ParsedQs} from "qs";
 import {ContactView} from "./views/ContactView";
+import {ServiceView} from "./views/ServiceView";
 
 const pgp = require('pg-promise')();
 const PORT: string = process.env.PORT || '3000'
@@ -54,7 +55,7 @@ app.use(express.static('../frontend/build'));
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use('/', AuthView);
-app.use('/api', isAuthenticatedMiddleware, SingleChatView, ChatView, UserView, MessageView, ContactView);
+app.use('/api', isAuthenticatedMiddleware, SingleChatView, ChatView, UserView, MessageView, ContactView, ServiceView);
 app.get('*', function (req, res) {
     res.sendFile(path.join(__dirname, '../frontend/build/index.html'));
 });
