@@ -7,7 +7,7 @@ const Messenger = ({activePanel}) => {
 
     const setSocket = useSocketStore(state => state.setSocket)
     useEffect(() => {
-        const socket = io(process.env.REACT_APP_BACKEND_URL);
+        const socket = io('/');
         setSocket(socket)
         return () => {
             socket.close()

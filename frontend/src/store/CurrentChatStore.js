@@ -31,7 +31,7 @@ export const useCurrentChatStore = create((set, get) => ({
 
     getChatById: (id) => {
         get().setLoading(true)
-        axios.get(process.env.REACT_APP_BACKEND_URL + `/api/chat/${id}`).then((response) => {
+        axios.get(`/api/chat/${id}`).then((response) => {
             get().setChatFromResponse(response)
         }).catch((error) => {
             // todo: check keys
@@ -46,7 +46,7 @@ export const useCurrentChatStore = create((set, get) => ({
                 user: id
             }
         }
-        axios.get(process.env.REACT_APP_BACKEND_URL + `/api/single_chat`, params).then((response) => {
+        axios.get(`/api/single_chat`, params).then((response) => {
             get().setChatFromResponse(response)
             cb(`/chat/${get().chat.id}`)
         }).catch((err) => {
@@ -62,7 +62,7 @@ export const useCurrentChatStore = create((set, get) => ({
         const params = {
             user: id
         }
-        axios.post(process.env.REACT_APP_BACKEND_URL + `/api/single_chat`, params).then((response) => {
+        axios.post(`/api/single_chat`, params).then((response) => {
             get().setChatFromResponse(response)
             cb(`/chat/${response.data.id}`)
         }).catch((err) => {

@@ -5,7 +5,7 @@ const EnterGithub = () => {
 
     return (
         <div className={cl.enter}>
-            <a className={cl.github} href={process.env.REACT_APP_BACKEND_URL + '/auth/github'}>Войти через GitHub</a>
+            <a className={cl.github} href={'/auth/github'}>Войти через GitHub</a>
         </div>
     );
 };

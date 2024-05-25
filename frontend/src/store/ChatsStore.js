@@ -10,7 +10,7 @@ export const useChatsStore = create((set, get) => ({
 
     fetchChats: function () {
         get().setLoading(true)
-        axios.get(process.env.REACT_APP_BACKEND_URL + '/api/chat').then((response) => {
+        axios.get('/api/chat').then((response) => {
             set(() => (
                 {
                     chats: [...response.data],

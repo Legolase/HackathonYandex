@@ -15,7 +15,7 @@ export const useLoggedInUserStore = create((set) => ({
 
 
     getCurrentUser: () => {
-        axios.get(process.env.REACT_APP_BACKEND_URL + '/api/user/current').then((response) => {
+        axios.get('/api/user/current').then((response) => {
             set(() => ({
                 currentUser: response.data,
             }))
