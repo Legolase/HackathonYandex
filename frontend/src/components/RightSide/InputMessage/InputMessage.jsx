@@ -3,8 +3,14 @@ import cl from './InputMessage.module.css'
 import {useMessagesStore} from "../../../store/MessagesStore";
 import {post} from "axios";
 import EmojiPicker from 'emoji-picker-react';
+import {useSocketStore} from "../../../store/SocketStore";
+import {useLoggedInUserStore} from "../../../store/LoggedInUserStore";
+import {useCurrentChatStore} from "../../../store/CurrentChatStore";
 
 const InputMessage = () => {
+
+
+    const socket = useSocketStore(state => state.socket)
     const postMessage = useMessagesStore(state => state.postMessage)
     const [inputValue, setInputValue] = useState('')
     const [rows, setRows] = useState(1);
@@ -16,8 +22,15 @@ const InputMessage = () => {
         console.log('send-message')
         if (inputValue.trim() === '')
             return
+        const data = {
+            "type": "text",
+            "value": inputValue,
+            "from": useLoggedInUserStore.getState().currentUser.id,
+            "chat_id": useCurrentChatStore.getState().chat.id
+        }
+        socket.emit('send_message', data)
         // addMessage(inputValue)
-        postMessage(inputValue)
+        // postMessage(inputValue)
         setInputValue('')
     }
 
@@ -46,8 +59,6 @@ const InputMessage = () => {
             e.preventDefault();
             e.stopPropagation();
             sendMessage();
-        } else {
-            console.log('enter');
         }
     }
 
