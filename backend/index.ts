@@ -19,6 +19,7 @@ import * as http from "http";
 import {User} from "./models/User";
 import {MessageController} from "./controllers/MessageController";
 
+import fileUpload from "express-fileupload";
 
 const pgp = require('pg-promise')();
 const PORT: string = process.env.PORT || '3000'
@@ -44,6 +45,9 @@ app.use(expressSession({
 
 app.use(myPassport.initialize());
 app.use(myPassport.session());
+
+app.use(fileUpload({}));
+
 
 app.use(express.static('./storage'));
 app.use(express.static('../frontend/build'));
