@@ -16,11 +16,12 @@ const DialogDnD = ({dialog}) => {
 
     const uploadFile = async (file) => {
         try {
+            const type = file.type.startsWith('image') ? 'image' : 'document'
             const response = await saveFile(file)
             socket.emit('send_message', {
-                "type": "image",
+                "type": type,
                 "value": response.data.link,
-                file_name: response.data.name,
+                "file_name": response.data.name,
                 "chat_id": useCurrentChatStore.getState().chat.id
             })
         } catch (e) {
