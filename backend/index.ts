@@ -23,7 +23,6 @@ import {ParamsDictionary} from "express-serve-static-core";
 import {ParsedQs} from "qs";
 import {use} from "passport";
 
-
 const pgp = require('pg-promise')();
 const PORT: string = process.env.PORT || '3000'
 const SERVER_URL: string = process.env.URL || 'localhost'
@@ -33,7 +32,6 @@ const PROTOCOL: string = process.env.PROTOCOL || 'http'
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
-
 export const s3 = new S3(process.env.accessKeyId, process.env.secretAccessKey, process.env.Bucket);
 export const db = pgp(process.env.DATABASE_URL);
 
@@ -53,8 +51,6 @@ app.use(myPassport.session());
 
 app.use(fileUpload({}));
 
-
-app.use(express.static('./storage'));
 app.use(express.static('../frontend/build'));
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));

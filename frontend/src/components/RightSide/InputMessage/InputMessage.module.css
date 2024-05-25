@@ -1,4 +1,5 @@
 .messageInput{
+    position: relative;
     display: flex;
     background-color: var(--white);
     padding: 10px;
@@ -42,5 +43,7 @@
 }
 
 .emojiPicker {
-    margin-left: auto;
+    position: absolute;
+    bottom: 100%;
+    right: 0;
 }

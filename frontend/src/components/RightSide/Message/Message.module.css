@@ -17,6 +17,7 @@
 }
 
 .text {
+    white-space: pre-wrap;
     max-width: 760px;
     position: relative;
     background-color: var(--white);
@@ -51,6 +52,7 @@
 }
 
 .myText {
+    white-space: pre-wrap;
     margin-left: auto;
     max-width: 760px;
     position: relative;
