@@ -14,14 +14,12 @@ import path from "path";
 import bodyParser from "body-parser";
 import {SingleChatView} from "./views/SingleChatView";
 import {S3} from "./facades/S3";
-import {User} from "./models/User";
 import {Server} from "socket.io";
 import * as http from "http";
 import {MessageController} from "./controllers/MessageController";
 import fileUpload from "express-fileupload";
 import {ParamsDictionary} from "express-serve-static-core";
 import {ParsedQs} from "qs";
-import {use} from "passport";
 
 const pgp = require('pg-promise')();
 const PORT: string = process.env.PORT || '3000'
