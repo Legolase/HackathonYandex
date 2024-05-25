@@ -1,13 +1,20 @@
 import {create} from "zustand";
-import axios from "axios";
+import axios, {get} from "axios";
 import {useLoggedInUserStore} from "./LoggedInUserStore";
 import {useCurrentChatStore} from "./CurrentChatStore";
+import message from "../components/RightSide/Message/Message";
 
-export const useMessagesStore = create((set) => ({
+export const useMessagesStore = create((set, get) => ({
 
     messages: [],
     isLoading: false,
     error: null,
+
+    addMessage: (message) => {
+        set(() => ({
+            messages: [...get().messages, message]
+        }))
+    },
 
     postFile: (file) => {
         const params = {

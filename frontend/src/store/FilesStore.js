@@ -13,8 +13,6 @@ export const useFilesStore = create((set, get) => ({
     },
 
     addFiles: (newFiles) => {
-        console.log(get().files)
-        console.log(newFiles)
         set(() => ({
             files: [...get().files, ...newFiles]
         }))

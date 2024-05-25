@@ -17,13 +17,11 @@ import {S3} from "./facades/S3";
 import {User} from "./models/User";
 import {Server} from "socket.io";
 import * as http from "http";
-import {User} from "./models/User";
 import {MessageController} from "./controllers/MessageController";
-
 import fileUpload from "express-fileupload";
-import {Server} from "socket.io";
-import * as http from "http";
-import {MessageController} from "./controllers/MessageController";
+import {ParamsDictionary} from "express-serve-static-core";
+import {ParsedQs} from "qs";
+import {use} from "passport";
 
 
 const pgp = require('pg-promise')();
@@ -42,11 +40,13 @@ export const db = pgp(process.env.DATABASE_URL);
 app.use(cookieParser());
 app.use(bodyParser.json());
 
-app.use(expressSession({
+const sessionMiddleware = expressSession({
     secret: process.env.EXPRESS_SESSION_SECRET || '',
     resave: false,
     saveUninitialized: false,
-}));
+});
+
+app.use(sessionMiddleware);
 
 app.use(myPassport.initialize());
 app.use(myPassport.session());
@@ -64,19 +64,39 @@ app.get('*', function (req, res) {
     res.sendFile(path.join(__dirname, '../frontend/build/index.html'));
 });
 
+function onlyForHandshake(middleware: express.RequestHandler<ParamsDictionary, any, any, ParsedQs, Record<string, any>>) {
+    return (req: any, res: any, next: any) => {
+        const isHandshake = req._query.sid === undefined;
+        if (isHandshake) {
+            middleware(req, res, next);
+        } else {
+            next();
+        }
+    };
+}
+
+io.engine.use(onlyForHandshake(sessionMiddleware));
+io.engine.use(onlyForHandshake(myPassport.session()));
+io.engine.use(
+    onlyForHandshake((req, res, next) => {
+        if (req.user) {
+            next();
+        } else {
+            res.writeHead(401);
+            res.end();
+        }
+    }),
+);
 io.on('connection', (socket) => {
     console.log("connected")
-
     socket.on('send_message', async (req) => {
-        console.log(req)
-        let user = await req.user as User;
+        // @ts-ignore
+        const user = await socket.request.user;
         await user.updateActivity();
-        req.body.user_id = user.id;
-        MessageController.createItem(req.body).then((data) => {
+        req.user_id = user.id;
+        MessageController.createItem(req).then((data) => {
             console.log(data)
-            socket.emit('receive_message', {
-                // todo: тут хочется отправить сохраненное сообщение на фронт, чтобы отрисовать его и отказаться от setTimeout
-            })
+            io.emit('receive_message', data)
             // res.json(data)
         }).catch((error) => {
             // res.status(400);

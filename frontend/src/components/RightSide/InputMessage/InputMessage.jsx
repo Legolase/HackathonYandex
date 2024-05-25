@@ -31,7 +31,6 @@ const InputMessage = () => {
             "chat_id": useCurrentChatStore.getState().chat.id
         }
         socket.emit('send_message', data)
-
         // addMessage(inputValue)
         // postMessage(inputValue)
         setInputValue('')
