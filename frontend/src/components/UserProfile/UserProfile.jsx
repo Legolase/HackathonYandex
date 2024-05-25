@@ -7,13 +7,12 @@ import {useParams} from "react-router-dom";
 import {useNavigate} from "react-router";
 
 const UserProfile = () => {
-
-
     const contact = useCurrentContactStore(state => state.contact)
     const fetchChatByUserId = useCurrentChatStore(state => state.getSingleChatByUserId)
     const loading = useCurrentContactStore(state => state.loading)
     const fetchContact = useCurrentContactStore(state => state.fetchContact)
     const setActive = useCurrentContactStore(state => state.setActive)
+    const createChatByUserId = useCurrentContactStore(state => state.createContact)
 
     const {contactId} = useParams()
     const navigate = useNavigate()
@@ -50,8 +49,7 @@ const UserProfile = () => {
                 </Button>
                 <Button
                     name={'Add to contacts'}
-                    onClickHandler={() => {
-                    }}>
+                    onClickHandler={() => createChatByUserId(contact.id)}>
                 </Button>
             </div>
         </div>

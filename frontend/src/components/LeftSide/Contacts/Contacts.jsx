@@ -25,7 +25,7 @@ const Contacts = () => {
         <ul className={cl.chats}>
             {contacts.map((contact, pos) =>
                 <div>
-                    <Contact contact={contact} key={pos}/>
+                    <Contact contact={contact.contact_user} key={pos}/>
                 </div>
             )}
         </ul>

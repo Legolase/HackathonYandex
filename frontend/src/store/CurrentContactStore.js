@@ -2,7 +2,6 @@ import {create} from "zustand";
 import axios from "axios";
 
 export const useCurrentContactStore = create((set, get) => ({
-
     contact: null,
     error: null,
     loading: true,
@@ -44,6 +43,18 @@ export const useCurrentContactStore = create((set, get) => ({
             }))
         }).catch((err) => {
             // todo: Handle Err
+        })
+    },
+
+    createContact: (id) => {
+        const params = {
+            contact_user_id: id
+        }
+        axios.post(process.env.REACT_APP_BACKEND_URL + `/api/contact`, params).then((response) => {
+            get().fetchContacts()
+        }).catch((err) => {
+            // todo: check keys
+            // todo: посмотреть как выглядят ошибки
         })
     }
 }))
