@@ -49,7 +49,10 @@ app.use(sessionMiddleware);
 app.use(myPassport.initialize());
 app.use(myPassport.session());
 
-app.use(fileUpload({}));
+app.use(fileUpload({
+    defCharset: 'utf8',
+    defParamCharset: 'utf8'
+}));
 
 app.use(express.static('../frontend/build'));
 

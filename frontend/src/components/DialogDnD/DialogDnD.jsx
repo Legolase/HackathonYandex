@@ -1,17 +1,33 @@
-import React, {useRef, useState} from 'react';
-import {useMessagesStore} from "../../store/MessagesStore";
+import React from 'react';
 import cl from './DialogDnD.module.css'
 import Files from "../Files/Files";
 import AddFiles from "../AddFiles/AddFiles";
 import {useFilesStore} from "../../store/FilesStore";
+import {useSocketStore} from "../../store/SocketStore";
+import {useCurrentChatStore} from "../../store/CurrentChatStore";
 
 const DialogDnD = ({dialog}) => {
 
     // todo: replace method to filesStore
-    const postFile = useMessagesStore(state => state.postFile)
-
+    const saveFile = useFilesStore(state => state.saveFile)
+    const socket = useSocketStore(state => state.socket)
     const files = useFilesStore(state => state.files)
     const nulifyFiles = useFilesStore(state => state.nulifyFiles)
+
+    const uploadFile = async (file) => {
+        try {
+            const response = await saveFile(file)
+            socket.emit('send_message', {
+                "type": "image",
+                "value": response.data.link,
+                file_name: response.data.name,
+                "chat_id": useCurrentChatStore.getState().chat.id
+            })
+        } catch (e) {
+            // todo: handle errors
+        }
+    }
+
 
     return (
         <dialog ref={dialog} className={cl.dialog}
@@ -32,7 +48,7 @@ const DialogDnD = ({dialog}) => {
                 onSubmit={(e) => {
                     e.preventDefault()
                     files.map((file) => {
-                        postFile(file)
+                        uploadFile(file)
                     })
                     dialog.current.close()
                 }}>

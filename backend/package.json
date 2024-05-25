@@ -9,7 +9,7 @@
     "create-migration": "node-pg-migrate create",
     "migrate": "node-pg-migrate up",
     "migrate down": "node-pg-migrate down -- -a",
-    "dev" : "nodemon index.ts"
+    "dev": "nodemon index.ts"
   },
   "author": "StepanovIlya1104",
   "license": "ISC",
