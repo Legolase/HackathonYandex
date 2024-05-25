@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import cl from './Contact.module.css'
 import {useCurrentContactStore} from "../../../store/CurrentContactStore";
 import {useCurrentChatStore} from "../../../store/CurrentChatStore";
 import {useNavigate} from "react-router";
+import {formatDistance} from "date-fns";
 
 const Contact = ({contact}) => {
 
@@ -13,6 +14,14 @@ const Contact = ({contact}) => {
     const nullifyChat = useCurrentChatStore(state => state.nullifyChat)
     const router = useNavigate()
     const setActive = useCurrentContactStore(state => state.setActive)
+    const [lastActivity, setLastActivity] = useState(contact.datetime_last_activity);
+
+    useEffect(() => {
+        setLastActivity(formatDistance(new Date(), new Date(lastActivity)));
+        setInterval(() => {
+            setLastActivity(formatDistance(new Date(), new Date(lastActivity)));
+        }, 5000);
+    }, []);
 
     if (currentContact && currentContact.id === contact.id && active)
         root.push(cl.active)
@@ -27,7 +36,7 @@ const Contact = ({contact}) => {
             <img className={cl.avatar} src={contact.avatar} alt={'?'}/>
             <div className={cl.textInfo}>
                 <span className={cl.name}>{contact.name}</span>
-                <span className={cl.lastSeen}>{`Last seen: ${contact.last_seen}`}</span>
+                <span className={cl.lastSeen}>{`Last seen: ${lastActivity}`}</span>
             </div>
         </li>
     );
