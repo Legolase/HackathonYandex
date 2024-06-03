@@ -16,7 +16,7 @@ services:
     volumes:
       - .:/home/app
     ports:
-      - 80:3000
+      - 443:3000
     depends_on:
      - postgres
        #    command: cd frontend && npm install && npm run build && cd .. && cd backend && npm install && npm run migrate && npm start
