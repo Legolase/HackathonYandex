@@ -5,11 +5,10 @@ import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 import {useLoggedInUserStore} from "./store/LoggedInUserStore";
 import Messenger from "./pages/Messenger";
 import Auth from "./pages/Auth";
-import FOFError from "./pages/FOFError";
 import UserProfile from "./components/UserProfile/UserProfile";
 import SelectedChat from "./components/RightSide/SelectedChat/SelectedChat";
 import UnSelected from "./components/RightSide/UnSelected/UnSelected";
-import Settings from "./components/Settings/Settings";
+import Error404 from "./pages/Error404";
 
 function App() {
 
@@ -29,12 +28,6 @@ function App() {
         </>
     );
 
-    const fofErr = (
-        <>
-            <Route path={'/foferr'} element={<FOFError/>}/>
-        </>
-    );
-
     const privateRoutes = currentUser ? (
         <>
             <Route index={true}
@@ -49,6 +42,9 @@ function App() {
             {/*<Route exact path={'/settings'}*/}
             {/*       element={<Messenger activePanel={<Settings/>}/>}*/}
             {/*/>*/}
+            <Route exact path={'/*'}
+                   element={<Error404/>}
+            />
         </>
     ) : <></>;
 
