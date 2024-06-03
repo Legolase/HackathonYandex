@@ -9,6 +9,7 @@ import UserProfile from "./components/UserProfile/UserProfile";
 import SelectedChat from "./components/RightSide/SelectedChat/SelectedChat";
 import UnSelected from "./components/RightSide/UnSelected/UnSelected";
 import Error404 from "./pages/Error404";
+import Settings from "./components/Settings/Settings";
 
 function App() {
 
@@ -39,9 +40,9 @@ function App() {
             <Route exact path={'/user/:contactId'}
                    element={<Messenger activePanel={<UserProfile/>}/>}
             />
-            {/*<Route exact path={'/settings'}*/}
-            {/*       element={<Messenger activePanel={<Settings/>}/>}*/}
-            {/*/>*/}
+            <Route exact path={'/settings'}
+                   element={<Messenger activePanel={<Settings/>}/>}
+            />
             <Route exact path={'/*'}
                    element={<Error404/>}
             />
@@ -57,7 +58,6 @@ function App() {
             <Routes>
                 {baseRoutes}
                 {privateRoutes}
-                {fofErr}
                 <Route path={'*'} element={<Navigate replace to='/auth'/>}/>
             </Routes>
         </BrowserRouter>

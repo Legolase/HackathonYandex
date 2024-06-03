@@ -1,11 +1,46 @@
 import React from 'react';
+import {useLoggedInUserStore} from "../../store/LoggedInUserStore";
+import cl from './Settings.module.css'
+import Setting from "../Setting/Setting";
 
 const Settings = () => {
-    return (
-        <div>
+    const curUser = useLoggedInUserStore(state => state.currentUser)
 
+
+
+    const names = ['Upload profile photo', 'Generate profile photo', 'Change user name',
+        'Change user login', 'Notifications', 'Appearance', 'Language']
+
+    // todo: Здесь текст
+    return (
+        <div className={cl.settings}>
+            <div className={cl.header}>
+                <img className={cl.avatar} src={curUser.avatar}/>
+                <div className={cl.textInfo}>
+                    <span className={cl.name}>Name: {curUser.name}</span>
+                    <span className={cl.login}>Login: {curUser.login}</span>
+                </div>
+
+            </div>
+            <div className={cl.body}>
+                <div className={cl.column}>
+                    <Setting name={'photo'} text={names[0]}/>
+                    <Setting name={'photo'} text={names[1]}/>
+                </div>
+                <div className={cl.column}>
+                    <Setting name={'photo'} text={names[2]}/>
+                    <Setting name={'photo'} text={names[3]}/>
+                </div>
+                <div className={cl.column}>
+                    <Setting name={'notification'} text={names[4]}/>
+                    <Setting name={'appearance'} text={names[5]}/>
+                    <Setting name={'language'} text={names[6]}/>
+                </div>
+            </div>
         </div>
     );
+
+
 };
 
 export default Settings;

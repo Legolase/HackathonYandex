@@ -90,6 +90,11 @@ code {
     width: 100%;
 }
 
+.setting_icon{
+    width: 27px;
+    height: 27px;
+}
+
 *::-webkit-scrollbar,
 *::-webkit-scrollbar-thumb {
     width: 26px;
