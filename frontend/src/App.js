@@ -9,6 +9,7 @@ import FOFError from "./pages/FOFError";
 import UserProfile from "./components/UserProfile/UserProfile";
 import SelectedChat from "./components/RightSide/SelectedChat/SelectedChat";
 import UnSelected from "./components/RightSide/UnSelected/UnSelected";
+import Settings from "./components/Settings/Settings";
 
 function App() {
 
@@ -45,6 +46,9 @@ function App() {
             <Route exact path={'/user/:contactId'}
                    element={<Messenger activePanel={<UserProfile/>}/>}
             />
+            {/*<Route exact path={'/settings'}*/}
+            {/*       element={<Messenger activePanel={<Settings/>}/>}*/}
+            {/*/>*/}
         </>
     ) : <></>;
 

@@ -10,6 +10,7 @@
     --small-text: 16px;
     --white: white;
     --font: "Roboto", sans-serif;
+    --hover-button-color: rgba(227, 227, 227, 1);
 }
 
 #root.redesigned {
@@ -20,7 +21,7 @@
 * {
     margin: 0;
     padding: 0;
-
+    box-sizing: border-box;
 }
 
 body {
@@ -51,6 +52,42 @@ code {
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    gap: 30px;
+    width: calc(max(300px, min(750px, 80vw)));
+    margin-inline: auto;
+}
+
+.desc {
+    color: var(--light-gray);
+    text-align: center;
+}
+
+.auth_footer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.change_lang:hover {
+    cursor: pointer;
+    background-color: var(--hover-button-color);
+}
+
+.change_lang {
+    color: inherit;
+    background-color: var(--background-gray);
+    border-radius: 8px;
+    padding: 30px;
+    width: 100%;
+    text-align: center;
+    border: inherit;
+    font-size: var(--small-text);
+    font-weight: 300;
+    font-family: "Roboto", sans-serif;
+}
+
+.logo {
+    width: 100%;
 }
 
 *::-webkit-scrollbar,
