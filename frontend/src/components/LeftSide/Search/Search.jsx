@@ -8,14 +8,15 @@ const Search = () => {
     const setQuery = useContactsStore(state => state.setQuery)
 
     const nulify = useContactsStore(state => state.nulify)
-    const searchContacts = useContactsStore(state => state.contactSearch)
-    const searchUsers = useContactsStore(state => state.userSearch)
+    const contactAndUserSearch = useContactsStore(state => state.contactAndUserSearch)
 
     const setQueryCurrent = (e) => {
         setQuery(e.target.value)
-        nulify()
-        searchContacts()
-        searchUsers()
+        if (!e.target.value){
+            nulify()
+        } else {
+            contactAndUserSearch()
+        }
     }
 
     return (

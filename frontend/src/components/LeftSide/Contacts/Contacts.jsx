@@ -12,6 +12,9 @@ const Contacts = () => {
     const {active} = useTabsStore()
     const [, downloadContacts] = useChangeActive()
     const searchQuery = useContactsStore(state => state.searchQuery)
+    const queriedContacts = useContactsStore(state => state.queriedContacts)
+    const queriedUsers = useContactsStore(state => state.queriedUsers)
+
 
     useEffect(() => {
         if (contacts.length !== 0)
@@ -22,16 +25,34 @@ const Contacts = () => {
     if (loading)
         return <span>LOADING</span>
 
-    if (searchQuery === '')
+    if (searchQuery)
         return (
             <ul className={cl.chats}>
-                {contacts.map((contact, pos) =>
+                {queriedContacts.map((contact, pos) => {
+                    return (
+                        <div>
+                            <Contact contact={contact} key={pos}/>
+                        </div>
+                    )
+                })}
+                <hr/>
+                {queriedUsers.map((user, pos) =>
                     <div>
-                        <Contact contact={contact.contact_user} key={pos}/>
+                        <Contact contact={user} key={pos}/>
                     </div>
                 )}
             </ul>
-        );
+
+        )
+    return (
+        <ul className={cl.chats}>
+            {contacts.map((contact, pos) =>
+                <div>
+                    <Contact contact={contact.contact_user} key={pos}/>
+                </div>
+            )}
+        </ul>
+    );
 };
 
 export default Contacts;
