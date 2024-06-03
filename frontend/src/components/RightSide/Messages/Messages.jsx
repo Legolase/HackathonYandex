@@ -22,6 +22,7 @@ const Messages = () => {
     const setActive = useFilesStore(state => state.setActiveBackground)
     const socket = useSocketStore(state => state.socket)
 
+    console.log(chatId)
 
     const scrollToBottom = () => {
         messagesEndRef.current.scrollIntoView()
@@ -29,7 +30,8 @@ const Messages = () => {
 
     useEffect(() => {
         socket.on("receive_message", (data) => {
-            addMessage(data)
+            if (data.chat_id === chatId)
+                addMessage(data)
         });
         scrollToBottom();
         return () => {

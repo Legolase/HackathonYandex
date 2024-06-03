@@ -7,12 +7,12 @@ export const useContactsStore = create((set, get) => ({
     loading: false,
     error: null,
     searchQuery: '',
-    queriedContact: [],
+    queriedContacts: [],
     queriedUsers: [],
 
     nulify: () => {
         set(() => ({
-            queriedContact: [],
+            queriedContacts: [],
             queriedUsers: [],
         }))
     },
@@ -23,25 +23,31 @@ export const useContactsStore = create((set, get) => ({
         }))
     },
 
-    contactSearch: () => {
+    contactAndUserSearch: () => {
         axios.get('/api/contact/search', {
             params: {
                 name: get().searchQuery
             }
-        }).then((res) => {
-            // todo: засетить пользователей
+        }).then((res1) => {
+            axios.get('/api/user/search', {
+                params: {
+                    name: get().searchQuery
+                }
+            }).then((res2) => {
+                set(() => ({
+                    queriedContacts: res1.data
+                }))
+                const unique = new Set(res1.data.map((contact) => contact.id))
+                const excluded = res2.data.filter((user) => !unique.has(user.id))
+                set(() => ({
+                    queriedUsers: excluded
+                }))
+            })
+        }).catch((err) => {
+
         })
     },
 
-    userSearch: () => {
-        axios.get('/api/user/search', {
-            params: {
-                name: get().searchQuery
-            }
-        }).then((res) => {
-            // todo: добавить пользователей пользователей
-        })
-    },
 
     setLoading: (loading) => {
         set(() => ({
