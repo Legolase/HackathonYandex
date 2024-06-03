@@ -643,6 +643,80 @@
         }
       }
     },
+    "/api/user/search": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "description": "Получение списка пользователей",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Получен список пользователей",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "table": {
+                    "type": "string",
+                    "example": "users"
+                  },
+                  "db": {
+                    "type": "object",
+                    "properties": {}
+                  },
+                  "id": {
+                    "type": "number",
+                    "example": 17
+                  },
+                  "datetime_create": {
+                    "type": "string",
+                    "example": "2024-04-13T12:21:42.576Z"
+                  },
+                  "datetime_last_activity": {
+                    "type": "string",
+                    "example": "2024-04-13T09:21:42.575Z"
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "IlyaStepanov1104"
+                  },
+                  "login": {
+                    "type": "string",
+                    "example": "IlyaStepanov1104"
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "ilyahtml@gmail.com"
+                  },
+                  "avatar": {
+                    "type": "string",
+                    "example": "image\\avatar\\708d5e598f4ce68eab6b1c5bf9db85f6.jpeg"
+                  },
+                  "github_id": {
+                    "type": "number",
+                    "example": 102037915
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "401": {
+            "description": "Пользователь не авторизован"
+          }
+        }
+      }
+    },
     "/api/user/current": {
       "get": {
         "tags": [
@@ -1080,6 +1154,82 @@
                 "error": {
                   "type": "string",
                   "example": "error.message"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "401": {
+            "description": "Пользователь не авторизован"
+          }
+        }
+      }
+    },
+    "/api/contact/search": {
+      "get": {
+        "tags": [
+          "Contact"
+        ],
+        "description": "Получение списка контактов",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Получен список контактов",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "example": 1
+                  },
+                  "type": {
+                    "type": "string",
+                    "example": "single"
+                  },
+                  "pin_message": {},
+                  "name": {
+                    "type": "string",
+                    "example": "test"
+                  },
+                  "avatar": {},
+                  "messages": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number",
+                          "example": 3
+                        },
+                        "datetime": {
+                          "type": "string",
+                          "example": "2024-04-10T02:09:40.322Z"
+                        },
+                        "text": {
+                          "type": "string",
+                          "example": "Message 2"
+                        },
+                        "from": {
+                          "type": "number",
+                          "example": 10
+                        },
+                        "read": {
+                          "type": "boolean",
+                          "example": true
+                        }
+                      }
+                    }
+                  }
                 }
               },
               "xml": {
