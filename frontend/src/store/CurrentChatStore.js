@@ -74,7 +74,8 @@ export const useCurrentChatStore = create((set, get) => ({
 
     // for getting name and avatar of single chat - its own name and avatar
     getDataByChat: (chat) => {
-        // todo: check chatType before
+        if (chat.type === 'multi')
+            return chat
         const loggedUser = useLoggedInUserStore.getState().currentUser
         const users = chat.users
         for (const usersKey in users) {

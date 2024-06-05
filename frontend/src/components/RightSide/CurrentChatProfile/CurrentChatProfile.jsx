@@ -66,8 +66,10 @@ const CurrentChatProfile = ({chat}) => {
             }}/>
             <div className={cl.textInfo}>
                 <span className={cl.name}>{data.name}</span>
-                <span
-                    className={cl.lastMessage}>Last online: {formatDistance(new Date(), new Date(data.last_seen))}</span>
+                {!data.type &&
+                    <span className={cl.lastMessage}>Last online: {formatDistance(new Date(), new Date(data.last_seen))}</span>
+                }
+
             </div>
 
             {getSearchBar()}
