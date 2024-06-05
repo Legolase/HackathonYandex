@@ -60,8 +60,7 @@
 .right {
     display: flex;
     flex-direction: column;
-    /*gap: 3px;*/
-    /*position: relative;*/
+    margin-bottom: 20px;
 }
 
 

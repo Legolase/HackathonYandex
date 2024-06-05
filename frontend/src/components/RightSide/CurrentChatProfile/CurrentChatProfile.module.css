@@ -5,6 +5,7 @@
     gap: 10px;
     padding: 10px 10px 10px 20px;
     height: 65px;
+    position: relative;
 }
 
 .avatar {
@@ -13,11 +14,13 @@
     width: 40px;
     height: 40px;
     object-fit: cover;
+
 }
 
 .textInfo {
     display: flex;
-    flex-direction: column
+    flex-direction: column;
+
 }
 
 .name {
@@ -36,4 +39,38 @@
     font-family: "Roboto", sans-serif;
     font-weight: 100;
     font-style: normal;
+}
+
+.searchMessages {
+    background-color: var(--white);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    margin-right: 15px;
+    cursor: pointer;
+    justify-content: center;
+}
+
+.search{
+    padding: 5px 8px;
+    background-color: var(--background-gray);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin: 0 15px;
+    flex-grow: 1;
+}
+
+.input{
+    border: none;
+    height: 30px;
+    background: none;
+    width: 100%;
+}
+.input:focus{
+    outline: none;
 }
