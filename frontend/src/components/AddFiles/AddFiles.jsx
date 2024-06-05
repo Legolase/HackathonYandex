@@ -22,7 +22,7 @@ const AddFiles = () => {
             <input style={{display: 'none'}} multiple={true} type={"file"} id={'pretty_upload'} onChange={(e) => {
                 handleChangeAddFiles(e)
             }}/>
-            <button className={cl.button} type={"submit"}>Submit</button>
+            <button className={cl.label} type={"submit"}>Submit</button>
         </div>
     );
 };

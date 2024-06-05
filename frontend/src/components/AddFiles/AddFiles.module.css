@@ -4,12 +4,17 @@
 }
 
 .label {
+    border: 0;
     position: relative;
     display: inline-block;
     padding: 8px;
     background-color: var(--background-gray);
     border-radius: 8px;
     cursor: pointer;
+    font-family: Roboto, sans-serif;
+    font-weight: 300;
+    height: 36px;
+    font-size: 16px;
 }
 
 .button{

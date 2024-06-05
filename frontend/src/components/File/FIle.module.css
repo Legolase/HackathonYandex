@@ -9,11 +9,15 @@
 .metaInf {
     display: flex;
     flex-direction: column;
-    gap: 3px
+    gap: 3px;
+    width: calc(100% - 35px);
 }
 
 .name {
-    font-size: 18px
+    font-size: 18px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .size {

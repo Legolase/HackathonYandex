@@ -6,11 +6,12 @@
     border-radius: 8px;
     position: relative;
     width: 300px;
-    min-height: 120px;
 }
 
 .cross{
     position: absolute;
-    top: 20px;
-    right: 10px;
+    top: 5px;
+    right: 5px;
+    width: 15px;
+    height: 15px;
 }
