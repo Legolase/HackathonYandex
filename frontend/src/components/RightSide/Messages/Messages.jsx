@@ -46,15 +46,22 @@ const Messages = () => {
     }
 
     useEffect(() => {
+        groupByDateMessages()
+        scrollToBottom()
+    }, [messages]);
+
+    useEffect(() => {
         socket.on("receive_message", (data) => {
-            if (data.chat_id === chatId)
+            if (data.chat_id === chatId) {
                 addMessage(data)
+                groupByDateMessages()
+            }
         });
         scrollToBottom();
         return () => {
             socket.off("receive_message");
         };
-    }, [messages]);
+    }, []);
 
     useEffect(() => {
         getMessagesByChatId(chatId)
@@ -85,7 +92,7 @@ const Messages = () => {
 
                 }
             </PhotoProvider>
-            <div ref={messagesEndRef}></div>
+            <div style={{height: '3px', backgroundColor: 'red'}} ref={messagesEndRef}></div>
 
             <DnD dialog={dialog}/>
             <DialogDnD dialog={dialog}/>

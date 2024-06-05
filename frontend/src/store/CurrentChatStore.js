@@ -88,6 +88,14 @@ export const useCurrentChatStore = create((set, get) => ({
         }
     },
 
+    createGroupChat: (data) => {
+        axios.post('/api/chat', data).then(r => {
+            console.log(r.data)
+        }).catch((e) => {
+
+        })
+    },
+
     setChatFromResponse: (response) => {
         set(() => ({
             chat: response.data,

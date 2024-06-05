@@ -13,3 +13,9 @@
     font-size: 25px;
     font-weight: 400;
 }
+
+.header{
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
