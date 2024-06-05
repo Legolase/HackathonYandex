@@ -1,8 +1,8 @@
 import React from 'react';
 import {useFilesStore} from "../../store/FilesStore";
+import cl from './AddFiles.module.css'
 
 const AddFiles = () => {
-
 
 
     const addFiles = useFilesStore(state => state.addFiles)
@@ -15,13 +15,14 @@ const AddFiles = () => {
 
 
     return (
-        <div style={{display: "flex", gap: '10px'}}>
-            <label className={'input-file'} style={{position: 'relative', display: 'inline-block'}}>
-                <input multiple={true} type={"file"} name={'file'} onChange={(e) => {
-                    handleChangeAddFiles(e)
-                }}/>
+        <div className={cl.adder}>
+            <label className={cl.label} htmlFor={'pretty_upload'}>
+                    Add files
             </label>
-            <button type={"submit"}>Submit</button>
+            <input style={{display: 'none'}} multiple={true} type={"file"} id={'pretty_upload'} onChange={(e) => {
+                handleChangeAddFiles(e)
+            }}/>
+            <button className={cl.button} type={"submit"}>Submit</button>
         </div>
     );
 };

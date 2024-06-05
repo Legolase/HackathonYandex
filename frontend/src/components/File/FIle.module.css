@@ -1,11 +1,14 @@
 .file {
     display: flex;
-    gap: 10px
+    gap: 10px;
+    background-color: var(--background-gray);
+    padding: 10px;
+    border-radius: 12px;
 }
 
 .metaInf {
     display: flex;
-    flexDirection: column;
+    flex-direction: column;
     gap: 3px
 }
 

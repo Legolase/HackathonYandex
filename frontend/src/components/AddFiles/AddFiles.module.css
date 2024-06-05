@@ -1,0 +1,20 @@
+.adder {
+    display: flex;
+    justify-content: space-between;
+}
+
+.label {
+    position: relative;
+    display: inline-block;
+    padding: 8px;
+    background-color: var(--background-gray);
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.button{
+    border: inherit;
+    padding: 8px;
+    border: 8px;
+    background-color: var(--background-gray);
+}

@@ -6,6 +6,7 @@ import EmojiPicker from 'emoji-picker-react';
 import {useSocketStore} from "../../../store/SocketStore";
 import {useLoggedInUserStore} from "../../../store/LoggedInUserStore";
 import {useCurrentChatStore} from "../../../store/CurrentChatStore";
+import DialogDnD from "../../DialogDnD/DialogDnD";
 
 const InputMessage = () => {
 
@@ -17,6 +18,7 @@ const InputMessage = () => {
     const textareaRef = useRef(null);
     const formRef = useRef();
     const [showPicker, setShowPicker] = useState(false);
+    const dialog = useRef(null)
 
     const sendMessage = () => {
         console.log('send-message')
@@ -74,7 +76,12 @@ const InputMessage = () => {
                 }
 
                 {/* TODO: add onClick event! */}
-                <button type={"submit"} className={cl.button} style={{backgroundColor: 'transparent', border: 'none', width: '30px', height: '30px'}}>
+                <button type={"submit"} className={cl.button}
+                        style={{backgroundColor: 'transparent', border: 'none', width: '30px', height: '30px'}}
+                        onClick={() => {
+                            dialog.current.showModal()
+                        }}
+                >
                     <svg className={cl.svg} viewBox="0 0 40 44" fill="none"
                          xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -112,7 +119,7 @@ const InputMessage = () => {
                             fill="currentColor" fillOpacity="0.05"/>
                     </svg>
                 </button>
-
+                <DialogDnD dialog={dialog}/>
 
             </form>
         </>

@@ -8,7 +8,6 @@ import {useCurrentChatStore} from "../../store/CurrentChatStore";
 
 const DialogDnD = ({dialog}) => {
 
-    // todo: replace method to filesStore
     const saveFile = useFilesStore(state => state.saveFile)
     const socket = useSocketStore(state => state.socket)
     const files = useFilesStore(state => state.files)

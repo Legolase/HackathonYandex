@@ -2,6 +2,6 @@
     overflow-y: scroll;
     max-height: 350px;
     display: flex;
-    flexDirection: column;
+    flex-direction: column;
     gap: 10px
 }
