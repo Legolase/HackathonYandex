@@ -24,12 +24,12 @@ const Settings = () => {
             </div>
             <div className={cl.body}>
                 <div className={cl.column}>
-                    <Setting name={'photo'} text={names[0]}/>
-                    <Setting name={'photo'} text={names[1]}/>
+                    <Setting name={'file'} text={names[0]}/>
+                    <Setting name={'file'} text={names[1]}/>
                 </div>
                 <div className={cl.column}>
-                    <Setting name={'photo'} text={names[2]}/>
-                    <Setting name={'photo'} text={names[3]}/>
+                    <Setting name={'file'} text={names[2]}/>
+                    <Setting name={'file'} text={names[3]}/>
                 </div>
                 <div className={cl.column}>
                     <Setting name={'notification'} text={names[4]}/>

@@ -1,0 +1,18 @@
+.file {
+    display: flex;
+    gap: 10px
+}
+
+.metaInf {
+    display: flex;
+    flexDirection: column;
+    gap: 3px
+}
+
+.name {
+    font-size: 18px
+}
+
+.size {
+    font-size: 10px
+}

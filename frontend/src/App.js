@@ -51,7 +51,7 @@ function App() {
 
 
     if (loading)
-        return (<span>LOADING</span>);
+        return <div style={{width: '100%'}}></div>;
 
     return (
         <BrowserRouter>

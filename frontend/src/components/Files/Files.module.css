@@ -1,0 +1,7 @@
+.filesList{
+    overflow-y: scroll;
+    max-height: 350px;
+    display: flex;
+    flexDirection: column;
+    gap: 10px
+}

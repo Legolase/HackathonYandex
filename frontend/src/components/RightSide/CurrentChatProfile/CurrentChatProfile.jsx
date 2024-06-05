@@ -4,6 +4,7 @@ import {useCurrentChatStore} from "../../../store/CurrentChatStore";
 import {useNavigate} from "react-router";
 import {useLoggedInUserStore} from "../../../store/LoggedInUserStore";
 import {useCurrentContactStore} from "../../../store/CurrentContactStore";
+import {formatDistance} from "date-fns";
 
 const CurrentChatProfile = ({chat}) => {
 
@@ -30,12 +31,10 @@ const CurrentChatProfile = ({chat}) => {
                 getContact(id)
                 nullifyChat()
                 router(`/user/${id}`)
-                // todo: Make request for contact of this chat
             }}/>
             <div className={cl.textInfo}>
                 <span className={cl.name}>{data.name}</span>
-                {/*todo: Line below for last seen*/}
-                <span className={cl.lastMessage}></span>
+                <span className={cl.lastMessage}>Last online: {formatDistance(new Date(), new Date(data.last_seen))}</span>
             </div>
         </div>
     );

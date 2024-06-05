@@ -22,7 +22,11 @@ const Messages = () => {
     const setActive = useFilesStore(state => state.setActiveBackground)
     const socket = useSocketStore(state => state.socket)
 
-    console.log(chatId)
+
+    const formatMessages = () => {
+        let lastDate = null
+
+    }
 
     const scrollToBottom = () => {
         messagesEndRef.current.scrollIntoView()
@@ -42,12 +46,6 @@ const Messages = () => {
     useEffect(() => {
         getMessagesByChatId(chatId)
         scrollToBottom();
-        // scrollToBottom()
-        // const intervalId = setInterval(() => {
-        // }, 1500)
-        // return () => {
-        //     clearInterval(intervalId)
-        // }
     }, []);
 
 
@@ -61,12 +59,14 @@ const Messages = () => {
              onDragOver={e => dragOver(e)}
         >
             <PhotoProvider>
-                {messages.map((message, pos) => {
+                {
+                    messages.map((message, pos) => {
                         return <Message key={pos} message={message} my={message.user_id === loggedInUser.id}/>
-                    }
-                )}
+                    })
+                }
             </PhotoProvider>
             <div ref={messagesEndRef}></div>
+
             <DnD dialog={dialog}/>
             <DialogDnD dialog={dialog}/>
         </div>

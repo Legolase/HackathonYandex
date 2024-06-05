@@ -2,13 +2,13 @@ import React, {useEffect} from 'react';
 import cl from "../List/List.module.css";
 import Chat from "../Chat/Chat";
 import {useChatsStore} from "../../../store/ChatsStore";
-import {useTabsStore} from "../../../store/TabsStore";
+import {useNavStore} from "../../../store/NavStore";
 import {useChangeActive} from "../../../hooks/useChangeActive";
 
 const Chats = () => {
 
     const {chats, loading} = useChatsStore()
-    const {active} = useTabsStore()
+    const {active} = useNavStore()
     const [downloadChats] = useChangeActive()
 
 
@@ -19,7 +19,7 @@ const Chats = () => {
     }, [active]);
 
     if (loading)
-        return <span>LOADING</span>
+        return <div style={{width: '100%'}}>LOADING</div>
 
     return (
         <ul className={cl.chats}>

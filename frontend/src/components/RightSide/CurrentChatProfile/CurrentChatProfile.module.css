@@ -2,17 +2,16 @@
 .chat {
     background-color: var(--main);
     display: flex;
-    gap: 20px;
-    padding: 20px 30px;
-    border-radius: 8px;
+    gap: 10px;
+    padding: 10px 10px 10px 20px;
+    height: 65px;
 }
 
 .avatar {
     flex-shrink: 0;
     border-radius: 50%;
-    background-color: var(--green);
-    width: 60px;
-    height: 60px;
+    width: 40px;
+    height: 40px;
     object-fit: cover;
 }
 

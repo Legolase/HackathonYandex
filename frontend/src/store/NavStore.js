@@ -1,9 +1,9 @@
 import {create} from "zustand";
 
 
-export const useTabsStore = create((set, get) => ({
+export const useNavStore = create((set, get) => ({
 
-    active: 'Messages',
+    active: 'allChats',
     error : null,
     loading: false,
 

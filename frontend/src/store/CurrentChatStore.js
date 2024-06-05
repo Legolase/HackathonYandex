@@ -81,7 +81,8 @@ export const useCurrentChatStore = create((set, get) => ({
             if (loggedUser.id.toString() !== usersKey) {
                 return {
                     name: users[usersKey].name,
-                    avatar: users[usersKey].avatar
+                    avatar: users[usersKey].avatar,
+                    last_seen: users[usersKey].datetime_last_activity
                 }
             }
         }
