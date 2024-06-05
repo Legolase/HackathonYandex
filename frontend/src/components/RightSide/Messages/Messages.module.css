@@ -7,3 +7,8 @@
     overflow-y: auto;
 }
 
+.grouped{
+    display: flex;
+    flex-direction: column;
+    gap: 10px
+}

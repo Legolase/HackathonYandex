@@ -21,11 +21,23 @@ const Messages = () => {
     const dialog = useRef(null)
     const setActive = useFilesStore(state => state.setActiveBackground)
     const socket = useSocketStore(state => state.socket)
-
-
-    const formatMessages = () => {
-        let lastDate = null
-
+    const months = [
+        'January', 'February', 'March', 'April', 'May', 'June',
+        'July', 'August', 'September', 'October', 'November', 'December'
+    ];
+    const groupByDateMessages = () => {
+        const grouped = {}
+        for (const message of messages) {
+            const date = new Date(message.datetime);
+            const day = date.getDate();
+            const month = months[date.getMonth()];
+            const finalDate = `${day} ${month}`
+            if (finalDate in grouped)
+                grouped[finalDate].push(message)
+            else
+                grouped[finalDate] = [message]
+        }
+        return grouped
     }
 
     const scrollToBottom = () => {
@@ -60,9 +72,16 @@ const Messages = () => {
         >
             <PhotoProvider>
                 {
-                    messages.map((message, pos) => {
-                        return <Message key={pos} message={message} my={message.user_id === loggedInUser.id}/>
-                    })
+                    // todo: убрать лишний вызов
+                    Object.keys(groupByDateMessages()).map((key) => (
+                        <div className={cl.grouped}>
+                            <h2 style={{textAlign: 'center'}}>{key}</h2>
+                            {groupByDateMessages()[key].map((message, pos) => {
+                                return <Message key={pos} message={message} my={message.user_id === loggedInUser.id}/>
+                            })}
+                        </div>
+                    ))
+
                 }
             </PhotoProvider>
             <div ref={messagesEndRef}></div>
@@ -70,7 +89,8 @@ const Messages = () => {
             <DnD dialog={dialog}/>
             <DialogDnD dialog={dialog}/>
         </div>
-    );
+    )
+        ;
 };
 
 export default Messages;
