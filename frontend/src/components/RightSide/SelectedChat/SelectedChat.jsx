@@ -5,6 +5,8 @@ import InputMessage from "../InputMessage/InputMessage";
 import {useCurrentChatStore} from "../../../store/CurrentChatStore";
 import {useParams} from "react-router-dom";
 import cl from './SelectedChat.module.css'
+import {useMessagesStore} from "../../../store/MessagesStore";
+import FoundMessage from "../../FoundMessage/FoundMessage";
 
 const SelectedChat = () => {
 
@@ -12,6 +14,7 @@ const SelectedChat = () => {
     const currentChat = useCurrentChatStore(state => state.chat)
     const loading = useCurrentChatStore(state => state.loading)
     const fetchChatById = useCurrentChatStore(state => state.getChatById)
+    const foundMessages = useMessagesStore(state => state.foundMessages)
 
     useEffect(() => {
         fetchChatById(chatId)
@@ -20,8 +23,15 @@ const SelectedChat = () => {
     if (loading)
         return <span>LOADING</span>
     return (
-        <div className={cl.rightPanel} >
+        <div className={cl.rightPanel}>
             <CurrentChatProfile chat={currentChat}/>
+            {foundMessages.length !== 0 &&
+                <div className={'foundMessages'}>
+                    {foundMessages.map((message) => {
+                        return <FoundMessage message={message}/>
+                    })}
+                </div>
+            }
             <Messages/>
             <InputMessage/>
         </div>
