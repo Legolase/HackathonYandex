@@ -21,6 +21,7 @@ const Messages = () => {
     const dialog = useRef(null)
     const setActive = useFilesStore(state => state.setActiveBackground)
     const socket = useSocketStore(state => state.socket)
+    const [grouped, setGrouped] = useState({})
     const months = [
         'January', 'February', 'March', 'April', 'May', 'June',
         'July', 'August', 'September', 'October', 'November', 'December'
@@ -37,7 +38,7 @@ const Messages = () => {
             else
                 grouped[finalDate] = [message]
         }
-        return grouped
+        setGrouped(grouped)
     }
 
     const scrollToBottom = () => {
@@ -57,6 +58,7 @@ const Messages = () => {
 
     useEffect(() => {
         getMessagesByChatId(chatId)
+        groupByDateMessages()
         scrollToBottom();
     }, []);
 
@@ -72,11 +74,10 @@ const Messages = () => {
         >
             <PhotoProvider>
                 {
-                    // todo: убрать лишний вызов
-                    Object.keys(groupByDateMessages()).map((key) => (
+                    Object.keys(grouped).map((key) => (
                         <div className={cl.grouped}>
-                            <h2 style={{textAlign: 'center'}}>{key}</h2>
-                            {groupByDateMessages()[key].map((message, pos) => {
+                            <h4 style={{textAlign: 'center', color: 'var(--light-gray)'}}>{key}</h4>
+                            {grouped[key].map((message, pos) => {
                                 return <Message key={pos} message={message} my={message.user_id === loggedInUser.id}/>
                             })}
                         </div>
