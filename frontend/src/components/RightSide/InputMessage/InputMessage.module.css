@@ -11,7 +11,7 @@
 .textarea{
     border: 0;
     width: 100%;
-    font-size: var(--simple-text);
+    font-size: var(--font-size-m);
     border-radius: 15px;
     padding: 5px 10px 5px 0;
     resize: none;

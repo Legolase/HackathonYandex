@@ -24,7 +24,7 @@
 .formButton{
     border: inherit;
     border-radius: 12px;
-    background-color: var(--background-gray);
+    background-color: var(--light-gray);
     padding: 10px;
     width: 70px;
     cursor: pointer;
@@ -32,7 +32,7 @@
 
 .chatName{
     border: inherit;
-    background-color: var(--background-gray);
+    background-color: var(--light-gray);
     padding: 7px;
     border-radius: 12px;
 }

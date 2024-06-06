@@ -8,7 +8,7 @@
     position: relative;
     display: inline-block;
     padding: 8px;
-    background-color: var(--background-gray);
+    background-color: var(--light-gray);
     border-radius: 8px;
     cursor: pointer;
     font-family: Roboto, sans-serif;
@@ -21,5 +21,5 @@
     border: inherit;
     padding: 8px;
     border: 8px;
-    background-color: var(--background-gray);
+    background-color: var(--light-gray);
 }

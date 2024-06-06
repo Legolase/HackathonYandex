@@ -7,11 +7,11 @@
 
 .active{
     border-left-color: var(--akcent);
-    background-color: #ffd7cf;
+    background-color: var(--light-akcent);
 }
 
 .contact:hover{
-    background-color: #ffd7cf;
+    background-color: var(--light-akcent);
     cursor: pointer;
 }
 

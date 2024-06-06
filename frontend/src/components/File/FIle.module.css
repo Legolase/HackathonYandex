@@ -1,7 +1,7 @@
 .file {
     display: flex;
     gap: 10px;
-    background-color: var(--background-gray);
+    background-color: var(--light-gray);
     padding: 10px;
     border-radius: 12px;
 }
