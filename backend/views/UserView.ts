@@ -58,7 +58,6 @@ UserView.get('/user', async (req, res) => {
             description: 'Пользователь не авторизован'
         } */
         let user = await req.user as User;
-        await user.updateActivity();
         UserController.getList().then(data => res.json(data));
     }
 );
@@ -117,7 +116,6 @@ UserView.get('/user/search', async (req, res) => {
             description: 'Пользователь не авторизован'
         } */
         let user = await req.user as User;
-        await user.updateActivity();
         // @ts-ignore
         UserController.searchByName(req.query.name).then(data => res.json(data));
     }
@@ -147,7 +145,6 @@ UserView.get('/user/current', async (req, res) => {
         } */
 
         let user = await req.user as User;
-        await user.updateActivity();
         res.json(user);
     }
 );
@@ -177,7 +174,6 @@ UserView.get('/user/:id', async (req, res) => {
             description: 'Пользователь не авторизован'
         } */
         let user = await req.user as User;
-        await user.updateActivity();
         UserController.getItem(req.params.id).then(data => res.json(data))
     }
 );

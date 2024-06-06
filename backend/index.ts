@@ -91,7 +91,6 @@ io.on('connection', (socket) => {
     socket.on('send_message', async (req) => {
         // @ts-ignore
         const user = await socket.request.user;
-        await user.updateActivity();
         req.user_id = user.id;
         MessageController.createItem(req).then((data) => {
             console.log(data)

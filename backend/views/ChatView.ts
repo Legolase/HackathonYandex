@@ -89,7 +89,6 @@ ChatView.get('/chat/:id', async (req, res) => {
             description: 'У пользователя нет доступа к чату'
         } */
         let user = await req.user as User;
-        await user.updateActivity();
         ChatController.getItem(req.params.id).then(data => res.json(data))
     }
 );

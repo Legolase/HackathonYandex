@@ -37,7 +37,6 @@ MessageView.get('/message', async (req, res) => {
             description: 'Пользователь не авторизован'
         } */
         let user = await req.user as User;
-        await user.updateActivity();
         MessageController.getList().then(data => res.json(data));
     }
 );
@@ -61,7 +60,6 @@ MessageView.get('/message/:id', async (req, res) => {
             description: 'Пользователь не авторизован'
         } */
         let user = await req.user as User;
-        await user.updateActivity();
         MessageController.getItem(req.params.id).then(data => res.json(data))
     }
 );

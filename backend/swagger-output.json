@@ -1280,6 +1280,47 @@
           }
         }
       }
+    },
+    "/api/service/generate_image": {
+      "get": {
+        "tags": [
+          "Service"
+        ],
+        "description": "Генерация изображения",
+        "parameters": [
+          {
+            "name": "uid",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Файл загружен",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "link": {
+                    "type": "string",
+                    "example": "url to file in s3"
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "400": {
+            "description": "Нет параметра"
+          },
+          "401": {
+            "description": "Пользователь не авторизован"
+          }
+        }
+      }
     }
   }
 }

@@ -68,7 +68,6 @@ SingleChatView.get('/single_chat', async (req, res) => {
             description: 'Сущности не существует'
         } */
         let user = await req.user as User;
-        await user.updateActivity();
         // @ts-ignore
         let result = await SingleChatController.getItemByUsers([req.query.user, user.id]);
         if (result === undefined) {
