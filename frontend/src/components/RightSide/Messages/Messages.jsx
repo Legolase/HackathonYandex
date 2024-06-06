@@ -14,7 +14,7 @@ const Messages = () => {
 
     const messages = useMessagesStore(state => state.messages)
     const addMessage = useMessagesStore(state => state.addMessage)
-    const messagesEndRef = useRef(null)
+    // const messagesEndRef = useRef(null)
     const loggedInUser = useLoggedInUserStore(state => state.currentUser)
     const getMessagesByChatId = useMessagesStore(state => state.getMessagesByChatId)
     const chatId = useCurrentChatStore(state => state.chat.id)
@@ -41,13 +41,13 @@ const Messages = () => {
         setGrouped(grouped)
     }
 
-    const scrollToBottom = () => {
-        messagesEndRef.current.scrollIntoView()
-    }
+    // const scrollToBottom = () => {
+    //     messagesEndRef.current.scrollIntoView()
+    // }
 
     useEffect(() => {
         groupByDateMessages()
-        scrollToBottom()
+        // scrollToBottom()
     }, [messages]);
 
     useEffect(() => {
@@ -66,7 +66,7 @@ const Messages = () => {
     useEffect(() => {
         getMessagesByChatId(chatId)
         groupByDateMessages()
-        scrollToBottom();
+        // scrollToBottom();
     }, []);
 
 
@@ -79,21 +79,25 @@ const Messages = () => {
         <div className={cl.messages}
              onDragOver={e => dragOver(e)}
         >
+            {/*<div ref={messagesEndRef}></div>*/}
             <PhotoProvider>
                 {
                     Object.keys(grouped).map((key) => (
-                        <div className={cl.grouped}>
-                            <h4 style={{textAlign: 'center', color: 'var(--light-gray)'}}>{key}</h4>
+                        <>
                             {grouped[key].map((message, pos) => {
                                 return <Message key={pos} message={message} my={message.user_id === loggedInUser.id}/>
                             })}
-                        </div>
+                            <h4 style={{textAlign: 'center'}}>{key}</h4>
+                        </>
                     ))
 
                 }
+                {/*{*/}
+                {/*    messages.reverse().map(message => {*/}
+                {/*        return <Message message={message} my={message.user_id === loggedInUser.id}/>*/}
+                {/*    })*/}
+                {/*}*/}
             </PhotoProvider>
-            <div style={{height: '3px', backgroundColor: 'red'}} ref={messagesEndRef}></div>
-
             <DnD dialog={dialog}/>
             <DialogDnD dialog={dialog}/>
         </div>

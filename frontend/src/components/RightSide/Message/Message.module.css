@@ -22,12 +22,11 @@
     max-width: 760px;
     position: relative;
     padding: 10px;
-    color: var(--light-gray);
     word-break: break-all;
     display: flex;
 }
 
-.text{
+.text {
     background-color: var(--white);
     border-radius: 20px 20px 20px 0;
 }
@@ -52,10 +51,6 @@
     border-bottom-color: transparent;
 }
 
-.time {
-    color: var(--light-gray);
-    padding-left: 20px;
-}
 
 .right {
     display: flex;
@@ -78,14 +73,13 @@
 }
 
 .myTime {
-    color: var(--light-gray);
+    font-size: var(--font-size-xxs);
     position: absolute;
     bottom: 0;
     right: 0;
     text-align: right;
     padding-right: 8px;
     padding-bottom: 5px;
-    font-size: 12px;
 }
 
 .messageContentImage {

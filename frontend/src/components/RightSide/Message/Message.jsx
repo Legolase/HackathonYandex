@@ -35,7 +35,7 @@ const Message = ({message, my}) => {
                         <a href={message.value} target="_blank">{message.file_name}</a>
                     }
                     <div>
-                        <div style={{width: '50px'}}></div>
+                        <div style={{width: '35px'}}></div>
                         <span className={cl.myTime}>{formatTime(message.datetime)}</span>
                     </div>
                 </div>

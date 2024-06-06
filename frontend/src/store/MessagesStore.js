@@ -12,7 +12,7 @@ export const useMessagesStore = create((set, get) => ({
 
     addMessage: (message) => {
         set(() => ({
-            messages: [...get().messages, message]
+            messages: [ message, ...get().messages]
         }))
     },
 
@@ -50,7 +50,7 @@ export const useMessagesStore = create((set, get) => ({
     getMessagesByChatId: (id) => {
         axios.get(`/api/chat/${id}`).then((response) => {
             set(() => ({
-                messages: response.data.messages
+                messages: response.data.messages.reverse()
             }))
         }).catch((err) => {
             // todo: check error codes
