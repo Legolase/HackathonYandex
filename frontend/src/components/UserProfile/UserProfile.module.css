@@ -1,7 +1,6 @@
 .userProfile{
     border-radius: 8px;
     padding: 10px 0;
-    background-color: var(--background-gray);
     width: 100%;
     align-items: center;
     display: flex;

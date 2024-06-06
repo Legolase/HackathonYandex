@@ -11,8 +11,6 @@ const NavigationItem = ({icon, name, desc}) => {
         root.push(cl.nav_item__active);
     }
 
-    console.log(active, name, active === name);
-
     return (
         <div className={root.join(' ')} onClick={() => setActive(name)}>
             {icon}

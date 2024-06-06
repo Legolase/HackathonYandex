@@ -6,14 +6,12 @@ import Setting from "../Setting/Setting";
 const Settings = () => {
     const curUser = useLoggedInUserStore(state => state.currentUser)
 
-
-
     const names = ['Upload profile photo', 'Generate profile photo', 'Change user name',
         'Change user login', 'Notifications', 'Appearance', 'Language']
 
     // todo: Здесь текст
     return (
-        <div className={cl.settings}>
+        <div className={`${cl.settings} right-side`}>
             <div className={cl.header}>
                 <img className={cl.avatar} src={curUser.avatar}/>
                 <div className={cl.textInfo}>

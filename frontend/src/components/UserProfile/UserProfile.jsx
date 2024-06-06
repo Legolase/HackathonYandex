@@ -34,7 +34,7 @@ const UserProfile = () => {
     if (loading)
         return <span>LOADING</span>
     return (
-        <div className={cl.userProfile}>
+        <div className={`${cl.userProfile} right-side`}>
             <div className={cl.header}>
                 <img className={cl.avatar} src={contact.avatar}/>
                 <div className={cl.textInfo}>

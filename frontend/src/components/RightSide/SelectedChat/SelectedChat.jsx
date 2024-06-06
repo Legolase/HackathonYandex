@@ -23,7 +23,7 @@ const SelectedChat = () => {
     if (loading)
         return <span>LOADING</span>
     return (
-        <div className={cl.rightPanel}>
+        <div className={`${cl.rightPanel} right-side`}>
             <CurrentChatProfile chat={currentChat}/>
             {foundMessages.length !== 0 &&
                 <div className={'foundMessages'}>

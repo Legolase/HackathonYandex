@@ -44,7 +44,7 @@ function App() {
                    element={<Messenger activePanel={<Settings/>}/>}
             />
             <Route exact path={'/*'}
-                   element={<Error404/>}
+                   element={<Messenger activePanel={<Error404/>}/>}
             />
         </>
     ) : <></>;
@@ -58,7 +58,6 @@ function App() {
             <Routes>
                 {baseRoutes}
                 {privateRoutes}
-                <Route path={'*'} element={<Navigate replace to='/auth'/>}/>
             </Routes>
         </BrowserRouter>
     );

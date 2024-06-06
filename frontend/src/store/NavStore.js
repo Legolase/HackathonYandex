@@ -24,5 +24,4 @@ export const useNavStore = create((set, get) => ({
             active: active
         }))
     }
-
 }))
