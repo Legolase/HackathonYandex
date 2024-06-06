@@ -76,7 +76,7 @@ const InputMessage = () => {
                 }
 
                 {/* TODO: add onClick event! */}
-                <button type={"submit"} className={cl.button}
+                <button type={"button"} className={cl.button}
                         style={{backgroundColor: 'transparent', border: 'none', width: '30px', height: '30px'}}
                         onClick={() => {
                             dialog.current.showModal()
