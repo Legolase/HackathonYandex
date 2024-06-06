@@ -576,6 +576,33 @@
         }
       }
     },
+    "/api/chat/{id}/exit": {
+      "post": {
+        "tags": [
+          "Chat"
+        ],
+        "description": "Выход из чата",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Пользователь не авторизован"
+          },
+          "403": {
+            "description": "Вас нет в этом чате"
+          }
+        }
+      }
+    },
     "/api/user": {
       "get": {
         "tags": [

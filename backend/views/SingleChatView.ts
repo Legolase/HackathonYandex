@@ -146,7 +146,6 @@ SingleChatView.post('/single_chat', async (req, res) => {
     }
     */
     let user = await req.user as User;
-    await user.updateActivity();
     let search = await SingleChatController.getItemByUsers([req.body.user, user.id]);
     if (search !== undefined) {
         res.status(409);

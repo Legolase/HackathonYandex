@@ -43,5 +43,13 @@ export const ChatController = {
         await chat.getMessages();
         await chat.getUsers();
         return chat;
+    },
+
+    async deleteUser(chat_id: string, user_id: string|undefined) {
+        let relation = await new ChatUser().getOne(ChatUser, {chat_id: chat_id, user_id: user_id});
+        if (!relation) {
+            throw new Error('Error: You not invite in this chat!');
+        }
+        await relation.delete();
     }
 }
