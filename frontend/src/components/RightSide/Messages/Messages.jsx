@@ -57,7 +57,7 @@ const Messages = () => {
                 groupByDateMessages()
             }
         });
-        scrollToBottom();
+        // scrollToBottom();
         return () => {
             socket.off("receive_message");
         };
