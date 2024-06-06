@@ -1,24 +1,21 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import cl from './Messages.module.css'
 import Message from "../Message/Message";
 import {useMessagesStore} from "../../../store/MessagesStore";
 import {useLoggedInUserStore} from "../../../store/LoggedInUserStore";
 import {useCurrentChatStore} from "../../../store/CurrentChatStore";
 import DnD from "../../DnD/DnD";
-import DialogDnD from "../../DialogDnD/DialogDnD";
 import {useFilesStore} from "../../../store/FilesStore";
 import {PhotoProvider} from "react-photo-view";
 import {useSocketStore} from "../../../store/SocketStore";
 
-const Messages = () => {
+const Messages = ({dialog}) => {
 
     const messages = useMessagesStore(state => state.messages)
     const addMessage = useMessagesStore(state => state.addMessage)
-    // const messagesEndRef = useRef(null)
     const loggedInUser = useLoggedInUserStore(state => state.currentUser)
     const getMessagesByChatId = useMessagesStore(state => state.getMessagesByChatId)
     const chatId = useCurrentChatStore(state => state.chat.id)
-    const dialog = useRef(null)
     const setActive = useFilesStore(state => state.setActiveBackground)
     const socket = useSocketStore(state => state.socket)
     const [grouped, setGrouped] = useState({})
@@ -41,13 +38,9 @@ const Messages = () => {
         setGrouped(grouped)
     }
 
-    // const scrollToBottom = () => {
-    //     messagesEndRef.current.scrollIntoView()
-    // }
 
     useEffect(() => {
         groupByDateMessages()
-        // scrollToBottom()
     }, [messages]);
 
     useEffect(() => {
@@ -57,7 +50,6 @@ const Messages = () => {
                 groupByDateMessages()
             }
         });
-        // scrollToBottom();
         return () => {
             socket.off("receive_message");
         };
@@ -66,7 +58,6 @@ const Messages = () => {
     useEffect(() => {
         getMessagesByChatId(chatId)
         groupByDateMessages()
-        // scrollToBottom();
     }, []);
 
 
@@ -79,7 +70,6 @@ const Messages = () => {
         <div className={cl.messages}
              onDragOver={e => dragOver(e)}
         >
-            {/*<div ref={messagesEndRef}></div>*/}
             <PhotoProvider>
                 {
                     Object.keys(grouped).map((key) => (
@@ -92,14 +82,8 @@ const Messages = () => {
                     ))
 
                 }
-                {/*{*/}
-                {/*    messages.reverse().map(message => {*/}
-                {/*        return <Message message={message} my={message.user_id === loggedInUser.id}/>*/}
-                {/*    })*/}
-                {/*}*/}
             </PhotoProvider>
             <DnD dialog={dialog}/>
-            <DialogDnD dialog={dialog}/>
         </div>
     )
         ;
