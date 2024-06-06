@@ -32,12 +32,12 @@
 }
 
 .name{
-    font-size: var(--main-text);
+    font-size: var(--font-size-m);
     font-weight: bold;
 }
 
 .login{
-    font-size: var(--small-text);
+    font-size: var(--font-size-m);
 
 }
 

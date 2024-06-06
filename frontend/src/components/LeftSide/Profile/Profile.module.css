@@ -26,5 +26,5 @@
 
 .profileLogin {
     color: var(--light-gray);
-    font-size: var(--small-text)
+    font-size: var(--font-size-m)
 }

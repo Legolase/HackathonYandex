@@ -1,5 +1,4 @@
 import React from 'react';
-import EnterGithub from "../components/EnterGitHub/EnterGithub";
 
 const Auth = () => {
 
@@ -18,9 +17,10 @@ const Auth = () => {
                     fill="#000"/>
             </svg>
             {/*todo: Текст*/}
-            <EnterGithub/>
+            <a className={'auth-button'} href={'/auth/github'}>Войти через GitHub</a>
             {/*todo: поменять на родной язык и обратно*/}
-            <button className={'change_lang'} onSubmit={()=>{}}>
+            <button className={'auth-button'} onSubmit={() => {
+            }}>
                 Продолжить на русском
             </button>
             <span className={'desc'}>ВЕСомый мессенджер для значимого общения</span>
