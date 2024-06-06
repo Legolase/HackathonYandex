@@ -105,7 +105,6 @@ ContactView.post('/contact', async (req, res) => {
     }
     */
     let user = await req.user as User;
-    await user.updateActivity();
     req.body.user_id = user.id;
     ContactController.createItem(req.body)
         .then((data) => res.json(data))
