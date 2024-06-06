@@ -10,6 +10,7 @@
     --white: #ffffff;
     --akcent: #fd9802;
     --light-akcent: rgba(253, 152, 2, 0.5);
+    --lighter-akcent: rgba(253, 152, 2, 0.2);
     --font-size-xs: 12px;
     --font-size-s: 14px;
     --font-size-m: 16px;
@@ -71,6 +72,10 @@ body {
     border: 2px solid var(--light-gray);
 }
 
+.button__white {
+    background-color: var(--white);
+}
+
 .logo {
     width: 100%;
 }
@@ -86,4 +91,10 @@ body {
     border-radius: 13px;
     background-clip: padding-box;
     border: 10px solid transparent;
+}
+
+.right-side {
+    background-color: var(--lighter-akcent);
+    border-radius: 0;
+    width: 100%;
 }
