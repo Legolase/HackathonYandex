@@ -25,7 +25,15 @@ function App() {
     // todo: Хотим показывать auth только если юзер не вошел, иначе не хотим
     const baseRoutes = (
         <>
-            <Route path={'/auth'} element={<Auth/>}/>
+            {
+                currentUser ? <></> :
+                    <>
+                        <Route index={true} element={<Auth/>}/>
+                        <Route path={'/auth'} element={<Auth/>}/>
+                        <Route exact path={'/*'} element={<Error404/>}/>
+                    </>
+            }
+
         </>
     );
 
@@ -44,7 +52,7 @@ function App() {
                    element={<Messenger activePanel={<Settings/>}/>}
             />
             <Route exact path={'/*'}
-                   element={<Messenger activePanel={<Error404/>}/>}
+                   element={<Error404/>}
             />
         </>
     ) : <></>;
