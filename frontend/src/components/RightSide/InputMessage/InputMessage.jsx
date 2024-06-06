@@ -1,24 +1,21 @@
 import React, {useRef, useState} from 'react';
 import cl from './InputMessage.module.css'
-import {useMessagesStore} from "../../../store/MessagesStore";
 import {post} from "axios";
 import EmojiPicker from 'emoji-picker-react';
 import {useSocketStore} from "../../../store/SocketStore";
 import {useLoggedInUserStore} from "../../../store/LoggedInUserStore";
 import {useCurrentChatStore} from "../../../store/CurrentChatStore";
-import DialogDnD from "../../DialogDnD/DialogDnD";
 
-const InputMessage = () => {
+const InputMessage = ({dialog}) => {
 
 
     const socket = useSocketStore(state => state.socket)
-    const postMessage = useMessagesStore(state => state.postMessage)
+    // const postMessage = useMessagesStore(state => state.postMessage)
     const [inputValue, setInputValue] = useState('')
     const [rows, setRows] = useState(1);
     const textareaRef = useRef(null);
     const formRef = useRef();
     const [showPicker, setShowPicker] = useState(false);
-    const dialog = useRef(null)
 
     const sendMessage = () => {
         console.log('send-message')
@@ -119,7 +116,6 @@ const InputMessage = () => {
                             fill="currentColor" fillOpacity="0.05"/>
                     </svg>
                 </button>
-                <DialogDnD dialog={dialog}/>
 
             </form>
         </>

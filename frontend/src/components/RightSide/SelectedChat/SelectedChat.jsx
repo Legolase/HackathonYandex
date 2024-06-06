@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef} from 'react';
 import CurrentChatProfile from "../CurrentChatProfile/CurrentChatProfile";
 import Messages from "../Messages/Messages";
 import InputMessage from "../InputMessage/InputMessage";
@@ -7,6 +7,7 @@ import {useParams} from "react-router-dom";
 import cl from './SelectedChat.module.css'
 import {useMessagesStore} from "../../../store/MessagesStore";
 import FoundMessage from "../../FoundMessage/FoundMessage";
+import DialogDnD from "../../DialogDnD/DialogDnD";
 
 const SelectedChat = () => {
 
@@ -15,6 +16,7 @@ const SelectedChat = () => {
     const loading = useCurrentChatStore(state => state.loading)
     const fetchChatById = useCurrentChatStore(state => state.getChatById)
     const foundMessages = useMessagesStore(state => state.foundMessages)
+    const dialog = useRef(null)
 
     useEffect(() => {
         fetchChatById(chatId)
@@ -32,8 +34,9 @@ const SelectedChat = () => {
                     })}
                 </div>
             }
-            <Messages/>
-            <InputMessage/>
+            <Messages dialog={dialog}/>
+            <InputMessage dialog={dialog}/>
+            <DialogDnD dialog={dialog}/>
         </div>
     );
 };
