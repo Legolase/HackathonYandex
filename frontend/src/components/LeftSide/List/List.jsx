@@ -1,14 +1,15 @@
 import React from 'react';
 import Contacts from "../Contacts/Contacts";
 import Chats from "../Chats/Chats";
-import {useTabsStore} from "../../../store/TabsStore";
+import {useNavStore} from "../../../store/NavStore";
 
 const List = () => {
 
 
-    const {active} = useTabsStore()
 
-    if (active === 'Messages') {
+    const {active} = useNavStore()
+
+    if (active === 'allChats') {
         return (
             <Chats/>
         );

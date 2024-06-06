@@ -1,8 +1,9 @@
 import React from 'react';
+import cl from './FIle.module.css'
 
 const File = ({file}) => {
     return (
-        <div style={{display: 'flex', gap: '10px'}}>
+        <div className={cl.file}>
             <div>
                 <svg width="25" height="100%" viewBox="0 0 20 24" fill="none"
                      xmlns="http://www.w3.org/2000/svg">
@@ -11,9 +12,9 @@ const File = ({file}) => {
                           fill="black"/>
                 </svg>
             </div>
-            <div style={{display: 'flex', flexDirection: 'column', gap: '3px'}}>
-                <span style={{fontSize: '18px'}}>{file.name}</span>
-                <span style={{fontSize: '10px'}}>{file.size} bytes</span>
+            <div className={cl.metaInf} >
+                <span className={cl.name}>{file.name}</span>
+                <span className={cl.size}>{file.size} bytes</span>
             </div>
         </div>
     );

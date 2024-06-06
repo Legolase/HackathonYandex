@@ -74,17 +74,27 @@ export const useCurrentChatStore = create((set, get) => ({
 
     // for getting name and avatar of single chat - its own name and avatar
     getDataByChat: (chat) => {
-        // todo: check chatType before
+        if (chat.type === 'multi')
+            return chat
         const loggedUser = useLoggedInUserStore.getState().currentUser
         const users = chat.users
         for (const usersKey in users) {
             if (loggedUser.id.toString() !== usersKey) {
                 return {
                     name: users[usersKey].name,
-                    avatar: users[usersKey].avatar
+                    avatar: users[usersKey].avatar,
+                    last_seen: users[usersKey].datetime_last_activity
                 }
             }
         }
+    },
+
+    createGroupChat: (data) => {
+        axios.post('/api/chat', data).then(r => {
+            console.log(r.data)
+        }).catch((e) => {
+
+        })
     },
 
     setChatFromResponse: (response) => {
