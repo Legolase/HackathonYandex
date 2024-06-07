@@ -27,7 +27,15 @@ const InputMessage = ({dialog}) => {
             "from": useLoggedInUserStore.getState().currentUser.id,
             "chat_id": useCurrentChatStore.getState().chat.id
         }
-        socket.emit('send_message', data)
+        if (socket.connected) {
+            socket.emit('send_message', data)
+        } else {
+            const obj = JSON.parse(localStorage['messages'])
+            const key = obj.key
+            obj.toSend[key + 1] = data
+            obj.key++
+            localStorage['messages'] = JSON.stringify(obj)
+        }
         setInputValue('')
     }
 
