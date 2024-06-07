@@ -1,12 +1,10 @@
 import React from 'react';
 import cl from './Setting.module.css'
 
-const Setting = ({name, text, handler}) => {
+const Setting = ({ text, handler, icon}) => {
     return (
         <div className={cl.setting} onClick={() => handler()}>
-            <svg className="setting_icon">
-                <use href={`sprite.svg#${name}`}></use>
-            </svg>
+            {icon}
             <span>{text}</span>
         </div>
     );

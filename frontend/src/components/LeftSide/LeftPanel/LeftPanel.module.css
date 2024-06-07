@@ -1,5 +1,5 @@
-.leftPanel{
-    width: 300px;
+.leftPanel {
+    width: 15vw;
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -8,13 +8,31 @@
     padding-top: 10px;
 }
 
-.active{
+@media screen and (max-width: 1000px) {
+    .leftPanel {
+        width: 20vw;
+    }
+}
+
+@media screen and (max-width: 750px) {
+    .leftPanel {
+        width: 23vw;
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .leftPanel {
+        width: 25vw;
+    }
+}
+
+.active {
     text-align: center;
     font-size: 25px;
     font-weight: 400;
 }
 
-.header{
+.header {
     position: relative;
     display: flex;
     justify-content: center;
