@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import cl from './CurrentChatProfile.module.css'
 import {useCurrentChatStore} from "../../../store/CurrentChatStore";
 import {useNavigate} from "react-router";
@@ -18,6 +18,20 @@ const CurrentChatProfile = ({chat}) => {
     const [searchQuery, setQuery] = useState('')
     const setFoundMessages = useMessagesStore(state => state.setFoundMessages)
     const data = getDataByChat(chat)
+    const messages = useMessagesStore(state => state.messages)
+    const [filtered, setFiltered] = useState([])
+
+    useEffect(() => {
+        let filtered
+        if (searchQuery === '')
+            filtered = []
+        else
+            filtered = messages.filter((message) => {
+                return message.type === 'text' && message.value.includes(searchQuery)
+            })
+        setFiltered(filtered)
+
+    }, [searchQuery]);
 
     const getIdOfUser = () => {
         const users = chat.users
@@ -27,6 +41,13 @@ const CurrentChatProfile = ({chat}) => {
             }
         }
     }
+
+    const formatTime = (dateString) => {
+        const date = new Date(dateString);
+        const hours = date.getHours().toString().padStart(2, '0');
+        const minutes = date.getMinutes().toString().padStart(2, '0');
+        return `${hours}:${minutes}`;
+    };
 
     const getSearchButton = () => {
         if (!activeSearch)
@@ -62,31 +83,70 @@ const CurrentChatProfile = ({chat}) => {
         return <></>
     }
 
+
+    const getMessage = (message) => {
+        console.log(message)
+        console.log(loggedUser)
+        if (message.from !== loggedUser.id)
+            return (
+                <>
+                    <img src={loggedUser.avatar} className={cl.avatar}/>
+                    <div style={{display: 'flex', flexDirection: 'column', gap: '3px'}}>
+                        <span className={cl.name}>{loggedUser.name}</span>
+                        <div className={cl.messageValue}>{message.value}</div>
+                    </div>
+                </>
+            )
+        else
+            return (
+                <>
+                    <img src={data.avatar} className={cl.avatar}/>
+                    <div style={{display: 'flex', flexDirection: 'column', gap: '3px'}}>
+                        <span className={cl.name}>{data.name}</span>
+                        <div className={cl.messageValue}>{message.value}</div>
+                    </div>
+                </>)
+    }
+
     return (
-        <div className={cl.chat}>
-            <img className={cl.avatar} src={data.avatar} onClick={() => {
-                const id = getIdOfUser()
-                getContact(id)
-                nullifyChat()
-                router(`/user/${id}`)
-            }}/>
-            <div className={cl.textInfo}>
-                <span className={cl.name}>{data.name}</span>
-                {!data.type &&
-                    <span
-                        className={cl.lastMessage}>Last online: {formatDistance(new Date(), new Date(data.last_seen))}</span>
-                }
+        <>
+            <div className={cl.chat}>
+                <img className={cl.avatar} src={data.avatar} onClick={() => {
+                    const id = getIdOfUser()
+                    getContact(id)
+                    nullifyChat()
+                    router(`/user/${id}`)
+                }}/>
+                <div className={cl.textInfo}>
+                    <span className={cl.name}>{data.name}</span>
+                    {!data.type &&
+                        <span
+                            className={cl.lastMessage}>Last online: {formatDistance(new Date(), new Date(data.last_seen))}</span>
+                    }
+                </div>
 
+                {getSearchBar()}
+
+                <div className={cl.searchMessages} onClick={() => {
+                    setActiveSearch(!activeSearch)
+                }}>
+                    {getSearchButton()}
+                </div>
             </div>
+            {filtered
+                ? <div className={cl.foundMessages}>
+                    {filtered.map((message) =>
+                        <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                            <div style={{display: 'flex', gap: '5px'}}>
+                                {getMessage(message)}
+                            </div>
+                            <span className={cl.time}>{formatTime(message.datetime)}</span>
+                        </div>
+                    )}
+                </div>
+                : <></>}
+        </>
 
-            {getSearchBar()}
-
-            <div className={cl.searchMessages} onClick={() => {
-                setActiveSearch(!activeSearch)
-            }}>
-                {getSearchButton()}
-            </div>
-        </div>
     );
 };
 

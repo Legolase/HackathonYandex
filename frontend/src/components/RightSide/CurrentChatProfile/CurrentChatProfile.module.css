@@ -54,7 +54,7 @@
     justify-content: center;
 }
 
-.search{
+.search {
     padding: 5px 8px;
     background-color: var(--light-gray);
     border-radius: 8px;
@@ -65,12 +65,32 @@
     flex-grow: 1;
 }
 
-.input{
+.input {
     border: none;
     height: 30px;
     background: none;
     width: 100%;
 }
-.input:focus{
+
+.input:focus {
     outline: none;
+}
+
+.foundMessages {
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    background-color: var(--light-gray);
+    gap: 5px
+}
+
+.time{
+    text-align: center;
+    font-size: var(--font-size-xs);
+}
+
+.messageValue{
+    font-size: var(--font-size-s);
+    overflow: hidden;
+    max-width: 100%;
 }

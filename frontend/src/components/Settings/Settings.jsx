@@ -40,7 +40,7 @@ const Settings = () => {
         } catch (err) {
             console.log(err)
         }
-
+        dialog2.current.close()
     }
 
 
