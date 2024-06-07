@@ -205,5 +205,5 @@ ChatView.post('/chat/:id/invite', async (req, res) => {
     let user = await req.user as User;
     if (user.id)
         ChatController.inviteUser(req.params.id, user.id)
-            .then((data) => res.json(data))
+            .then((data) => res.redirect(`/chat/${data?.id}`))
 });

@@ -54,10 +54,10 @@ export const ChatController = {
     },
     async inviteUser(chat_id: string, user_id: string) {
         let relation = await new ChatUser().getOne(ChatUser, {chat_id: chat_id, user_id: user_id});
+        let chat = await new Chat().getById(chat_id, Chat);
         if (!relation) {
-            let chat = await new Chat().getById(chat_id, Chat);
             await chat?.addUser(user_id);
         }
-        return this.getItem(chat_id);
+        return chat;
     }
 }
