@@ -32,6 +32,12 @@ body {
     box-sizing: border-box;
 }
 
+@media screen and (max-width: 650px) {
+    .messenger {
+        flex-direction: column-reverse;
+    }
+}
+
 .auth {
     height: 100vh;
     display: flex;
