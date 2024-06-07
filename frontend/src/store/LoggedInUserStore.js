@@ -36,10 +36,18 @@ export const useLoggedInUserStore = create((set, get) => ({
             axios.patch('/api/user', {
                 avatar: r.data
             })
-            // console.log(r.data)
         }).catch(e => {
             console.log(e)
         })
+    },
+
+    changeName: (name) => {
+        axios.patch('/api/user', {
+            name: name
+        }).catch(err => {
+            console.log(err)
+        })
+
     }
 
 }))
