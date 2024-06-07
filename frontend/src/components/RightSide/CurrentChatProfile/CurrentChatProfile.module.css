@@ -6,6 +6,7 @@
     padding: 10px 10px 10px 20px;
     height: 65px;
     position: relative;
+    width: 100%;
 }
 
 .avatar {
@@ -81,16 +82,36 @@
     flex-direction: column;
     overflow-y: scroll;
     background-color: var(--light-gray);
-    gap: 5px
+    gap: 5px;
 }
 
-.time{
+.time {
     text-align: center;
     font-size: var(--font-size-xs);
 }
 
-.messageValue{
+.messageValue {
     font-size: var(--font-size-s);
     overflow: hidden;
-    max-width: 100%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.metaInf {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    width: calc(100% - 40px);
+}
+
+.message {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.avatarAndMeta {
+    display: flex;
+    gap: 5px;
+    width: calc(100% - 40px - 30px);
 }

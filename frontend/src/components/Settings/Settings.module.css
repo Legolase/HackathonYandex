@@ -1,10 +1,31 @@
 .settings {
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: 80vw;
     align-items: center;
     gap: 30px;
     position: relative;
+}
+
+@media screen and (max-width: 1000px) {
+    .settings {
+        width: 75vw;
+
+    }
+}
+
+@media screen and (max-width: 750px) {
+    .settings {
+        width: 70vw;
+
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .settings {
+        width: 67vw;
+
+    }
 }
 
 .avatar {
@@ -17,6 +38,7 @@
 }
 
 .header {
+    margin-top: 20px;
     display: flex;
     flex-direction: column;
     gap: 10px

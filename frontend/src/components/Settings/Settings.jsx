@@ -5,6 +5,7 @@ import Setting from "../Setting/Setting";
 import Modal from "../Modal/Modal";
 import {useModalStore} from "../../store/ModalStore";
 import {useFilesStore} from "../../store/FilesStore";
+import {AppearanceIcon, LangIcon, NotifyIcon, PhotoIcon} from "../Icon/Icon";
 
 const Settings = () => {
     const curUser = useLoggedInUserStore(state => state.currentUser)
@@ -19,7 +20,7 @@ const Settings = () => {
     const [file, setFile] = useState(null)
 
     const names = ['Upload profile photo', 'Generate profile photo', 'Change user name',
-        'Change user login', 'Notifications', 'Appearance', 'Language']
+        'Notifications', 'Appearance', 'Language']
 
 
     const validateAndChangeName = (e) => {
@@ -56,23 +57,34 @@ const Settings = () => {
             </div>
             <div className={cl.body}>
                 <div className={cl.column}>
-                    <Setting name={'file'} text={names[0]} handler={() => {
-                        dialog2.current.showModal()
-                    }}/>
-                    <Setting name={'file'} text={names[1]} handler={() => {
-                        generateAvatar(curUser)
-                    }}/>
+                    {/**/}
+                    <Setting
+                        icon={<PhotoIcon classname={'setting_icon'}/>}
+                        text={names[0]}
+                        handler={() => {
+                            dialog2.current.showModal()
+                        }}
+                    />
+                    <Setting
+                        icon={<PhotoIcon classname={'setting_icon'}/>}
+                        text={names[1]}
+                        handler={() => {
+                            generateAvatar(curUser)
+                        }}
+                    />
                 </div>
                 <div className={cl.column}>
-                    <Setting name={'file'} text={names[2]} handler={() => {
-                        dialog.current.showModal()
-                    }}/>
-                    <Setting name={'file'} text={names[3]}/>
+                    <Setting
+                        icon={<PhotoIcon classname={'setting_icon'}/>}
+                        text={names[2]}
+                        handler={() => {
+                            dialog.current.showModal()
+                        }}/>
                 </div>
                 <div className={cl.column}>
-                    <Setting name={'notification'} text={names[4]}/>
-                    <Setting name={'appearance'} text={names[5]}/>
-                    <Setting name={'language'} text={names[6]}/>
+                    <Setting icon={<NotifyIcon classname={'setting_icon'}/>} text={names[3]}/>
+                    <Setting icon={<AppearanceIcon classname={'setting_icon'}/>} text={names[4]}/>
+                    <Setting icon={<LangIcon classname={'setting_icon'}/>} text={names[5]}/>
                 </div>
             </div>
 

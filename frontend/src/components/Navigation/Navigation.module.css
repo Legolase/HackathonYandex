@@ -5,8 +5,13 @@
     text-align: center;
     background-color: var(--dark-gray);
     color: var(--white);
+    width: 5vw;
 }
-
+@media screen and (max-width: 750px) {
+    .navigation {
+        width: 8vw;
+    }
+}
 .nav_svg{
     width: 35px;
     height: 35px;

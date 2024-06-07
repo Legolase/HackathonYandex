@@ -1,8 +1,28 @@
 .rightPanel {
-    width: 100%;
+    width: 80vw;
     display: flex;
     flex-direction: column;
     position: relative;
+}
+@media screen and (max-width: 1000px) {
+    .rightPanel {
+        width: 75vw;
+
+    }
+}
+
+@media screen and (max-width: 750px) {
+    .rightPanel {
+        width: 70vw;
+
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .rightPanel {
+        width: 67vw;
+
+    }
 }
 
 

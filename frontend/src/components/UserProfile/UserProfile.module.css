@@ -1,12 +1,35 @@
 .userProfile{
     border-radius: 8px;
     padding: 10px 0;
-    width: 100%;
+    width: 80vw;
     align-items: center;
     display: flex;
     flex-direction: column;
     gap: 10px
 }
+
+
+@media screen and (max-width: 1000px) {
+    .userProfile {
+        width: 75vw;
+
+    }
+}
+
+@media screen and (max-width: 750px) {
+    .userProfile {
+        width: 70vw;
+
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .userProfile {
+        width: 67vw;
+
+    }
+}
+
 
 .header{
     display: flex;
