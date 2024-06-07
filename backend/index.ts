@@ -15,7 +15,7 @@ import bodyParser from "body-parser";
 import {SingleChatView} from "./views/SingleChatView";
 import {S3} from "./facades/S3";
 import {Server} from "socket.io";
-import * as https from "https";
+import * as http from "http";
 import {MessageController} from "./controllers/MessageController";
 import fileUpload from "express-fileupload";
 import {ParamsDictionary} from "express-serve-static-core";
@@ -30,10 +30,7 @@ const PROTOCOL: string = process.env.PROTOCOL || 'http'
 
 
 const app = express();
-const server = https.createServer({
-  key: process.env.SSL_KEY,
-  cert: process.env.SSL_CERT
-}, app);
+const server = http.createServer(app);
 const io = new Server(server);
 export const s3 = new S3(process.env.accessKeyId, process.env.secretAccessKey, process.env.Bucket);
 export const db = pgp(process.env.DATABASE_URL);
