@@ -63,12 +63,13 @@
     padding: 20px
 }
 
-.form{
+.form {
     display: flex;
     flex-direction: column;
     gap: 15px;
 }
-.button{
+
+.button {
     padding: 8px;
     border: inherit;
     border-radius: 15px;
@@ -76,7 +77,7 @@
     cursor: pointer;
 }
 
-.input{
+.input {
     padding: 5px;
     text-align: center;
     border: inherit;
@@ -84,8 +85,14 @@
     border-radius: 15px;
 }
 
-.dialog{
+.dialog {
     background-color: var(--akcent);
     border: inherit;
     border-radius: 15px;
+}
+
+.prettyInput {
+    background-color: var(--light-gray);
+    padding: 8px;
+    border-radius: 15px
 }
