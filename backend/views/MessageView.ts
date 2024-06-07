@@ -94,7 +94,7 @@ MessageView.post('/message', async (req, res) => {
     let user = await req.user as User;
     req.body.user_id = user.id;
     let obj = req.body;
-    if(req.files) {
+    if (req.files) {
         obj.value = await s3.uploadFile(Array.isArray(req.files.value) ? req.files.value[0].data : req.files.value.data, '/uploads/');
         obj.value = obj.value.Location;
     }

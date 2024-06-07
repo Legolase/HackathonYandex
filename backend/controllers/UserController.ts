@@ -1,4 +1,5 @@
 import {User} from "../models/User";
+import {DataValue} from "../types/DataValue";
 
 export const UserController = {
     async getList() {
@@ -17,5 +18,11 @@ export const UserController = {
     },
     async searchByName(name: string) {
         return await new User().searchByName(name);
+    },
+    async editItem(user: User, obj: Record<keyof User, DataValue>) {
+        Object.assign(obj, user);
+        let new_user = await user.update(User);
+        if (!new_user) throw new Error('Error: Can not save user!')
+        return new_user;
     }
 }
