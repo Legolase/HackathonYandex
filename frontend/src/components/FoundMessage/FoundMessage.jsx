@@ -1,11 +1,11 @@
 import React from 'react';
 
-const FofError = () => {
+const FoundMessage = ({message}) => {
     return (
         <div>
-            Error 404
+
         </div>
     );
 };
 
-export default FofError;
+export default FoundMessage;

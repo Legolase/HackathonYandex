@@ -36,8 +36,6 @@ MessageView.get('/message', async (req, res) => {
         /* #swagger.responses[401] = {
             description: 'Пользователь не авторизован'
         } */
-        let user = await req.user as User;
-        await user.updateActivity();
         MessageController.getList().then(data => res.json(data));
     }
 );
@@ -60,8 +58,6 @@ MessageView.get('/message/:id', async (req, res) => {
         /* #swagger.responses[401] = {
             description: 'Пользователь не авторизован'
         } */
-        let user = await req.user as User;
-        await user.updateActivity();
         MessageController.getItem(req.params.id).then(data => res.json(data))
     }
 );
@@ -96,10 +92,9 @@ MessageView.post('/message', async (req, res) => {
     }
     */
     let user = await req.user as User;
-    await user.updateActivity();
     req.body.user_id = user.id;
     let obj = req.body;
-    if(req.files) {
+    if (req.files) {
         obj.value = await s3.uploadFile(Array.isArray(req.files.value) ? req.files.value[0].data : req.files.value.data, '/uploads/');
         obj.value = obj.value.Location;
     }

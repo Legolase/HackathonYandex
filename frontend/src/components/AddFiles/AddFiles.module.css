@@ -1,0 +1,25 @@
+.adder {
+    display: flex;
+    justify-content: space-between;
+}
+
+.label {
+    border: 0;
+    position: relative;
+    display: inline-block;
+    padding: 8px;
+    background-color: var(--light-gray);
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: Roboto, sans-serif;
+    font-weight: 300;
+    height: 36px;
+    font-size: 16px;
+}
+
+.button{
+    border: inherit;
+    padding: 8px;
+    border: 8px;
+    background-color: var(--light-gray);
+}

@@ -2,6 +2,7 @@
     display: flex;
     gap: 10px;
     align-items: flex-end;
+    padding-left: 10px;
 }
 
 .myMessage {
@@ -9,22 +10,32 @@
 }
 
 .messageImg {
-    background-color: var(--green);
+    background-color: var(--akcent);
     border-radius: 50%;
     width: 40px;
     height: 40px;
     object-fit: cover
 }
 
-.text {
+.text, .myText {
     white-space: pre-wrap;
     max-width: 760px;
     position: relative;
-    background-color: var(--white);
     padding: 10px;
-    border-radius: 8px 8px 8px 0;
-    color: var(--gray);
     word-break: break-all;
+    display: flex;
+}
+
+.text {
+    background-color: var(--white);
+    border-radius: 20px 20px 20px 0;
+}
+
+
+.myText {
+    margin-left: auto;
+    background-color: var(--light-gray);
+    border-radius: 20px 20px 0 20px;
 }
 
 .text::before {
@@ -40,28 +51,13 @@
     border-bottom-color: transparent;
 }
 
-.time {
-    color: var(--light-gray);
-    padding-left: 20px;
-}
 
 .right {
     display: flex;
     flex-direction: column;
-    gap: 3px
+    margin-bottom: 20px;
 }
 
-.myText {
-    white-space: pre-wrap;
-    margin-left: auto;
-    max-width: 760px;
-    position: relative;
-    background-color: var(--main);
-    padding: 10px;
-    border-radius: 8px 8px 0 8px;
-    color: var(--gray);
-    word-break: break-all;
-}
 
 .myText::before {
     content: '';
@@ -71,15 +67,19 @@
     display: block;
     height: 0;
     width: 0;
-    border: 6px solid var(--main);
+    border: 6px solid var(--light-gray);
     border-left-color: transparent;
     border-bottom-color: transparent;
 }
 
 .myTime {
-    color: var(--light-gray);
+    font-size: var(--font-size-xxs);
+    position: absolute;
+    bottom: 0;
+    right: 0;
     text-align: right;
-    padding-right: 20px;
+    padding-right: 8px;
+    padding-bottom: 5px;
 }
 
 .messageContentImage {

@@ -33,7 +33,6 @@ ContactView.get('/contact', async (req, res) => {
             description: 'Пользователь не авторизован'
         } */
         let user = await req.user as User;
-        await user.updateActivity();
         // TODO: CHANGE TYPE!!!
         req.body.user_id = user.id;
         ContactController.getList(user).then(data => res.json(data));
@@ -68,7 +67,6 @@ ContactView.get('/contact/search', async (req, res) => {
             description: 'Пользователь не авторизован'
         } */
         let user = await req.user as User;
-        await user.updateActivity();
         // TODO: CHANGE TYPE!!!
         // @ts-ignore
         ContactController.searchByName(user.id, req.query.name).then(data => {
@@ -107,7 +105,6 @@ ContactView.post('/contact', async (req, res) => {
     }
     */
     let user = await req.user as User;
-    await user.updateActivity();
     req.body.user_id = user.id;
     ContactController.createItem(req.body)
         .then((data) => res.json(data))

@@ -1,15 +1,10 @@
 import React from 'react';
 import File from "../File/File";
+import cl from './Files.module.css'
 
 const Files = ({files}) => {
     return (
-        <div style={{
-            overflowY: 'scroll',
-            maxHeight: '350px',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '10px'
-        }}>
+        <div className={cl.filesList}>
             {files.map(file =>
                 <File file={file}/>
             )}

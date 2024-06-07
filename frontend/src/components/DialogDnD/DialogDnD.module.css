@@ -5,10 +5,13 @@
     border: none;
     border-radius: 8px;
     position: relative;
+    width: 300px;
 }
 
 .cross{
     position: absolute;
-    top: 20px;
-    right: 20px;
+    top: 5px;
+    right: 5px;
+    width: 15px;
+    height: 15px;
 }

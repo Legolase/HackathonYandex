@@ -50,6 +50,10 @@ export abstract class Model {
         });
     }
 
+    async delete(){
+        await this.db.delete(this.table, {id: this.id});
+    }
+
     abstract getObject(): object;
 
     abstract validate(obj: Record<string, any>): Promise<boolean>;

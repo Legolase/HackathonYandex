@@ -1,53 +1,63 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import cl from './Messages.module.css'
 import Message from "../Message/Message";
 import {useMessagesStore} from "../../../store/MessagesStore";
 import {useLoggedInUserStore} from "../../../store/LoggedInUserStore";
 import {useCurrentChatStore} from "../../../store/CurrentChatStore";
 import DnD from "../../DnD/DnD";
-import DialogDnD from "../../DialogDnD/DialogDnD";
 import {useFilesStore} from "../../../store/FilesStore";
 import {PhotoProvider} from "react-photo-view";
 import {useSocketStore} from "../../../store/SocketStore";
 
-const Messages = () => {
+const Messages = ({dialog}) => {
 
     const messages = useMessagesStore(state => state.messages)
     const addMessage = useMessagesStore(state => state.addMessage)
-    const messagesEndRef = useRef(null)
     const loggedInUser = useLoggedInUserStore(state => state.currentUser)
     const getMessagesByChatId = useMessagesStore(state => state.getMessagesByChatId)
     const chatId = useCurrentChatStore(state => state.chat.id)
-    const dialog = useRef(null)
     const setActive = useFilesStore(state => state.setActiveBackground)
     const socket = useSocketStore(state => state.socket)
-
-    console.log(chatId)
-
-    const scrollToBottom = () => {
-        messagesEndRef.current.scrollIntoView()
+    const [grouped, setGrouped] = useState({})
+    const months = [
+        'January', 'February', 'March', 'April', 'May', 'June',
+        'July', 'August', 'September', 'October', 'November', 'December'
+    ];
+    const groupByDateMessages = () => {
+        const grouped = {}
+        for (const message of messages) {
+            const date = new Date(message.datetime);
+            const day = date.getDate();
+            const month = months[date.getMonth()];
+            const finalDate = `${day} ${month}`
+            if (finalDate in grouped)
+                grouped[finalDate].push(message)
+            else
+                grouped[finalDate] = [message]
+        }
+        setGrouped(grouped)
     }
 
+
     useEffect(() => {
-        socket.on("receive_message", (data) => {
-            if (data.chat_id === chatId)
-                addMessage(data)
-        });
-        scrollToBottom();
-        return () => {
-            socket.off("receive_message");
-        };
+        groupByDateMessages()
     }, [messages]);
 
     useEffect(() => {
+        socket.on("receive_message", (data) => {
+            if (data.chat_id === chatId) {
+                addMessage(data)
+                groupByDateMessages()
+            }
+        });
+        return () => {
+            socket.off("receive_message");
+        };
+    }, []);
+
+    useEffect(() => {
         getMessagesByChatId(chatId)
-        scrollToBottom();
-        // scrollToBottom()
-        // const intervalId = setInterval(() => {
-        // }, 1500)
-        // return () => {
-        //     clearInterval(intervalId)
-        // }
+        groupByDateMessages()
     }, []);
 
 
@@ -61,16 +71,22 @@ const Messages = () => {
              onDragOver={e => dragOver(e)}
         >
             <PhotoProvider>
-                {messages.map((message, pos) => {
-                        return <Message key={pos} message={message} my={message.user_id === loggedInUser.id}/>
-                    }
-                )}
+                {
+                    Object.keys(grouped).map((key) => (
+                        <>
+                            {grouped[key].map((message, pos) => {
+                                return <Message key={pos} message={message} my={message.user_id === loggedInUser.id}/>
+                            })}
+                            <h4 style={{textAlign: 'center'}}>{key}</h4>
+                        </>
+                    ))
+
+                }
             </PhotoProvider>
-            <div ref={messagesEndRef}></div>
             <DnD dialog={dialog}/>
-            <DialogDnD dialog={dialog}/>
         </div>
-    );
+    )
+        ;
 };
 
 export default Messages;

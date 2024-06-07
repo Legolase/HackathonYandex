@@ -1,12 +1,19 @@
 import React from 'react';
-import EnterGithub from "../components/EnterGitHub/EnterGithub";
+import {LogoIcon} from "../components/Icon/Icon";
 
 const Auth = () => {
 
     return (
         <div className={'auth'}>
-            {/*todo: Здесь может быть ваша регистрация*/}
-            <EnterGithub/>
+            <LogoIcon className={'logo'}/>
+            {/*todo: Текст*/}
+            <a className={'auth-button'} href={'/auth/github'}>Войти через GitHub</a>
+            {/*todo: поменять на родной язык и обратно*/}
+            <button className={'auth-button'} onSubmit={() => {
+            }}>
+                Продолжить на русском
+            </button>
+            <span className={'desc'}>ВЕСомый мессенджер для значимого общения</span>
         </div>
     );
 };

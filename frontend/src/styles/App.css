@@ -1,49 +1,36 @@
-#root {
-    --black: #1e1e1e;
-    --gray: #333333;
-    --light-gray: rgba(51, 51, 51, 0.5);
-    --background-gray: rgba(245, 245, 245, 1);
-    --main: #ffdede;
-    --akcent: #ff5958;
-    --green: #1c8e23;
-    --main-text: 22px;
-    --small-text: 16px;
-    --white: white;
-    --font: "Roboto", sans-serif;
-}
-
-#root.redesigned {
-    --light-gray: rgba(60, 60, 67, 0.6);
-    --simple-text: 22px;
-}
-
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+    transition: all 0.15s ease-in-out;
 
+    --black: #000000;
+    --dark-gray: #333333;
+    --light-gray: #eeeeee;
+    --white: #ffffff;
+    --akcent: #fd9802;
+    --light-akcent: rgba(253, 152, 2, 0.5);
+    --lighter-akcent: rgba(253, 152, 2, 0.2);
+    --font-size-xxs: 10px;
+    --font-size-xs: 12px;
+    --font-size-s: 14px;
+    --font-size-m: 16px;
+    --font-size-l: 18px;
+    --font-size-xl: 22px;
+    --font: "Roboto", sans-serif;
 }
 
 body {
-    background-color: var(--background-gray);
+    background-color: var(--white);
     font-weight: 300;
     font-family: "Roboto", sans-serif;
 }
 
 .messenger {
     height: 100svh;
-    background-color: var(--background-gray);
-    padding: 30px;
     display: flex;
-    gap: 30px;
     box-sizing: border-box;
 }
-
-code {
-    background-color: lightgrey;
-    padding: 3px;
-    border-radius: 8px;
-}
-
 
 .auth {
     height: 100vh;
@@ -51,6 +38,52 @@ code {
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    gap: 30px;
+    width: calc(max(300px, min(750px, 80vw)));
+    margin-inline: auto;
+}
+
+.desc {
+    color: var(--dark-gray);
+    text-align: center;
+}
+
+.auth_footer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.auth-button:hover {
+    border-color: var(--dark-gray);
+}
+
+.auth-button {
+    text-decoration: none;
+    cursor: pointer;
+    background-color: var(--light-gray);
+    color: var(--dark-gray);
+    border-radius: 8px;
+    padding: 30px;
+    width: 100%;
+    text-align: center;
+    font-size: var(--font-size-m);
+    font-weight: 300;
+    font-family: "Roboto", sans-serif;
+    border: 2px solid var(--light-gray);
+}
+
+.button__white {
+    background-color: var(--white);
+}
+
+.logo {
+    width: 100%;
+}
+
+.setting_icon {
+    width: 27px;
+    height: 27px;
 }
 
 *::-webkit-scrollbar,
@@ -59,4 +92,10 @@ code {
     border-radius: 13px;
     background-clip: padding-box;
     border: 10px solid transparent;
+}
+
+.right-side {
+    background-color: var(--lighter-akcent);
+    border-radius: 0;
+    width: 100%;
 }

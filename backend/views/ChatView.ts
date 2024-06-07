@@ -88,8 +88,6 @@ ChatView.get('/chat/:id', async (req, res) => {
         /* #swagger.responses[403] = {
             description: 'У пользователя нет доступа к чату'
         } */
-        let user = await req.user as User;
-        await user.updateActivity();
         ChatController.getItem(req.params.id).then(data => res.json(data))
     }
 );
@@ -123,8 +121,6 @@ ChatView.post('/chat', async (req, res) => {
         description: 'Пользователь не авторизован'
     }
     */
-    let user = await req.user as User;
-    await user.updateActivity();
     ChatController.createItem(req.body)
         .then((data) => res.json(data))
         .catch((error) => {
@@ -134,5 +130,29 @@ ChatView.post('/chat', async (req, res) => {
                 error: error.message
             })
         });
-})
-;
+});
+
+ChatView.post('/chat/:id/exit', async (req, res) => {
+    // #swagger.description = 'Выход из чата'
+    // #swagger.tags = ['Chat']
+    /*
+    #swagger.responses[401] = {
+        description: 'Пользователь не авторизован'
+    }
+    */
+    /*
+    #swagger.responses[403] = {
+        description: 'Вас нет в этом чате'
+    }
+    */
+    let user = await req.user as User;
+    ChatController.deleteUser(req.params.id, user.id)
+        .then((data) => res.json(data))
+        .catch((error) => {
+            res.status(403);
+            res.json({
+                type: 'error',
+                error: error.message
+            })
+        });
+});
