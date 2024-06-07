@@ -83,6 +83,7 @@
     overflow-y: scroll;
     background-color: var(--light-gray);
     gap: 5px;
+    max-height: 500px;
 }
 
 .time {

@@ -5,6 +5,7 @@ import {useCurrentChatStore} from "../../store/CurrentChatStore";
 import {useParams} from "react-router-dom";
 import {useNavigate} from "react-router";
 import Setting from "../Setting/Setting";
+import {AddUserIcon, ChatsIcon} from "../Icon/Icon";
 
 const UserProfile = () => {
     const contact = useCurrentContactStore(state => state.contact)
@@ -43,8 +44,8 @@ const UserProfile = () => {
                 </div>
             </div>
             <div className={cl.buttons}>
-                <Setting name={'allChats'} text={'Write message'} handler={beginChat}/>
-                <Setting name={'contacts'} text={'Add to contacts'} handler={() => createChatByUserId(contact.id)}/>
+                <Setting icon={<AddUserIcon classname={'setting_icon'}/>} text={'Write message'} handler={beginChat}/>
+                <Setting icon={<ChatsIcon classname={'setting_icon'}/>} text={'Add to contacts'} handler={() => createChatByUserId(contact.id)}/>
             </div>
         </div>
     );

@@ -22,7 +22,7 @@
 
 @media screen and (max-width: 650px) {
     .leftPanel {
-        width: 25vw;
+        width: 100vw;
     }
 }
 
