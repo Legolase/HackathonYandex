@@ -5,6 +5,7 @@ import Setting from "../Setting/Setting";
 
 const Settings = () => {
     const curUser = useLoggedInUserStore(state => state.currentUser)
+    const generateAvatar = useLoggedInUserStore(state => state.generateAvatar)
 
     const names = ['Upload profile photo', 'Generate profile photo', 'Change user name',
         'Change user login', 'Notifications', 'Appearance', 'Language']
@@ -23,7 +24,9 @@ const Settings = () => {
             <div className={cl.body}>
                 <div className={cl.column}>
                     <Setting name={'file'} text={names[0]}/>
-                    <Setting name={'file'} text={names[1]}/>
+                    <Setting name={'file'} text={names[1]} handler={() => {
+                        generateAvatar(curUser)
+                    }}/>
                 </div>
                 <div className={cl.column}>
                     <Setting name={'file'} text={names[2]}/>

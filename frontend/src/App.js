@@ -28,9 +28,9 @@ function App() {
             {
                 currentUser ? <></> :
                     <>
-                        <Route index={true} element={<Auth/>}/>
+                        {/*<Route index={true} element={<Auth/>}/>*/}
                         <Route path={'/auth'} element={<Auth/>}/>
-                        <Route exact path={'/*'} element={<Error404/>}/>
+                        <Route exact path={'/*'} element={<Navigate to={'/auth'}/>}/>
                     </>
             }
 

@@ -1,8 +1,8 @@
 import {create} from "zustand";
-import axios from "axios";
+import axios, {get} from "axios";
 
 
-export const useLoggedInUserStore = create((set) => ({
+export const useLoggedInUserStore = create((set, get) => ({
 
     currentUser: null,
     loading: true,
@@ -25,5 +25,21 @@ export const useLoggedInUserStore = create((set) => ({
                 loading: false
             }))
         })
+    },
+
+    generateAvatar: (user) => {
+        axios.get('/api/service/generate_image', {
+            params: {
+                uid: user.id
+            }
+        }).then(r => {
+            axios.patch('/api/user', {
+                avatar: r.data
+            })
+            // console.log(r.data)
+        }).catch(e => {
+            console.log(e)
+        })
     }
+
 }))
