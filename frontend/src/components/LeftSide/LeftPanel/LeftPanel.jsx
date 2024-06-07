@@ -32,11 +32,18 @@ const LeftPanel = () => {
             </div>
     }
 
+    const getSearch = () =>{
+        if (activeNavigation === 'contacts')
+            return <Search/>
+        return <></>
+    }
+
     return (
         <div className={cl.leftPanel}>
             {currentActive()}
-
-            <Search/>
+            <hr/>
+            {getSearch()}
+            {/*<Search/>*/}
             <List/>
             <Modal>
                 {modalActive ? <CreateGroupChat/> : <></>}

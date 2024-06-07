@@ -13,8 +13,6 @@ import Settings from "./components/Settings/Settings";
 
 function App() {
 
-    // todo: при отрисовке чата по контаку контак остается активным
-
     const {currentUser, getCurrentUser, loading} = useLoggedInUserStore()
 
     useEffect(() => {
@@ -22,15 +20,14 @@ function App() {
     }, []);
 
 
-    // todo: Хотим показывать auth только если юзер не вошел, иначе не хотим
     const baseRoutes = (
         <>
             {
                 currentUser ? <></> :
                     <>
-                        <Route index={true} element={<Auth/>}/>
+                        {/*<Route index={true} element={<Auth/>}/>*/}
                         <Route path={'/auth'} element={<Auth/>}/>
-                        <Route exact path={'/*'} element={<Error404/>}/>
+                        <Route exact path={'/*'} element={<Navigate to={'/auth'}/>}/>
                     </>
             }
 

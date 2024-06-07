@@ -2,17 +2,17 @@ import React from 'react';
 import cl from "../Navigation/Navigation.module.css";
 import {useNavStore} from "../../store/NavStore";
 
-const NavigationItem = ({icon, name, desc}) => {
+const NavigationItem = ({icon, name, desc, handler}) => {
 
     const active = useNavStore(state => state.active)
-    const setActive = useNavStore(state => state.setActive);
+
     const root = [cl.nav_item]
     if (active === name) {
         root.push(cl.nav_item__active);
     }
 
     return (
-        <div className={root.join(' ')} onClick={() => setActive(name)}>
+        <div className={root.join(' ')} onClick={handler}>
             {icon}
             <span className={cl.desc}>{desc}</span>
         </div>
