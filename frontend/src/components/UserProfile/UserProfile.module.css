@@ -24,10 +24,28 @@
     }
 }
 
+.back{
+    display: none;
+}
+
 @media screen and (max-width: 650px) {
     .userProfile {
-        width: 67vw;
+        width: 100vw;
+        height: 100vh;
+        position: absolute;
+        z-index: -1;
+    }
 
+    .mobileActive{
+        z-index: 1;
+        background-color: var(--light-akcent);
+    }
+
+    .mobileBack{
+        display: block;
+        position: absolute;
+        top: 10px;
+        left: 10px
     }
 }
 

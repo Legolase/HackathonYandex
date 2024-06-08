@@ -5,7 +5,7 @@ import {useCurrentChatStore} from "../../store/CurrentChatStore";
 import {useParams} from "react-router-dom";
 import {useNavigate} from "react-router";
 import Setting from "../Setting/Setting";
-import {AddUserIcon, ChatsIcon} from "../Icon/Icon";
+import {AddUserIcon, BackIcon, ChatsIcon} from "../Icon/Icon";
 
 const UserProfile = () => {
     const contact = useCurrentContactStore(state => state.contact)
@@ -14,6 +14,7 @@ const UserProfile = () => {
     const fetchContact = useCurrentContactStore(state => state.fetchContact)
     const setActive = useCurrentContactStore(state => state.setActive)
     const createChatByUserId = useCurrentContactStore(state => state.createContact)
+    const router = useNavigate()
 
     const {contactId} = useParams()
     const navigate = useNavigate()
@@ -35,8 +36,11 @@ const UserProfile = () => {
     if (loading)
         return <span>LOADING</span>
     return (
-        <div className={`${cl.userProfile} right-side`}>
+        <div className={`${cl.userProfile} right-side ${cl.mobileActive}`}>
             <div className={cl.header}>
+                <BackIcon className={`setting_icon ${cl.back} ${cl.mobileBack}`} onClick={() => {
+                    router('/')
+                }}/>
                 <img className={cl.avatar} src={contact.avatar}/>
                 <div className={cl.textInfo}>
                     <span className={cl.name}>{contact.name}</span>

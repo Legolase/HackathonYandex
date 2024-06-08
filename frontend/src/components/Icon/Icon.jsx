@@ -8,6 +8,8 @@ import {ReactComponent as Lang} from "./svg/language.svg";
 import {ReactComponent as Notify} from "./svg/notification.svg";
 import {ReactComponent as Appearance} from "./svg/appearance.svg";
 import {ReactComponent as AddUser} from "./svg/addUser.svg";
+import {ReactComponent as Back} from "./svg/back.svg";
+import {ReactComponent as Dots} from "./svg/dots.svg";
 
 const Icon = ({Glyph, ...props}) => {
     return (
@@ -27,3 +29,6 @@ export const NotifyIcon = (...props) => <Icon Glyph={Notify} {...props}/>;
 export const AppearanceIcon = (...props) => <Icon Glyph={Appearance} {...props}/>;
 
 export const AddUserIcon = (...props) => <Icon Glyph={AddUser} {...props}/>;
+
+export const BackIcon = ({...props}) => <Icon Glyph={Back} {...props}/>;
+export const DotsIcon = ({...props}) => <Icon Glyph={Dots} {...props}/>;

@@ -1,9 +1,8 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import cl from './Chat.module.css'
 import {useCurrentChatStore} from "../../../store/CurrentChatStore";
 import {useCurrentContactStore} from "../../../store/CurrentContactStore";
 import {useNavigate} from "react-router";
-import {useLoggedInUserStore} from "../../../store/LoggedInUserStore";
 
 const Chat = ({chat}) => {
     const root = [cl.chat]

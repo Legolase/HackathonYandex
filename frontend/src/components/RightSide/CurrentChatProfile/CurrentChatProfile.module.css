@@ -9,6 +9,16 @@
     width: 100%;
 }
 
+.back{
+    display: none;
+}
+
+@media screen and (max-width: 650px){
+    .mobileBack{
+        display: block;
+    }
+}
+
 .avatar {
     flex-shrink: 0;
     border-radius: 50%;
