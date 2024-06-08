@@ -43,8 +43,7 @@ export class DB {
             if (key === 'order') {
                 where_query += `ORDER BY ${value[0]} ${value[1]}`;
             } else if (key === 'like') {
-                where_query += `${value[0]} LIKE "%${value[1]}%" `;
-
+                where_query += `${value[0]} ILIKE "%${value[1]}%" `;
             } else {
                 if (where_query !== '') {
                     where_query += separator;
