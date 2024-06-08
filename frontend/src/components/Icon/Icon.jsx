@@ -10,6 +10,7 @@ import {ReactComponent as Appearance} from "./svg/appearance.svg";
 import {ReactComponent as AddUser} from "./svg/addUser.svg";
 import {ReactComponent as Back} from "./svg/back.svg";
 import {ReactComponent as Dots} from "./svg/dots.svg";
+import {ReactComponent as Edit} from "./svg/edit.svg";
 
 const Icon = ({Glyph, ...props}) => {
     return (
@@ -32,3 +33,4 @@ export const AddUserIcon = (...props) => <Icon Glyph={AddUser} {...props}/>;
 
 export const BackIcon = ({...props}) => <Icon Glyph={Back} {...props}/>;
 export const DotsIcon = ({...props}) => <Icon Glyph={Dots} {...props}/>;
+export const EditIcon = ({...props}) => <Icon Glyph={Edit} {...props}/>;

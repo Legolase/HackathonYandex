@@ -20,10 +20,7 @@ export const UserController = {
         return await new User().searchByName(name);
     },
     async editItem(user: User, obj: Record<keyof User, DataValue>) {
-        console.log('user', user);
-        console.log('obj', obj);
         Object.assign(user, obj);
-        console.log('new user', user);
         let new_user = await user.update(User);
         if (!new_user) throw new Error('Error: Can not save user!')
         return new_user;

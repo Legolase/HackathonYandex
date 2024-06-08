@@ -10,8 +10,10 @@ const Invite = () => {
     const router = useNavigate()
     const setCurChat = useCurrentChatStore(state => state.setChat)
 
-    useEffect(() => {
-        const chat = getInviteLink(chatId)
+    useEffect(async () => {
+        const res = await getInviteLink(chatId)
+        const chat = res.data
+        console.log(chat)
         setCurChat(chat)
         router(`/chat/${chat.id}`)
     }, []);
