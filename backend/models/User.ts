@@ -15,6 +15,7 @@ export class User extends Model {
         const timePart = isoString?.substring(11, 23); // HH:MI:SS.MS
 
         return {
+            id: this.id,
             datetime_last_activity: isoString ? `${datePart} ${timePart}` : undefined,
             name: this.name,
             login: this.login,
@@ -31,5 +32,12 @@ export class User extends Model {
     async updateActivity() {
         this.datetime_last_activity = new Date();
         await this.update(User);
+    }
+
+    async searchByName(name: string) {
+        let users = await this.db.selectAll(this.table, ['name ILIKE \'%\' || $1 || \'%\' OR login ILIKE \'%\' || $1 || \'%\'', [name]]);
+        return users.map((item) => {
+            return new User(item)
+        });
     }
 }

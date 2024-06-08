@@ -1,7 +1,8 @@
 exports.up = (pgm) => {
   pgm.createTable('messages', {
     id: {
-      type: 'serial',
+      type: 'varchar(36)',
+      notNull: true,
       primaryKey: true
     },
     datetime: {
@@ -13,7 +14,7 @@ exports.up = (pgm) => {
       notNull: true
     },
     from: {
-      type: 'integer',
+      type: 'varchar(36)',
       notNull: true,
       references: 'users(id)'
     },

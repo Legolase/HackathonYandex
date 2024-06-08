@@ -1,17 +1,60 @@
 .userProfile{
     border-radius: 8px;
     padding: 10px 0;
-    background-color: var(--white);
-    width: 100%;
+    width: 80vw;
     align-items: center;
+    justify-content: center;
     display: flex;
     flex-direction: column;
     gap: 10px
 }
 
+
+@media screen and (max-width: 1000px) {
+    .userProfile {
+        width: 75vw;
+
+    }
+}
+
+@media screen and (max-width: 750px) {
+    .userProfile {
+        width: 70vw;
+
+    }
+}
+
+.back{
+    display: none;
+}
+
+@media screen and (max-width: 650px) {
+    .userProfile {
+        width: 100vw;
+        height: 100vh;
+        position: absolute;
+        z-index: -1;
+    }
+
+    .mobileActive{
+        z-index: 1;
+        background-color: var(--light-akcent);
+    }
+
+    .mobileBack{
+        display: block;
+        position: absolute;
+        top: 10px;
+        left: 10px
+    }
+}
+
+
 .header{
     display: flex;
-    gap: 10px
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
 }
 
 .avatar{
@@ -39,5 +82,7 @@
 
 .buttons{
     display: flex;
-    gap: 10px
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
 }

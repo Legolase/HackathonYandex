@@ -1,0 +1,22 @@
+version: "3"
+
+services:
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: kilogram
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: rebus
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+
+
+  node:
+    image: node-kilogram
+    volumes:
+      - .:/home/app
+    ports:
+      - 443:3000
+    depends_on:
+     - postgres
+       #    command: cd frontend && npm install && npm run build && cd .. && cd backend && npm install && npm run migrate && npm start

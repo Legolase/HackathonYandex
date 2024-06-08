@@ -11,7 +11,7 @@ export const SingleChatController = {
         return chat;
     },
 
-    async createItemByUsers(users: number[]): Promise<Chat | undefined> {
+    async createItemByUsers(users: string[]): Promise<Chat | undefined> {
         let chat = new Chat();
         chat.type = ChatTypes.single;
         chat = await chat.create(Chat) as Chat;

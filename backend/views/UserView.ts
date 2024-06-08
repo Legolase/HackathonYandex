@@ -58,8 +58,66 @@ UserView.get('/user', async (req, res) => {
             description: 'Пользователь не авторизован'
         } */
         let user = await req.user as User;
-        await user.updateActivity();
         UserController.getList().then(data => res.json(data));
+    }
+);
+
+UserView.get('/user/search', async (req, res) => {
+        // #swagger.description = 'Получение списка пользователей'
+        // #swagger.tags = ['User']
+        /* #swagger.responses[200] = {
+            description: 'Получен список пользователей',
+            schema: [
+      {
+        "table": "users",
+        "db": {
+
+        },
+        "id": 10,
+        "datetime_create": "2024-04-03T08:28:46.810Z",
+        "datetime_last_activity": "2024-04-03T08:28:46.810Z",
+        "name": "kek",
+        "login": "kek",
+        "email": null,
+        "avatar": null,
+        "github_id": null
+      },
+      {
+        "table": "users",
+        "db": {
+
+        },
+        "id": 1,
+        "datetime_create": "2024-04-03T08:05:58.011Z",
+        "datetime_last_activity": "2024-04-03T08:05:58.011Z",
+        "name": "test",
+        "login": "test",
+        "email": null,
+        "avatar": null,
+        "github_id": null
+      },
+      {
+        "table": "users",
+        "db": {
+
+        },
+        "id": 17,
+        "datetime_create": "2024-04-13T12:21:42.576Z",
+        "datetime_last_activity": "2024-04-13T09:21:42.575Z",
+        "name": "IlyaStepanov1104",
+        "login": "IlyaStepanov1104",
+        "email": "ilyahtml@gmail.com",
+        "avatar": "image\\avatar\\708d5e598f4ce68eab6b1c5bf9db85f6.jpeg",
+        "github_id": 102037915
+      }
+    ]
+        } */
+        /* #swagger.responses[401] = {
+            description: 'Пользователь не авторизован'
+        } */
+        let user = await req.user as User;
+        // @ts-ignore
+        UserController.searchByName(req.query.name).then(data => res.json(data));
     }
 );
 
@@ -87,7 +145,6 @@ UserView.get('/user/current', async (req, res) => {
         } */
 
         let user = await req.user as User;
-        await user.updateActivity();
         res.json(user);
     }
 );
@@ -117,7 +174,55 @@ UserView.get('/user/:id', async (req, res) => {
             description: 'Пользователь не авторизован'
         } */
         let user = await req.user as User;
-        await user.updateActivity();
         UserController.getItem(req.params.id).then(data => res.json(data))
     }
 );
+
+UserView.patch('/user', async (req, res) => {
+        // #swagger.description = 'Редактирование пользователя'
+        // #swagger.tags = ['User']
+        /*
+        #swagger.parameters['body'] = {
+            in: 'body',
+            description: 'Тело запроса',
+            required: true,
+            schema: {
+                    name?: string,
+                    login?: string,
+                    email?: string,
+                    avatar?: string
+                }
+        }
+        */
+        /* #swagger.responses[200] = {
+            description: 'Изменен пользователь',
+            schema:
+      {
+        "table": "users",
+        "db": {
+
+        },
+        "id": 17,
+        "datetime_create": "2024-04-13T12:21:42.576Z",
+        "datetime_last_activity": "2024-04-13T09:21:42.575Z",
+        "name": "IlyaStepanov1104",
+        "login": "IlyaStepanov1104",
+        "email": "ilyahtml@gmail.com",
+        "avatar": "image\\avatar\\708d5e598f4ce68eab6b1c5bf9db85f6.jpeg",
+        "github_id": 102037915
+      }
+        } */
+        /* #swagger.responses[401] = {
+            description: 'Пользователь не авторизован'
+        } */
+        let user = await req.user as User;
+        UserController.editItem(user, req.body).then(data => res.json(data)).catch((error) => {
+            res.status(400);
+            res.json({
+                status: 'error',
+                error: error.message
+            })
+        });
+    }
+);
+

@@ -1,0 +1,17 @@
+.dialog{
+    align-self: center;
+    justify-self: center;
+    padding: 20px;
+    border: none;
+    border-radius: 8px;
+    position: relative;
+    width: 300px;
+}
+
+.cross{
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 15px;
+    height: 15px;
+}

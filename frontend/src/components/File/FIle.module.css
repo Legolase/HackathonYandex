@@ -1,0 +1,25 @@
+.file {
+    display: flex;
+    gap: 10px;
+    background-color: var(--light-gray);
+    padding: 10px;
+    border-radius: 12px;
+}
+
+.metaInf {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    width: calc(100% - 35px);
+}
+
+.name {
+    font-size: 18px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.size {
+    font-size: 10px
+}

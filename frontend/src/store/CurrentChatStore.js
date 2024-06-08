@@ -31,7 +31,7 @@ export const useCurrentChatStore = create((set, get) => ({
 
     getChatById: (id) => {
         get().setLoading(true)
-        axios.get(process.env.REACT_APP_BACKEND_URL + `/api/chat/${id}`).then((response) => {
+        axios.get(`/api/chat/${id}`).then((response) => {
             get().setChatFromResponse(response)
         }).catch((error) => {
             // todo: check keys
@@ -46,7 +46,7 @@ export const useCurrentChatStore = create((set, get) => ({
                 user: id
             }
         }
-        axios.get(process.env.REACT_APP_BACKEND_URL + `/api/single_chat`, params).then((response) => {
+        axios.get(`/api/single_chat`, params).then((response) => {
             get().setChatFromResponse(response)
             cb(`/chat/${get().chat.id}`)
         }).catch((err) => {
@@ -62,7 +62,7 @@ export const useCurrentChatStore = create((set, get) => ({
         const params = {
             user: id
         }
-        axios.post(process.env.REACT_APP_BACKEND_URL + `/api/single_chat`, params).then((response) => {
+        axios.post(`/api/single_chat`, params).then((response) => {
             get().setChatFromResponse(response)
             cb(`/chat/${response.data.id}`)
         }).catch((err) => {
@@ -74,17 +74,24 @@ export const useCurrentChatStore = create((set, get) => ({
 
     // for getting name and avatar of single chat - its own name and avatar
     getDataByChat: (chat) => {
-        // todo: check chatType before
+        if (chat.type === 'multi')
+            return chat
         const loggedUser = useLoggedInUserStore.getState().currentUser
         const users = chat.users
         for (const usersKey in users) {
             if (loggedUser.id.toString() !== usersKey) {
                 return {
                     name: users[usersKey].name,
-                    avatar: users[usersKey].avatar
+                    avatar: users[usersKey].avatar,
+                    last_seen: users[usersKey].datetime_last_activity
                 }
             }
         }
+    },
+
+    createGroupChat: (data) => {
+        axios.post('/api/chat', data).then(r => {
+        })
     },
 
     setChatFromResponse: (response) => {
@@ -95,6 +102,12 @@ export const useCurrentChatStore = create((set, get) => ({
         useMessagesStore.setState(() => ({
             messages: response.data.messages
         }))
+    },
+
+    getInvite: async (id) => {
+        return new Promise((resolve) => {
+            resolve(axios.get(`/api/chat/${id}/invite`))
+        })
     }
 
 

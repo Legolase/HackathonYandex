@@ -20,16 +20,19 @@ export class DB {
         }
     }
 
-    async selectAll(table: string, where: object = {}): Promise<Record<string, any>[] | null> {
+    async selectAll(table: string, where: object = {}): Promise<Record<string, any>[]> {
         try {
             let {where_query, values} = this.generateValues(where);
+            if (Array.isArray(where)) {
+                [where_query, values] = where;
+            }
             let query = `SELECT *
                          FROM ${table}
                          WHERE ${where_query ? where_query : 'true'}`;
             return await db.any(query, values);
         } catch (e) {
             console.error(e);
-            return null;
+            return [];
         }
     }
 
@@ -39,6 +42,8 @@ export class DB {
         for (const [key, value] of Object.entries(where)) {
             if (key === 'order') {
                 where_query += `ORDER BY ${value[0]} ${value[1]}`;
+            } else if (key === 'like') {
+                where_query += `${value[0]} ILIKE "%${value[1]}%" `;
             } else {
                 if (where_query !== '') {
                     where_query += separator;
@@ -97,9 +102,12 @@ export class DB {
         }
     }
 
-    async join(select: string, from: string, join_table: string, on: string, where: object): Promise<Record<string, any>[]> {
+    async join(select: string, from: string, join_table: string, on: string, where: object | Array<DataValue>): Promise<Record<string, any>[]> {
         try {
             let {where_query, values} = this.generateValues(where);
+            if (Array.isArray(where)) {
+                [where_query, values] = where;
+            }
             let query = `SELECT ${select}
                          FROM ${from}
                                   JOIN ${join_table} ON ${on}

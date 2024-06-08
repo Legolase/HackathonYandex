@@ -1,8 +1,57 @@
-.leftPanel{
-    width: 400px;
+.leftPanel {
+    width: 15vw;
     display: flex;
     flex-direction: column;
     gap: 15px;
     background-color: white;
     border-radius: 8px;
+    padding-top: 10px;
+}
+
+@media screen and (max-width: 1000px) {
+    .leftPanel {
+        width: 20vw;
+    }
+}
+
+@media screen and (max-width: 750px) {
+    .leftPanel {
+        width: 23vw;
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .leftPanel {
+        width: 100vw;
+        height: 100vh;
+    }
+}
+
+.active {
+    text-align: center;
+    font-size: 25px;
+    font-weight: 400;
+}
+
+.header {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    padding-top: 10px;
+}
+
+.icon {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    right: 10px;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: var(--black);
 }

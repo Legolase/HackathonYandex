@@ -1,0 +1,147 @@
+.settings {
+    display: flex;
+    flex-direction: column;
+    width: 80vw;
+    align-items: center;
+    gap: 30px;
+    position: relative;
+}
+
+@media screen and (max-width: 1000px) {
+    .settings {
+        width: 75vw;
+
+    }
+}
+
+@media screen and (max-width: 750px) {
+    .settings {
+        width: 70vw;
+
+    }
+}
+
+
+.back {
+    display: none;
+}
+
+@media screen and (max-width: 650px) {
+    .settings {
+        width: 100vw;
+        height: 100vh;
+        overflow-y: scroll;
+        position: absolute;
+        z-index: -1
+    }
+
+    .mobileSettingsActive {
+        z-index: 1;
+        background-color: var(--light-akcent);
+    }
+
+    .mobileBack {
+        display: block;
+        position: absolute;
+        top: 10px;
+        left: 10px
+    }
+}
+
+
+.avatar {
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    align-self: center;
+
+}
+
+.header {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px
+}
+
+.body {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.setting {
+    padding: 10px 20px;
+}
+
+.name {
+    font-size: var(--font-size-m);
+    font-weight: bold;
+}
+
+.login {
+    font-size: var(--font-size-m);
+
+}
+
+.textInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 5px
+}
+
+.column {
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.dialog {
+    position: absolute;
+    top: 40%;
+    left: 45%;
+    padding: 20px
+}
+
+@media screen and (max-width: 650px) {
+    .dialog {
+        left: 20%;
+    }
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.button {
+    padding: 8px;
+    border: inherit;
+    border-radius: 15px;
+    font-size: var(--font-size-l);
+    cursor: pointer;
+}
+
+.input {
+    padding: 5px;
+    text-align: center;
+    border: inherit;
+    background-color: var(--light-gray);
+    border-radius: 15px;
+}
+
+.dialog {
+    background-color: var(--akcent);
+    border: inherit;
+    border-radius: 15px;
+}
+
+.prettyInput {
+    background-color: var(--light-gray);
+    padding: 8px;
+    border-radius: 15px
+}

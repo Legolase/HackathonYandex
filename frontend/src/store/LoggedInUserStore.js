@@ -1,8 +1,8 @@
 import {create} from "zustand";
-import axios from "axios";
+import axios, {get} from "axios";
 
 
-export const useLoggedInUserStore = create((set) => ({
+export const useLoggedInUserStore = create((set, get) => ({
 
     currentUser: null,
     loading: true,
@@ -15,7 +15,7 @@ export const useLoggedInUserStore = create((set) => ({
 
 
     getCurrentUser: () => {
-        axios.get(process.env.REACT_APP_BACKEND_URL + '/api/user/current').then((response) => {
+        axios.get('/api/user/current').then((response) => {
             set(() => ({
                 currentUser: response.data,
             }))
@@ -25,5 +25,48 @@ export const useLoggedInUserStore = create((set) => ({
                 loading: false
             }))
         })
+    },
+
+    generateAvatar: (user) => {
+        axios.get('/api/service/generate_image', {
+            params: {
+                uid: user.id
+            }
+        }).then(r => {
+            axios.patch('/api/user', {
+                avatar: r.data.link
+            }).then(res => {
+                set(() => ({
+                    currentUser: res.data
+                }))
+            })
+        }).catch(e => {
+            console.log(e)
+        })
+    },
+
+    changeName: (name) => {
+        axios.patch('/api/user', {
+            name: name
+        }).then(res => {
+            set(() => ({
+                currentUser: res.data
+            }))
+        }).catch(err => {
+            console.log(err)
+        })
+    },
+
+    changeAvatar: (avatar) => {
+        axios.patch('/api/user', {
+            avatar: avatar.link
+        }).then(res => {
+            set(() => ({
+                currentUser: res.data
+            }))
+        }).catch(err => {
+            console.log(err)
+        })
     }
+
 }))

@@ -1,6 +1,9 @@
 import {Router} from "express";
 import {MessageController} from "../controllers/MessageController";
 import {User} from "../models/User";
+import {s3} from "../index";
+import {ContactController} from "../controllers/ContactController";
+import {ContactView} from "./ContactView";
 
 export const MessageView: Router = Router();
 
@@ -35,8 +38,6 @@ MessageView.get('/message', async (req, res) => {
         /* #swagger.responses[401] = {
             description: 'Пользователь не авторизован'
         } */
-        let user = await req.user as User;
-        await user.updateActivity();
         MessageController.getList().then(data => res.json(data));
     }
 );
@@ -59,8 +60,6 @@ MessageView.get('/message/:id', async (req, res) => {
         /* #swagger.responses[401] = {
             description: 'Пользователь не авторизован'
         } */
-        let user = await req.user as User;
-        await user.updateActivity();
         MessageController.getItem(req.params.id).then(data => res.json(data))
     }
 );
@@ -95,9 +94,13 @@ MessageView.post('/message', async (req, res) => {
     }
     */
     let user = await req.user as User;
-    await user.updateActivity();
     req.body.user_id = user.id;
-    MessageController.createItem(req.body)
+    let obj = req.body;
+    if (req.files) {
+        obj.value = await s3.uploadFile(Array.isArray(req.files.value) ? req.files.value[0].data : req.files.value.data, '/uploads/');
+        obj.value = obj.value.Location;
+    }
+    MessageController.createItem(obj)
         .then((data) => res.json(data))
         .catch((error) => {
             res.status(400);
@@ -107,3 +110,36 @@ MessageView.post('/message', async (req, res) => {
             })
         });
 });
+
+MessageView.get('/message/search', async (req, res) => {
+        // #swagger.description = 'Поиск сообщений'
+        // #swagger.tags = ['Message']
+        /* #swagger.responses[200] = {
+            description: 'Получен список сообщений',
+            schema: {
+                        "table": "messages",
+                        "db": { },
+                        "id": 1,
+                        "datetime": "2024-04-10T02:09:09.151Z",
+                        "text": "Message 1",
+                        "from": 1,
+                        "read": false,
+                        "chat_id": 1
+                      }
+        } */
+        /* #swagger.responses[401] = {
+            description: 'Пользователь не авторизован'
+        } */
+        if (!req.query.search || typeof req.query.search !== 'string' || !req.query.chat_id || typeof req.query.chat_id !== 'string') {
+            res.status(400);
+            res.json({
+                type: 'error',
+                error: 'Error: can not find properties!'
+            });
+            return;
+        }
+        MessageController.search(req.query.search, req.query.chat_id).then(data => {
+            res.json(data)
+        });
+    }
+);
