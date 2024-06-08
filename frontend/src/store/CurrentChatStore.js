@@ -109,7 +109,6 @@ export const useCurrentChatStore = create((set, get) => ({
 
     getInvite: (id) => {
         axios.get(`/api/chat/${id}/invite`).then(r => {
-            console.log(r)
             return r.data
         })
     }
