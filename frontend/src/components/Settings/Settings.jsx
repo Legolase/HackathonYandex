@@ -5,7 +5,7 @@ import Setting from "../Setting/Setting";
 import Modal from "../Modal/Modal";
 import {useModalStore} from "../../store/ModalStore";
 import {useFilesStore} from "../../store/FilesStore";
-import {AppearanceIcon, BackIcon, LangIcon, NotifyIcon, PhotoIcon} from "../Icon/Icon";
+import {AppearanceIcon, BackIcon, EditIcon, LangIcon, NotifyIcon, PhotoIcon} from "../Icon/Icon";
 import {useNavigate} from "react-router";
 
 const Settings = () => {
@@ -84,17 +84,17 @@ const Settings = () => {
                 </div>
                 <div className={cl.column}>
                     <Setting
-                        icon={<PhotoIcon classname={'setting_icon'}/>}
+                        icon={<EditIcon classname={'setting_icon'}/>}
                         text={names[2]}
                         handler={() => {
                             dialog.current.showModal()
                         }}/>
                 </div>
-                <div className={cl.column}>
-                    <Setting icon={<NotifyIcon classname={'setting_icon'}/>} text={names[3]}/>
-                    <Setting icon={<AppearanceIcon classname={'setting_icon'}/>} text={names[4]}/>
-                    <Setting icon={<LangIcon classname={'setting_icon'}/>} text={names[5]}/>
-                </div>
+                {/*<div className={cl.column}>*/}
+                {/*    <Setting icon={<NotifyIcon classname={'setting_icon'}/>} text={names[3]}/>*/}
+                {/*    <Setting icon={<AppearanceIcon classname={'setting_icon'}/>} text={names[4]}/>*/}
+                {/*    <Setting icon={<LangIcon classname={'setting_icon'}/>} text={names[5]}/>*/}
+                {/*</div>*/}
             </div>
 
 

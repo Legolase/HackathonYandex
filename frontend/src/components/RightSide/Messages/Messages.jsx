@@ -8,7 +8,6 @@ import DnD from "../../DnD/DnD";
 import {useFilesStore} from "../../../store/FilesStore";
 import {PhotoProvider} from "react-photo-view";
 import {useSocketStore} from "../../../store/SocketStore";
-import toast from "react-hot-toast";
 
 const Messages = ({dialog}) => {
 
@@ -46,13 +45,11 @@ const Messages = ({dialog}) => {
 
     useEffect(() => {
         socket.on("receive_message", (data) => {
-            console.log(data)
             if (data.chat_id === chatId) {
                 addMessage(data)
                 groupByDateMessages()
-                if (data.user_id !== loggedInUser.id)
-                    toast('U GOT MESSAGE')
             }
+            socket.emit('NOTIFY_ALL', data)
         });
         return () => {
             socket.off("receive_message");

@@ -30,6 +30,7 @@
     .settings {
         width: 100vw;
         height: 100vh;
+        overflow-y: scroll;
         position: absolute;
         z-index: -1
     }
@@ -103,6 +104,12 @@
     top: 40%;
     left: 45%;
     padding: 20px
+}
+
+@media screen and (max-width: 650px) {
+    .dialog {
+        left: 20%;
+    }
 }
 
 .form {

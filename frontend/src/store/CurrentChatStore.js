@@ -91,9 +91,6 @@ export const useCurrentChatStore = create((set, get) => ({
 
     createGroupChat: (data) => {
         axios.post('/api/chat', data).then(r => {
-            console.log(r.data)
-        }).catch((e) => {
-
         })
     },
 
@@ -108,7 +105,7 @@ export const useCurrentChatStore = create((set, get) => ({
     },
 
     getInvite: (id) => {
-        axios.post(`/api/chat/${id}/invite`).then(r => {
+        axios.get(`/api/chat/${id}/invite`).then(r => {
             console.log(r)
             return r.data
         })
