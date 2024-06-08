@@ -91,9 +91,9 @@ const CurrentChatProfile = ({chat}) => {
             return (
                 <>
                     <img src={loggedUser.avatar} className={cl.avatar}/>
-                    <div style={{display: 'flex', flexDirection: 'column', gap: '3px'}}>
+                    <div className={cl.metaInf}>
                         <span className={cl.name}>{loggedUser.name}</span>
-                        <div className={cl.messageValue}>{message.value}</div>
+                        <span className={cl.messageValue}>{message.value}</span>
                     </div>
                 </>
             )
@@ -101,9 +101,9 @@ const CurrentChatProfile = ({chat}) => {
             return (
                 <>
                     <img src={data.avatar} className={cl.avatar}/>
-                    <div style={{display: 'flex', flexDirection: 'column', gap: '3px'}}>
+                    <div className={cl.metaInf}>
                         <span className={cl.name}>{data.name}</span>
-                        <div className={cl.messageValue}>{message.value}</div>
+                        <span className={cl.messageValue}>{message.value}</span>
                     </div>
                 </>)
     }
@@ -136,8 +136,8 @@ const CurrentChatProfile = ({chat}) => {
             {filtered
                 ? <div className={cl.foundMessages}>
                     {filtered.map((message) =>
-                        <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                            <div style={{display: 'flex', gap: '5px'}}>
+                        <div className={cl.message}>
+                            <div className={cl.avatarAndMeta}>
                                 {getMessage(message)}
                             </div>
                             <span className={cl.time}>{formatTime(message.datetime)}</span>

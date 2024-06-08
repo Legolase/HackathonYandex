@@ -19,9 +19,12 @@ export const ContactController = {
 
     async createItem(obj: Record<string, any>) {
         await new Contact().validate(obj);
-        let contact = await new Contact(obj).create(Contact);
-        if (contact === undefined) throw new Error('Can not create contact!');
-        await contact.loadUser();
+        let contact = await new Contact().getOne(Contact, obj);
+        if (!contact) {
+            contact = await new Contact(obj).create(Contact);
+            if (contact === undefined) throw new Error('Can not create contact!');
+            await contact.loadUser();
+        }
         return contact;
     },
 

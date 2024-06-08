@@ -1,4 +1,5 @@
 import {Message} from "../models/Message";
+import {DataValue} from "../types/DataValue";
 
 export const MessageController = {
     async getList() {
@@ -21,5 +22,11 @@ export const MessageController = {
         await new Message().validate(obj);
         let message = new Message(obj);
         return await message.create(Message)
+    },
+    async search(search: string, chat_id: string) {
+        return await new Message().getList(Message, {
+            like: ['value', search],
+            chat_id: chat_id
+        });
     }
 }

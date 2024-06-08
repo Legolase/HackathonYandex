@@ -34,7 +34,7 @@ export const useLoggedInUserStore = create((set, get) => ({
             }
         }).then(r => {
             axios.patch('/api/user', {
-                avatar: r.data
+                avatar: r.data.link
             })
         }).catch(e => {
             console.log(e)
