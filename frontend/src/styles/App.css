@@ -9,7 +9,7 @@
     --light-gray: #eeeeee;
     --white: #ffffff;
     --akcent: #fd9802;
-    --light-akcent: rgba(253, 152, 2, 0.5);
+    --light-akcent: #ffeacc;
     --lighter-akcent: rgba(253, 152, 2, 0.2);
     --font-size-xxs: 10px;
     --font-size-xs: 12px;
@@ -35,6 +35,12 @@ body {
 @media screen and (max-width: 650px) {
     .messenger {
         flex-direction: column-reverse;
+    }
+    .unselected_inactive{
+        display: none;
+    }
+    .mobileBack{
+        display: block;
     }
 }
 
@@ -104,4 +110,8 @@ body {
     background-color: var(--lighter-akcent);
     border-radius: 0;
     width: 100%;
+}
+
+.back{
+    display: none;
 }

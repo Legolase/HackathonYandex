@@ -20,8 +20,13 @@
 
 @media screen and (max-width: 650px) {
     .rightPanel {
-        width: 67vw;
-
+        width: 100vw;
+        height: 100vh;
+        position: absolute;
+        z-index: -1;
+    }
+    .activeMobile{
+        z-index: 1;
     }
 }
 

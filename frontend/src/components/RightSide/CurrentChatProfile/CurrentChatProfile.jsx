@@ -6,6 +6,7 @@ import {useLoggedInUserStore} from "../../../store/LoggedInUserStore";
 import {useCurrentContactStore} from "../../../store/CurrentContactStore";
 import {formatDistance} from "date-fns";
 import {useMessagesStore} from "../../../store/MessagesStore";
+import {BackIcon, DotsIcon} from "../../Icon/Icon";
 
 const CurrentChatProfile = ({chat}) => {
 
@@ -20,6 +21,7 @@ const CurrentChatProfile = ({chat}) => {
     const data = getDataByChat(chat)
     const messages = useMessagesStore(state => state.messages)
     const [filtered, setFiltered] = useState([])
+    const getInviteLink = useCurrentChatStore(state => state.getInvite)
 
     useEffect(() => {
         let filtered
@@ -58,7 +60,10 @@ const CurrentChatProfile = ({chat}) => {
             </svg>)
         else
             return (
-                <svg width="25" height="25" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg width="25" height="25" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                     onClick={() => {
+                         setFiltered([])
+                     }}>
                     <path
                         d="M22.7914 3.62571C23.4589 2.95824 23.4589 1.87605 22.7914 1.20857C22.124 0.541096 21.0418 0.541096 20.3743 1.20857L12 9.58286L3.62571 1.20857C2.95824 0.541095 1.87605 0.541096 1.20857 1.20857C0.541096 1.87605 0.541096 2.95824 1.20857 3.62571L9.58286 12L1.20857 20.3743C0.541095 21.0418 0.541096 22.124 1.20857 22.7914C1.87605 23.4589 2.95824 23.4589 3.62571 22.7914L12 14.4171L20.3743 22.7914C21.0418 23.4589 22.124 23.4589 22.7914 22.7914C23.4589 22.124 23.4589 21.0418 22.7914 20.3743L14.4171 12L22.7914 3.62571Z"
                         fill="gray"/>
@@ -85,9 +90,7 @@ const CurrentChatProfile = ({chat}) => {
 
 
     const getMessage = (message) => {
-        console.log(message)
-        console.log(loggedUser)
-        if (message.from !== loggedUser.id)
+        if (message.user_id === loggedUser.id)
             return (
                 <>
                     <img src={loggedUser.avatar} className={cl.avatar}/>
@@ -108,9 +111,19 @@ const CurrentChatProfile = ({chat}) => {
                 </>)
     }
 
+    const getDots = () => {
+        return (chat.type === 'multi' && <DotsIcon className={cl.dots} onClick={() => {
+            const res = getInviteLink(chat.id)
+            navigator.clipboard.writeText(res)
+        }}/>)
+    }
+
     return (
         <>
             <div className={cl.chat}>
+                <BackIcon className={`setting_icon ${cl.back} ${cl.mobileBack}`} onClick={() => {
+                    router('/')
+                }}/>
                 <img className={cl.avatar} src={data.avatar} onClick={() => {
                     const id = getIdOfUser()
                     getContact(id)
@@ -132,6 +145,8 @@ const CurrentChatProfile = ({chat}) => {
                 }}>
                     {getSearchButton()}
                 </div>
+
+                {getDots()}
             </div>
             {filtered
                 ? <div className={cl.foundMessages}>

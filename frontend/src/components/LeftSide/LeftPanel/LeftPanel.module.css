@@ -23,6 +23,7 @@
 @media screen and (max-width: 650px) {
     .leftPanel {
         width: 100vw;
+        height: 100vh;
     }
 }
 
@@ -36,6 +37,7 @@
     position: relative;
     display: flex;
     justify-content: center;
+    padding-top: 10px;
 }
 
 .icon {

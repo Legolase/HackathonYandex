@@ -5,7 +5,8 @@ import Setting from "../Setting/Setting";
 import Modal from "../Modal/Modal";
 import {useModalStore} from "../../store/ModalStore";
 import {useFilesStore} from "../../store/FilesStore";
-import {AppearanceIcon, LangIcon, NotifyIcon, PhotoIcon} from "../Icon/Icon";
+import {AppearanceIcon, BackIcon, LangIcon, NotifyIcon, PhotoIcon} from "../Icon/Icon";
+import {useNavigate} from "react-router";
 
 const Settings = () => {
     const curUser = useLoggedInUserStore(state => state.currentUser)
@@ -18,6 +19,7 @@ const Settings = () => {
     const [name, setName] = useState('')
     const [error, setError] = useState('')
     const [file, setFile] = useState(null)
+    const router = useNavigate()
 
     const names = ['Upload profile photo', 'Generate profile photo', 'Change user name',
         'Notifications', 'Appearance', 'Language']
@@ -46,9 +48,16 @@ const Settings = () => {
 
 
     return (
-        <div className={`${cl.settings} right-side`}>
+        <div className={`${cl.settings} right-side ${cl.mobileSettingsActive}`}>
+
             <div className={cl.header}>
-                <img className={cl.avatar} src={curUser.avatar}/>
+                <div>
+                    <BackIcon className={`setting_icon ${cl.back} ${cl.mobileBack}`} onClick={() => {
+                        router('/')
+                    }}/>
+                    <img className={cl.avatar} src={curUser.avatar}/>
+                </div>
+
                 <div className={cl.textInfo}>
                     <span className={cl.name}>Name: {curUser.name}</span>
                     <span className={cl.login}>Login: {curUser.login}</span>

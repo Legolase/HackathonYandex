@@ -105,6 +105,13 @@ export const useCurrentChatStore = create((set, get) => ({
         useMessagesStore.setState(() => ({
             messages: response.data.messages
         }))
+    },
+
+    getInvite: (id) => {
+        axios.post(`/api/chat/${id}/invite`).then(r => {
+            console.log(r)
+            return r.data
+        })
     }
 
 
