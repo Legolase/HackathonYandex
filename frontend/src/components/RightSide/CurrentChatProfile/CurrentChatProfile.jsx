@@ -21,6 +21,7 @@ const CurrentChatProfile = ({chat}) => {
     const data = getDataByChat(chat)
     const messages = useMessagesStore(state => state.messages)
     const [filtered, setFiltered] = useState([])
+    const getInviteLink = useCurrentChatStore(state => state.getInvite)
 
     useEffect(() => {
         let filtered
@@ -110,6 +111,13 @@ const CurrentChatProfile = ({chat}) => {
                 </>)
     }
 
+    const getDots = () => {
+        return (chat.type === 'multi' && <DotsIcon className={cl.dots} onClick={() => {
+            const res = getInviteLink(chat.id)
+            navigator.clipboard.writeText(res)
+        }}/>)
+    }
+
     return (
         <>
             <div className={cl.chat}>
@@ -138,9 +146,7 @@ const CurrentChatProfile = ({chat}) => {
                     {getSearchButton()}
                 </div>
 
-                <DotsIcon onClick={()=>{
-
-                }}/>
+                {getDots()}
             </div>
             {filtered
                 ? <div className={cl.foundMessages}>
