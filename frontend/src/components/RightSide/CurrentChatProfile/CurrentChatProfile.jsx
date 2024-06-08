@@ -113,9 +113,7 @@ const CurrentChatProfile = ({chat}) => {
 
     const getDots = () => {
         return (chat.type === 'multi' && <DotsIcon className={cl.dots} onClick={() => {
-            navigator.clipboard.writeText(`/chat/invite/${chat.id}`)
-
-
+            navigator.clipboard.writeText(`${window.location.hostname}/chat/invite/${chat.id}`)
         }}/>)
     }
 
