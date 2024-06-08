@@ -18,7 +18,6 @@ const InputMessage = ({dialog}) => {
     const [showPicker, setShowPicker] = useState(false);
 
     const sendMessage = () => {
-        console.log('send-message')
         if (inputValue.trim() === '')
             return
         const data = {

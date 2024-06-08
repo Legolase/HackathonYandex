@@ -22,6 +22,8 @@ import {ParamsDictionary} from "express-serve-static-core";
 import {ParsedQs} from "qs";
 import {ContactView} from "./views/ContactView";
 import {ServiceView} from "./views/ServiceView";
+import notifier from "node-notifier";
+import {ChatUser} from "./models/ChatUser";
 
 const pgp = require('pg-promise')();
 const PORT: string = process.env.PORT || '3000'
@@ -87,13 +89,11 @@ io.engine.use(
     }),
 );
 io.on('connection', (socket) => {
-    console.log("connected")
     socket.on('send_message', async (req) => {
         // @ts-ignore
         const user = await socket.request.user;
         req.user_id = user.id;
-        MessageController.createItem(req).then((data) => {
-            console.log(data)
+        MessageController.createItem(req).then(async (data) => {
             io.emit('receive_message', data)
             // res.json(data)
         }).catch((error) => {
@@ -105,6 +105,23 @@ io.on('connection', (socket) => {
         });
     })
 
+    socket.on('NOTIFY_ALL', async (data) => {
+        // @ts-ignore
+        const user = await socket.request.user;
+        if (data && data.value) {
+            let flag = await new ChatUser().getOne(ChatUser, {chat_id: data.chat_id, user_id: user.id});
+            if (flag && user.id !== data.user_id) {
+                let notifyString = `Новое сообщение: ${data?.value?.length > 15 ? data.value.substring(0, 14) + '..' : data.value}`
+                notifier.notify({
+                    title: 'Kilogram',
+                    message: notifyString,
+                    icon: 'https://team2.storage.yandexcloud.net/uploads/ce84b3a9-1ddc-4f9a-adde-e63bad7d5aa3.png',
+                    sound: true, // Only Notification Center or Windows Toasters
+                    open: '/chat/' + data.chat_id
+                });
+            }
+        }
+    });
 })
 
 
